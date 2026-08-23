@@ -1,0 +1,10 @@
+batch: 019
+type: API_REQUEST_RESPONSE_MAPPING
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status:
+  external_e2e: pending
