@@ -1,7 +1,8 @@
 version: R9
 source: CONTROL_REGISTRY
 purpose: "1141 Control mapping expansion entry"
-status: initialized
+status: expanded
+
 fields:
   - control_id
   - page_uid
@@ -13,6 +14,15 @@ fields:
   - validation
   - permission
   - action
+
 rules:
   - control_must_bind_page
+  - control_must_bind_component
   - control_must_bind_action_if_operational
+
+mapping_requirements:
+  page_binding: required
+  component_binding: required
+  runtime_state_binding: required
+  permission_binding: required
+  qa_trace_binding: required
