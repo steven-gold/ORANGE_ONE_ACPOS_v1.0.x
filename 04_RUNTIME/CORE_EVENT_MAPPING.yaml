@@ -1,0 +1,12 @@
+version: ACPOS_v1.0.x
+events:
+  PROJECT_CREATED:
+    source: CORE-01
+    state: CREATED
+  TOPIC_CONFIRMED:
+    source: CORE-02
+    state: READY
+  SCRIPT_VIEW_OPENED:
+    source: CORE-06
+    state: REVIEW
+status: initialized
