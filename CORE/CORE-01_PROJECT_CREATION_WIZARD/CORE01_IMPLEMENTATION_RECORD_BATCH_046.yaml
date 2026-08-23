@@ -1,0 +1,131 @@
+# ACPOS R9 CORE-01 Project Creation Wizard Implementation Record
+# This record contains construction content only.
+
+module: CORE-01
+name: Project Creation Wizard
+status: implementation
+authority: R9
+
+page:
+  page_uid: CORE-01-PROJECT-CREATION-WIZARD
+  route: /core/project/create
+  purpose: Create project container before blueprint generation
+
+workflow:
+  entry:
+    source: project_workspace
+    action: create_project
+  steps:
+    - step: 01
+      name: Project Basic Information
+      fields:
+        - project_name
+        - project_description
+        - project_type
+    - step: 02
+      name: Story Input
+      fields:
+        - source_material
+        - story_goal
+    - step: 03
+      name: Core Extraction
+      fields:
+        - story_core
+        - theme
+    - step: 04
+      name: DNA Preparation
+      fields:
+        - character_dna
+        - object_dna
+        - scene_dna
+    - step: 05
+      name: Blueprint Container
+      fields:
+        - blueprint_id
+        - blueprint_version
+    - step: 06
+      name: Production Requirement
+      fields:
+        - production_type
+        - delivery_target
+    - step: 07
+      name: Permission Check
+      fields:
+        - project_visibility
+        - participant_scope
+    - step: 08
+      name: Review
+      fields:
+        - review_status
+    - step: 09
+      name: Lock Confirmation
+      fields:
+        - lock_state
+    - step: 10
+      name: Project Creation Complete
+      fields:
+        - project_id
+
+controls:
+  required:
+    - control_id: PROJECT_NAME_INPUT
+      type: text
+      validation: required
+    - control_id: PROJECT_TYPE_SELECTOR
+      type: selector
+      validation: allowed_values_only
+    - control_id: STORY_INPUT_AREA
+      type: textarea
+      validation: required_before_next_step
+    - control_id: BLUEPRINT_BINDING_VIEW
+      type: readonly_reference
+      validation: blueprint_required
+    - control_id: CREATE_PROJECT_BUTTON
+      type: action
+      action: create_project
+
+api:
+  create_project:
+    method: POST
+    endpoint: /api/projects/create
+    request:
+      project_name: string
+      project_type: string
+      story_input: string
+      owner_id: string
+    response:
+      project_id: string
+      status: created
+    errors:
+      permission_denied: 403
+      validation_failed: 400
+
+runtime:
+  states:
+    - DRAFT
+    - STORY_INPUT
+    - BLUEPRINT_PENDING
+    - REVIEW_PENDING
+    - LOCKED
+    - READY
+  transition:
+    create_project: DRAFT_TO_STORY_INPUT
+    lock_confirmation: REVIEW_PENDING_TO_LOCKED
+
+permission:
+  resources:
+    - PROJECT
+  actions:
+    - CREATE
+    - EDIT
+    - REVIEW
+    - LOCK
+
+qa:
+  trace:
+    frontend: CORE-01-PROJECT-CREATION-WIZARD
+    api: /api/projects/create
+    database: Project
+    runtime: project_state_transition
+    permission: PROJECT_SCOPE
+  external_test: pending
