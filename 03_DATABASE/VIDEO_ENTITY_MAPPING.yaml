@@ -1,0 +1,11 @@
+version: R9
+module: VIDEO
+entities:
+  - VideoProductionContract
+  - Scene
+  - Shot
+  - VideoArtifact
+relations:
+  - production_contract_has_scenes
+  - scene_has_shots
+  - shot_generates_artifact
