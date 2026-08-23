@@ -1,0 +1,13 @@
+WORKSPACE_ENTITY_COLUMN_BATCH_010:
+  entities:
+    - ConversationWorkspace
+    - ProjectContext
+    - TaskContext
+  columns:
+    required:
+      - id
+      - project_id
+      - version
+      - state
+      - created_at
+      - updated_at
