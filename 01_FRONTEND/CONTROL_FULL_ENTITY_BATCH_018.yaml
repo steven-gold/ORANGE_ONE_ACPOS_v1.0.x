@@ -1,0 +1,16 @@
+batch: 018
+module: frontend
+purpose: control_full_entity_expansion
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - label
+  - data_source
+  - state
+  - validation
+  - permission
+  - action
+status:
+  external_runtime_test: pending
