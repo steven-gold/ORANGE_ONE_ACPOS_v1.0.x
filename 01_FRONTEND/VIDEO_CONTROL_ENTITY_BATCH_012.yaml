@@ -1,0 +1,16 @@
+module: VIDEO
+batch: 012
+controls:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - state
+  - validation
+  - permission
+  - action
+coverage:
+  - production_contract
+  - scene_management
+  - generation_runtime
+  - output_management
