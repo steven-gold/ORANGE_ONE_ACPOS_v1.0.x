@@ -1,0 +1,17 @@
+batch: 027
+scope: global_permission_expansion
+fields:
+  - resource
+  - action
+  - scope
+  - approval
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
