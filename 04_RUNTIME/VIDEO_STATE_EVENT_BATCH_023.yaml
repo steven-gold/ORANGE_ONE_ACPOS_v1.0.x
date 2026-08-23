@@ -1,0 +1,14 @@
+batch: 023
+domain: VIDEO
+events:
+  - contract_ready
+  - scene_ready
+  - shot_ready
+  - provider_execution_started
+  - artifact_registered
+states:
+  - ready
+  - running
+  - review
+  - completed
+transition: explicit_only
