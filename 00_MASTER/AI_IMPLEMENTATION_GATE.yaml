@@ -1,0 +1,25 @@
+implementation_gate:
+  before_start:
+    - Read authority master
+    - Validate registry binding
+    - Confirm no conflicting definition
+
+blocked_if:
+  - missing_page_contract
+  - missing_api_contract
+  - missing_permission_definition
+  - missing_runtime_mapping
+
+allowed_without_external_test:
+  - architecture
+  - database_design
+  - frontend_structure
+  - backend_structure
+  - permission_logic
+  - qa_definition
+
+external_testing_required:
+  - provider_api
+  - real_account
+  - production_data
+  - deployment_environment
