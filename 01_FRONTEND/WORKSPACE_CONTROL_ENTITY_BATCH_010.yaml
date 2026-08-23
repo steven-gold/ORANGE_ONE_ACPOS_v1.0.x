@@ -1,0 +1,12 @@
+WORKSPACE_CONTROL_ENTITY_BATCH_010:
+  controls:
+    - control_id: workspace_conversation_panel
+      page_uid: WORKSPACE-01
+      type: container
+      state: active
+      action: conversation_bind
+    - control_id: workspace_task_panel
+      page_uid: WORKSPACE-01
+      type: workspace_action
+      state: ready
+      action: task_execute
