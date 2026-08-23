@@ -1,0 +1,18 @@
+batch: 035
+layer: runtime
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  - event
+  - trigger
+  - state_transition
+  - permission_check
+  - worker_flow
+  - evidence_record
+rules:
+  explicit_transition_only: true
