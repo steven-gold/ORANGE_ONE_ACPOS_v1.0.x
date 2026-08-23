@@ -1,0 +1,20 @@
+authority:
+  name: ACPOS_SINGLE_AUTHORITY
+  version: R9
+  priority: highest
+
+read_order:
+  - ACPOS_AI_SEQUENCED_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
+  - PAGE_UID_MASTER_REGISTRY.yaml
+  - CONTROL_MASTER_REGISTRY.yaml
+  - API_MASTER_REGISTRY.yaml
+  - DATABASE_MASTER_SCHEMA.yaml
+  - RUNTIME_EVENT_REGISTRY.yaml
+  - PERMISSION_MATRIX.yaml
+  - QA_EVIDENCE_MATRIX.yaml
+
+rules:
+  - Do not create parallel system definitions.
+  - Do not infer missing business logic.
+  - Missing external integration data waits for deployment testing.
+  - All implementation must trace back to authority records.
