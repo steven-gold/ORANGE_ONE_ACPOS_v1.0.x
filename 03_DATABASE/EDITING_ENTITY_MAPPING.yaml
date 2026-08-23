@@ -1,0 +1,11 @@
+module: EDITING
+entities:
+  - Timeline
+  - Layer
+  - SubtitleTrack
+relations:
+  Timeline:
+    has_many:
+      - Layer
+      - SubtitleTrack
+source: R9_FINAL
