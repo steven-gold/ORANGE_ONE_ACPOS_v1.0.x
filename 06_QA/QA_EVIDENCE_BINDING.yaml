@@ -1,0 +1,9 @@
+qa_evidence_binding:
+  authority: R9_FINAL
+  status: ACTIVE
+  required:
+    - source_reference
+    - implementation_reference
+    - validation_reference
+  external_runtime_test:
+    status: PENDING
