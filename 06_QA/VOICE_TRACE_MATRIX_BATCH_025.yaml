@@ -1,0 +1,12 @@
+batch: 025
+domain: VOICE
+trace:
+  chain:
+    - Page_UID
+    - Control_ID
+    - Action_ID
+    - API_Endpoint
+    - Database_Entity
+    - Runtime_Event
+    - Permission_Scope
+external_e2e: pending
