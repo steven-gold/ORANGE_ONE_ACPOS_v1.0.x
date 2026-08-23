@@ -1,0 +1,9 @@
+api_batch:
+  batch_id: API_ENTITY_BATCH_001
+  source: R9_AUTHORITY
+  fields:
+    - endpoint
+    - method
+    - request
+    - response
+    - error_mapping
