@@ -1,0 +1,16 @@
+version: R9
+module: VIDEO
+controls:
+  - unit_id: VIDEO-01
+    controls:
+      - production_contract_form
+  - unit_id: VIDEO-02
+    controls:
+      - scene_manager
+      - shot_manager
+  - unit_id: VIDEO-03
+    controls:
+      - generation_runner
+  - unit_id: VIDEO-04
+    controls:
+      - output_manager
