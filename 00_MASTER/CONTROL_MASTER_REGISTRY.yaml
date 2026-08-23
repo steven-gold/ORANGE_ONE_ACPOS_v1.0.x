@@ -1,0 +1,24 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative UI control registry"
+rule:
+  - "Every control requires contract binding"
+  - "No frontend control may be generated without registry mapping"
+  - "No duplicated control definitions are allowed"
+control_schema:
+  required:
+    - control_id
+    - page_uid
+    - section_id
+    - component_type
+    - field_definition
+    - action_definition
+    - state_management
+    - validation_rule
+    - permission_requirement
+    - api_binding
+    - runtime_binding
+    - qa_evidence
+registry:
+  target_count: 1141
+  current_state: controlled_expansion
