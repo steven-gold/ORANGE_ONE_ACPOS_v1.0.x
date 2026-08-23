@@ -1,0 +1,14 @@
+batch: 007
+purpose: control_entity_expansion
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - label
+  - data_source
+  - state
+  - validation
+  - permission
+  - action
+status: initialized_for_full_mapping
