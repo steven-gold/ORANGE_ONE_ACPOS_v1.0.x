@@ -1,0 +1,11 @@
+voice_schema:
+  entities:
+    - VoiceProfile
+    - VoiceArtifact
+    - VoiceSyncRecord
+  columns:
+    - id
+    - version
+    - created_at
+    - updated_at
+    - relation_reference
