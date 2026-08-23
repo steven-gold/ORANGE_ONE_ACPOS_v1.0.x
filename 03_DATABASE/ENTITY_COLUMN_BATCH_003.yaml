@@ -1,0 +1,16 @@
+batch: 003
+source: R9_AUTHORITY
+entities:
+  - AssetVersion
+  - AssetReference
+  - VideoProductionContract
+  - Scene
+  - Shot
+columns:
+  required:
+    - id
+    - created_at
+    - updated_at
+    - version
+    - relation
+    - migration_reference
