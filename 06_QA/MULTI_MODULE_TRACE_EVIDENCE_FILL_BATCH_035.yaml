@@ -1,0 +1,26 @@
+batch: 035
+layer: qa
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+validation_layers:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - external_test
+external_test_status: pending
