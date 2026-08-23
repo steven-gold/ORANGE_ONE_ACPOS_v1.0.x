@@ -1,0 +1,15 @@
+batch: 020
+module: CORE
+runtime:
+  events:
+    - project_created
+    - topic_confirmed
+    - script_locked
+  states:
+    - created
+    - ready
+    - running
+    - review
+    - locked
+transition: explicit_only
+status: construction
