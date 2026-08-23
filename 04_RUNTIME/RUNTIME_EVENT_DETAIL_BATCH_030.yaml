@@ -1,0 +1,14 @@
+batch: 030
+layer: runtime
+purpose: runtime event detail expansion
+schema:
+  event: required
+  trigger: required
+  source: required
+  state_transition: required
+  permission_check: required
+  evidence_record: required
+rules:
+  explicit_transition_only: true
+status:
+  worker_test: pending
