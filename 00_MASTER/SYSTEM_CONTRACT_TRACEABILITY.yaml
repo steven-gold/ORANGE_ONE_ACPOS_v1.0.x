@@ -1,0 +1,45 @@
+traceability:
+  rule: Every implementation item requires complete trace path.
+
+flow:
+  page:
+    requires:
+      - page_uid
+      - section
+      - component
+      - field
+      - action
+  backend:
+    requires:
+      - api_id
+      - endpoint
+      - request
+      - response
+      - error_contract
+  database:
+    requires:
+      - table
+      - column
+      - relation
+      - migration
+  runtime:
+    requires:
+      - event_id
+      - trigger
+      - payload
+      - state_transition
+  permission:
+    requires:
+      - role
+      - resource
+      - action
+      - scope
+  qa:
+    requires:
+      - evidence_id
+      - validation_layer
+      - result
+
+external_data:
+  status: deferred
+  reason: Require real environment testing after deployment.
