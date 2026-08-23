@@ -1,0 +1,13 @@
+batch: 020
+module: CORE
+trace:
+  chain:
+    - page_uid
+    - control_id
+    - action_id
+    - api_endpoint
+    - database_entity
+    - runtime_event
+    - permission_scope
+qa_status: construction
+external_validation: pending
