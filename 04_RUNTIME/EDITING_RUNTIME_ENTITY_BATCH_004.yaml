@@ -1,0 +1,12 @@
+batch: 004
+module: EDITING
+flow:
+  - timeline_ready
+  - layer_processed
+  - subtitle_synced
+  - output_ready
+states:
+  - ready
+  - running
+  - review
+  - completed
