@@ -1,0 +1,17 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative runtime event registry"
+rule:
+  - "Events connect UI, API and database lifecycle"
+  - "No hidden runtime behavior allowed"
+event_schema:
+  required:
+    - event_id
+    - trigger
+    - payload
+    - producer
+    - consumer
+    - state_transition
+    - qa_evidence
+external_execution:
+  status: deployment_testing_only
