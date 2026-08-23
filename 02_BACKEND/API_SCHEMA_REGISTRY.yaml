@@ -1,0 +1,8 @@
+registry: API_SCHEMA
+source: R9_FINAL
+purpose: request response contract mapping
+schemas:
+  request: []
+  response: []
+  errors: []
+status: initialized
