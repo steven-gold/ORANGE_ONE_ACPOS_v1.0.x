@@ -1,0 +1,10 @@
+VOICE_EVENT_STATE_BATCH_014:
+  events:
+    - voice_requested
+    - voice_generated
+    - voice_sync_completed
+  states:
+    - requested
+    - generating
+    - synced
+    - qa_pending
