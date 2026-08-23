@@ -1,0 +1,19 @@
+batch: 028
+type: database_expansion
+scope:
+  - Project
+  - Workspace
+  - Asset
+  - Video
+  - Editing
+  - Voice
+schema:
+  entity: required
+  table: required
+  column: required
+  relation: required
+  foreign_key: required
+  index: required
+  migration_reference: required
+status:
+  migration_execution: pending
