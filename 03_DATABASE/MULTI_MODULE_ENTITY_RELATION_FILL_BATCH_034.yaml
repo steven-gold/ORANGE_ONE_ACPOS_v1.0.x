@@ -1,0 +1,18 @@
+batch: 034
+layer: database_entity_fill
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - entity
+  - table
+  - column
+  - relation
+  - foreign_key
+  - index
+  - migration_reference
+migration_execution: pending
