@@ -1,0 +1,28 @@
+batch: 044
+mode: closed_loop_completion
+objective: complete_existing_r9_construction_gaps_only
+rules:
+  - no_new_logic
+  - no_duplicate_architecture
+  - no_empty_placeholder
+  - remove_conflicting_definition
+execution_queue:
+  - CORE-01_Project_Creation_Wizard
+  - CORE-02_Topic_Production_Contract
+  - CORE-06_Script_View
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+completion_requirements:
+  - frontend_definition
+  - backend_contract
+  - database_mapping
+  - runtime_flow
+  - permission_mapping
+  - qa_evidence
+verification:
+  require_closed_loop_before_next_item: true
+  external_test: pending
+  migration: pending
