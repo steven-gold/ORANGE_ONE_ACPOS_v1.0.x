@@ -1,0 +1,18 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE unit acceptance mapping
+units:
+  CORE-01:
+    checks:
+      - page_binding
+      - action_binding
+      - permission_binding
+  CORE-02:
+    checks:
+      - contract_binding
+      - workflow_binding
+  CORE-06:
+    checks:
+      - script_view_binding
+      - workspace_binding
+status: initialized
