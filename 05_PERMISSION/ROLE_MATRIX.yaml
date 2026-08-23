@@ -1,0 +1,9 @@
+version: ACPOS_v1.0.x
+roles:
+  - admin
+  - executive
+  - manager
+  - department_user
+rules:
+  permission_source: PERMISSION_REGISTRY
+  parent_permission_inherit: false
