@@ -1,0 +1,8 @@
+# AUTHORITY
+
+唯一施工權威層。
+
+## Authority Source
+- ACPOS_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
+
+規則：不得建立第二套規格來源。
