@@ -1,0 +1,16 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE page to registry mapping
+pages:
+  - page_uid: CORE-01
+    name: project_creation_wizard
+    domain: CORE
+    status: defined
+  - page_uid: CORE-02
+    name: topic_production_contract
+    domain: CORE
+    status: defined
+  - page_uid: CORE-06
+    name: script_view
+    domain: CORE
+    status: defined
