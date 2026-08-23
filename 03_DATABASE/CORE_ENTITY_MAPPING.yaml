@@ -1,0 +1,10 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE entity mapping
+entities:
+  - entity: Project
+    related_unit: CORE-01
+  - entity: Topic
+    related_unit: CORE-02
+  - entity: Script
+    related_unit: CORE-06
