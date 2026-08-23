@@ -1,0 +1,20 @@
+batch: 031
+layer: qa
+type: seven_layer_evidence_trace
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+validation:
+  external_test: pending
