@@ -1,0 +1,16 @@
+batch: 025
+domain: VOICE
+layer: frontend
+entities:
+  - page_uid: VOICE-01
+    sections:
+      - voice_profile
+      - voice_generation
+      - voice_sync
+  - page_uid: VOICE-02
+    sections:
+      - artifact_binding
+      - sync_review
+rules:
+  no_new_logic: true
+  source: R9_authority
