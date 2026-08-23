@@ -1,0 +1,19 @@
+batch: 034
+layer: frontend_entity_fill
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - page_uid
+  - section
+  - component
+  - control_id
+  - state
+  - validation
+  - action_binding
+  - permission_binding
+rule: R9_authority_only
