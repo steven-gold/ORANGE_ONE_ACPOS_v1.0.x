@@ -1,0 +1,16 @@
+batch: 024
+module: EDITING
+layer: frontend
+pages:
+  - EDIT-01
+  - EDIT-02
+  - EDIT-03
+fields:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
+status: construction
