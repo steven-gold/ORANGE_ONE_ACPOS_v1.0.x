@@ -1,0 +1,13 @@
+batch: 026
+module: VOICE
+purpose: qa evidence expansion
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+external_e2e: pending
+status: construction
