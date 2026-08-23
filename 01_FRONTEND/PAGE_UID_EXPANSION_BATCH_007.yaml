@@ -1,0 +1,13 @@
+batch: 007
+purpose: page_uid_entity_expansion
+source: R9_authority
+pages:
+  - uid: DASHBOARD
+    type: system_home
+  - uid: CORE-01
+    type: project_creation
+  - uid: CORE-02
+    type: topic_production_contract
+  - uid: CORE-06
+    type: script_view
+status: initialized_for_full_mapping
