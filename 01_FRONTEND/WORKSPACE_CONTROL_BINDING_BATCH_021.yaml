@@ -1,0 +1,12 @@
+batch: 021
+module: WORKSPACE
+control_fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - state
+  - validation
+  - data_source
+  - action
+  - permission
