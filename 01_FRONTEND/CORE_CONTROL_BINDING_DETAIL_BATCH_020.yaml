@@ -1,0 +1,13 @@
+batch: 020
+module: CORE
+control_binding:
+  fields:
+    - control_id
+    - page_uid
+    - component_id
+    - data_source
+    - state
+    - validation
+    - action_binding
+    - permission_binding
+status: construction
