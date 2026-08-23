@@ -1,0 +1,18 @@
+batch: 009
+module: CORE
+purpose: Runtime Permission QA Binding
+scope:
+  - CORE-01
+  - CORE-02
+  - CORE-06
+chain:
+  - page
+  - control
+  - action
+  - api
+  - database
+  - runtime
+  - permission
+  - qa
+status: implementation_ready
+external_test: pending
