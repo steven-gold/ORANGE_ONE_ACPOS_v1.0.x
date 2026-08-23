@@ -1,0 +1,20 @@
+batch: 009
+module: CORE
+runtime:
+  events:
+    - project_created
+    - topic_confirmed
+    - script_view_opened
+  states:
+    project:
+      - created
+      - ready
+      - running
+    topic:
+      - draft
+      - confirmed
+    script:
+      - generated
+      - review
+      - locked
+external_execution: pending
