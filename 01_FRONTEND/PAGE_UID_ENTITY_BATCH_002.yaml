@@ -1,0 +1,23 @@
+batch: 002
+source: ACPOS_R9
+pages:
+  - uid: WORKSPACE-01
+    domain: WORKSPACE
+    bindings:
+      - page
+      - section
+      - component
+      - control
+  - uid: ASSET-01
+    domain: ASSET
+    bindings:
+      - page
+      - asset_library
+      - version_reference
+  - uid: VIDEO-01
+    domain: VIDEO
+    bindings:
+      - page
+      - production_contract
+      - scene_management
+status: construction
