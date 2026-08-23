@@ -1,0 +1,13 @@
+batch: 015
+type: control_expansion
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - state
+  - validation
+  - permission
+  - action
+binding:
+  data_source: required
