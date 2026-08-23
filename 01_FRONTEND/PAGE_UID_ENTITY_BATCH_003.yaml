@@ -1,0 +1,18 @@
+batch: 003
+source: R9_AUTHORITY
+pages:
+  - uid: ASSET-02
+    domain: ASSET
+    bindings:
+      - page
+      - component
+      - control
+  - uid: ASSET-03
+    domain: ASSET
+    bindings:
+      - version
+      - reference
+  - uid: ASSET-04
+    domain: ASSET
+    bindings:
+      - handoff
