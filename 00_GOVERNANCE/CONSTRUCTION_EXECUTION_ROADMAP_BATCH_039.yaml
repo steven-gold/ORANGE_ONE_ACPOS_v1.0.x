@@ -1,0 +1,30 @@
+batch: 039
+mode: sequential_closed_loop_construction
+authority: ACPOS_R9
+rules:
+  - only_add_finalized_construction_content
+  - remove_non_construction_content_when_detected
+  - do_not_create_duplicate_definitions
+  - complete_one_unit_before_next_unit
+execution_order:
+  - CORE-01_PROJECT_CREATION_WIZARD
+  - CORE-02_TOPIC_PRODUCTION_CONTRACT
+  - CORE-06_SCRIPT_VIEW
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+closed_loop_requirements:
+  - page_uid
+  - section_component_control
+  - action_mapping
+  - api_contract
+  - database_mapping
+  - runtime_flow
+  - permission_scope
+  - qa_evidence
+status:
+  current: CORE-01_PROJECT_CREATION_WIZARD
+  migration: pending
+  external_e2e: pending
