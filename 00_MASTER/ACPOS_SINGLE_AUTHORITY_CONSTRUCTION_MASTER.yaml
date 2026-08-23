@@ -1,0 +1,20 @@
+authority:
+  system: ORANGE_ONE_ACPOS_v1.0.x
+  source: R9_FINAL_AUTHORITY
+  rule: single_authority
+
+construction_scope:
+  preserve_existing_architecture: true
+  no_new_business_logic: true
+  external_data_testing: deferred
+
+execution_order:
+  - authority
+  - contracts
+  - registries
+  - bindings
+  - runtime
+  - qa
+
+status:
+  phase: construction_master_initialized
