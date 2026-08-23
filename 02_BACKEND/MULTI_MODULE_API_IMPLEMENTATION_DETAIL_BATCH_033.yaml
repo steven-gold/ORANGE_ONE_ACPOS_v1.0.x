@@ -1,0 +1,16 @@
+batch: 033
+layer: backend_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  action_id: required
+  endpoint: required
+  method: required
+  request_schema: required
+  response_schema: required
+  error_mapping: required
