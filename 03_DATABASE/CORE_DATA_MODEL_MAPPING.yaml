@@ -1,0 +1,21 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+entities:
+  - Project
+  - Topic
+  - Blueprint
+  - Script
+relations:
+  Project:
+    has_many:
+      - Topic
+  Topic:
+    belongs_to:
+      - Project
+  Blueprint:
+    belongs_to:
+      - Topic
+  Script:
+    belongs_to:
+      - Blueprint
+status: defined
