@@ -1,0 +1,16 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE runtime state mapping
+states:
+  project:
+    - CREATED
+    - READY
+    - RUNNING
+  topic:
+    - DRAFT
+    - CONFIRMED
+  script:
+    - GENERATED
+    - REVIEW
+    - LOCKED
+status: initialized
