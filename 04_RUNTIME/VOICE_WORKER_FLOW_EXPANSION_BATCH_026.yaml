@@ -1,0 +1,16 @@
+batch: 026
+module: VOICE
+purpose: runtime worker flow expansion
+flow:
+  - event_capture
+  - state_validation
+  - permission_check
+  - worker_execution
+  - evidence_record
+states:
+  - requested
+  - generating
+  - synced
+  - qa_pending
+transition: explicit_only
+status: construction
