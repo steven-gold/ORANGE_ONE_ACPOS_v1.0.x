@@ -1,0 +1,13 @@
+batch: 022
+module: ASSET
+entities:
+  - Asset
+  - AssetVersion
+  - AssetReference
+fields:
+  - entity
+  - table
+  - column
+  - relation
+  - migration_reference
+migration: pending
