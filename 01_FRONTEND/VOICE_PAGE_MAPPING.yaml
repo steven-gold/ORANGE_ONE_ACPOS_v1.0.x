@@ -1,0 +1,7 @@
+module: VOICE
+pages:
+  - VOICE-01: Voice Production
+  - VOICE-02: Voice Asset Management
+  - VOICE-03: Voice Sync Runtime
+source: R9_AUTHORITY
+status: initialized
