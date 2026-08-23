@@ -1,0 +1,27 @@
+unit_qa_reference:
+  CORE:
+    required:
+      - page_binding
+      - control_binding
+      - action_binding
+      - permission_binding
+  WORKSPACE:
+    required:
+      - conversation_binding
+      - task_binding
+  ASSET:
+    required:
+      - version_reference
+      - handoff_reference
+  VIDEO:
+    required:
+      - production_reference
+      - artifact_reference
+  EDITING:
+    required:
+      - timeline_reference
+      - output_reference
+  VOICE:
+    required:
+      - voice_artifact_reference
+      - sync_reference
