@@ -1,0 +1,25 @@
+batch: 038
+name: R9 construction gap completion execution
+mode: construction_only
+rules:
+  - use_existing_R9_authority_only
+  - no_new_logic
+  - no_duplicate_definition
+  - remove_conflicting_non_construction_content
+  - complete_single_unit_before_next_unit
+current_unit:
+  id: CORE-01
+  name: Project Creation Wizard
+closure_chain:
+  - frontend_page_uid
+  - section_component_control
+  - action_mapping
+  - api_contract
+  - database_mapping
+  - runtime_state_flow
+  - permission_scope
+  - qa_evidence
+status:
+  execution: started
+  external_test: pending
+  migration: pending
