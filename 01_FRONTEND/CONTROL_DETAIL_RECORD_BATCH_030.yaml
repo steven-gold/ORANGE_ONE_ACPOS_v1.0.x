@@ -1,0 +1,18 @@
+batch: 030
+layer: frontend
+purpose: Control detail expansion
+schema:
+  control_id: required
+  page_uid: required
+  component_id: required
+  type: required
+  label: required
+  state: required
+  validation: required
+  data_source: required
+  action_binding: required
+  permission_binding: required
+scope:
+  target: 1141_control_expansion
+status:
+  external_test: pending
