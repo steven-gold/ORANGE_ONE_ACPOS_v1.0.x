@@ -1,0 +1,16 @@
+batch: 026
+module: VOICE
+purpose: database relation expansion
+entities:
+  - VoiceProfile
+  - VoiceArtifact
+  - VoiceSyncRecord
+relations:
+  - entity
+  - table
+  - column
+  - foreign_key
+  - index
+  - migration_reference
+status: construction
+migration_test: pending
