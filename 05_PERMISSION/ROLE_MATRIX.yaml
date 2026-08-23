@@ -7,3 +7,5 @@ roles:
 rules:
   permission_source: PERMISSION_REGISTRY
   parent_permission_inherit: false
+  scope_control: required
+status: expanded
