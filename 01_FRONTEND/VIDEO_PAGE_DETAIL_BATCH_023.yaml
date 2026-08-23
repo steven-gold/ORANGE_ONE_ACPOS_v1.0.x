@@ -1,0 +1,15 @@
+batch: 023
+domain: VIDEO
+scope:
+  - VIDEO-01
+  - VIDEO-02
+  - VIDEO-03
+  - VIDEO-04
+fields:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
