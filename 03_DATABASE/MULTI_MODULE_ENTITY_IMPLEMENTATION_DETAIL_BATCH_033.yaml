@@ -1,0 +1,17 @@
+batch: 033
+layer: database_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  entity: required
+  table: required
+  column: required
+  relation: required
+  foreign_key: required
+  index: required
+  migration_reference: pending
