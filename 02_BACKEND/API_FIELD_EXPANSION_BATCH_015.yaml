@@ -1,0 +1,10 @@
+batch: 015
+type: api_field_expansion
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status:
+  external_provider_test: pending
