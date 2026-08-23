@@ -1,0 +1,19 @@
+version: ACPOS_v1.0.x
+source: R9_AUTHORITY
+entities:
+  - id: project
+    purpose: project management core entity
+  - id: topic
+    purpose: production topic entity
+  - id: blueprint
+    purpose: locked production blueprint entity
+  - id: asset
+    purpose: asset library entity
+  - id: video
+    purpose: video production entity
+  - id: editing
+    purpose: editing runtime entity
+  - id: voice
+    purpose: voice production entity
+  - id: qa
+    purpose: quality assurance entity
