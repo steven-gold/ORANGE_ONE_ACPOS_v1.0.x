@@ -1,0 +1,7 @@
+registry: COLUMN_DEFINITION
+source: R9_FINAL
+rules:
+  column_type_required: true
+  relation_required: true
+  version_policy_required: true
+status: initialized
