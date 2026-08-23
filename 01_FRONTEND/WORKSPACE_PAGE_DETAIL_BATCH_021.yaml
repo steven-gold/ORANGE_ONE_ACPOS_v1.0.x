@@ -1,0 +1,14 @@
+batch: 021
+module: WORKSPACE
+scope:
+  - WORKSPACE-01
+  - Conversation Workspace
+  - Task Workspace
+fields:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
