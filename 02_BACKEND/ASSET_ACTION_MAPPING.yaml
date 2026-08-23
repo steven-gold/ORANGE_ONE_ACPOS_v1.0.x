@@ -1,0 +1,9 @@
+module: ASSET
+source: R9_AUTHORITY
+actions:
+  - ASSET_CREATE_VERSION
+  - ASSET_REFERENCE_BIND
+  - ASSET_HANDOFF_CONFIRM
+workflow:
+  source: ACTION_REGISTRY
+status: initialized
