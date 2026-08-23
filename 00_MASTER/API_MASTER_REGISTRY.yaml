@@ -1,0 +1,22 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative API contract registry"
+rule:
+  - "Backend implementation follows this contract"
+  - "No API may exist without permission, database and runtime mapping"
+  - "External provider real execution is deferred to deployment testing"
+api_schema:
+  required:
+    - api_id
+    - endpoint
+    - method
+    - request_schema
+    - response_schema
+    - error_contract
+    - authentication
+    - permission
+    - database_relation
+    - runtime_event
+    - qa_evidence
+registry:
+  current_state: controlled_expansion
