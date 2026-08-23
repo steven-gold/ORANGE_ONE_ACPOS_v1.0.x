@@ -1,0 +1,8 @@
+registry: PERMISSION
+source: R9_FINAL
+rules:
+  - permission_is_explicit
+  - parent_permission_does_not_grant_child
+roles: []
+actions: []
+status: initialized
