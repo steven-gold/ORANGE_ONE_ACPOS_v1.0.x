@@ -1,0 +1,10 @@
+voice_runtime:
+  flow:
+    - VOICE_REQUESTED
+    - VOICE_GENERATION
+    - VOICE_SYNC
+    - VOICE_READY
+    - QA_PENDING
+  events:
+    - voice_artifact_created
+    - voice_sync_completed
