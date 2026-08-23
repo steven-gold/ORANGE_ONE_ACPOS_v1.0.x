@@ -1,0 +1,11 @@
+batch: 007
+purpose: database_entity_expansion
+fields:
+  - entity
+  - table
+  - column
+  - datatype
+  - relation
+  - index
+  - migration_reference
+status: initialized_for_full_mapping
