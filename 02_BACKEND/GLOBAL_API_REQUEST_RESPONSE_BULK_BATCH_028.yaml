@@ -1,0 +1,17 @@
+batch: 028
+type: backend_expansion
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  endpoint: required
+  method: required
+  request_schema: required
+  response_schema: required
+  error_mapping: required
+status:
+  external_provider_test: pending
