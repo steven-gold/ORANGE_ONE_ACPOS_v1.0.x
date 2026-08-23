@@ -1,0 +1,11 @@
+mapping:
+  workspace:
+    source: R9_WORKSPACE_FINAL
+    units:
+      - WORKSPACE_CORE
+      - CONVERSATION_WORKSPACE
+      - TASK_WORKSPACE
+    flow:
+      project: create
+      topic: bind
+      task: execute
