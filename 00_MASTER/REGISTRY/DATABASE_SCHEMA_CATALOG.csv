@@ -1,0 +1,4 @@
+table,column,type,relation,migration,status
+PROJECT,id,uuid,,,
+PROJECT,name,text,,,
+# Database schema expansion follows DB Contract authority.
