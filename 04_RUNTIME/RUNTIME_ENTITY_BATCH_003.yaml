@@ -1,0 +1,13 @@
+batch: 003
+source: R9_AUTHORITY
+runtime:
+  event:
+    - asset_version_registered
+    - asset_reference_bound
+    - video_artifact_created
+  state:
+    - ready
+    - running
+    - review
+    - completed
+  worker_binding: required
