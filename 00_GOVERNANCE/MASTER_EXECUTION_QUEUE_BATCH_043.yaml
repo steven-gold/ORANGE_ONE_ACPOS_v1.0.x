@@ -1,0 +1,41 @@
+version: "ACPOS_v1.0.x"
+mode: sequential_closed_loop
+rule:
+  authority: R9
+  allow_new_logic: false
+  duplicate_definition: remove
+  non_construction_content: exclude
+
+queue:
+  - id: CORE-01
+    name: Project Creation Wizard
+    status: queued
+  - id: CORE-02
+    name: Topic Production Contract
+    status: queued
+  - id: CORE-06
+    name: Script View
+    status: queued
+  - id: WORKSPACE
+    name: Conversation Workspace and Task Binding
+    status: queued
+  - id: ASSET
+    name: Asset Production Module
+    status: queued
+  - id: VIDEO
+    name: Video Production Module
+    status: queued
+  - id: EDITING
+    name: Editing Runtime Module
+    status: queued
+  - id: VOICE
+    name: Voice Production Module
+    status: queued
+
+closure_requirements:
+  - frontend
+  - backend_contract
+  - database_mapping
+  - runtime_flow
+  - permission
+  - qa_evidence
