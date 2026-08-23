@@ -1,0 +1,19 @@
+batch: 027
+scope: global_frontend_expansion
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+structure:
+  - page_uid
+  - section
+  - component
+  - control
+  - action
+  - permission
+rules:
+  no_new_logic: true
+  authority: R9
