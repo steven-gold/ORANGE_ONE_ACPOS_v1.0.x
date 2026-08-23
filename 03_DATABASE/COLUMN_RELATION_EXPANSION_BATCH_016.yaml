@@ -1,0 +1,15 @@
+batch: 016
+module: GLOBAL_DATABASE
+purpose: column_relation_expansion
+fields:
+  - table
+  - column
+  - datatype
+  - foreign_key
+  - index
+  - relation
+rules:
+  preserve_version_history: true
+  no_overwrite_asset_versions: true
+status:
+  migration_execution: pending
