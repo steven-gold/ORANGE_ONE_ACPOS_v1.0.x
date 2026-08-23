@@ -1,0 +1,10 @@
+actions:
+  - id: WORKSPACE_CREATE
+    source: R9_WORKSPACE_FINAL
+    workflow: workspace_creation
+  - id: CONVERSATION_BIND
+    source: conversation_workspace_design
+    workflow: context_binding
+  - id: TASK_EXECUTE
+    source: task_runtime_flow
+    workflow: execution
