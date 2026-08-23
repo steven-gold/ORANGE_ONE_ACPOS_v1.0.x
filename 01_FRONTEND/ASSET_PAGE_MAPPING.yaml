@@ -1,0 +1,12 @@
+module: ASSET
+source: R9_AUTHORITY
+mapping:
+  - unit: ASSET-01
+    page: Asset Library
+  - unit: ASSET-02
+    page: Asset Version Control
+  - unit: ASSET-03
+    page: Asset Reference
+  - unit: ASSET-04
+    page: Asset Handoff
+status: initialized
