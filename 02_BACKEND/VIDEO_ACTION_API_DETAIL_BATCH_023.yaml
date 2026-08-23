@@ -1,0 +1,15 @@
+batch: 023
+domain: VIDEO
+actions:
+  - video_production_create
+  - scene_create
+  - shot_bind
+  - generation_execute
+  - artifact_register
+api_fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+external_test: pending
