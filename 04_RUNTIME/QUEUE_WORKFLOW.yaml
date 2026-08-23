@@ -1,0 +1,9 @@
+version: ACPOS_v1.0.x
+queue:
+  async_execution: true
+  retry_supported: true
+workflow:
+  task_created:
+    next: worker_execution
+  worker_failure:
+    next: retry_or_review
