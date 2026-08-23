@@ -1,0 +1,17 @@
+batch: 036
+layer: runtime
+flow:
+  - event_capture
+  - state_validation
+  - permission_check
+  - worker_execution
+  - evidence_record
+rule:
+  explicit_transition_only: true
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
