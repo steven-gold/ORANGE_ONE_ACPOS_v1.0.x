@@ -1,0 +1,5 @@
+registry: ENTITY_RELATION
+source: R9_FINAL
+purpose: database entity relationship mapping
+relations: []
+status: initialized
