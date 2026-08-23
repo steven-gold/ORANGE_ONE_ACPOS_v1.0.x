@@ -1,0 +1,15 @@
+batch: 003
+source: R9_AUTHORITY
+controls:
+  fields:
+    - control_id
+    - page_uid
+    - component_id
+    - type
+    - state
+    - validation
+    - permission
+    - action
+  domains:
+    - ASSET
+    - VIDEO
