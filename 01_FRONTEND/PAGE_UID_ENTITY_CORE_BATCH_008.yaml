@@ -1,0 +1,17 @@
+batch: 008
+module: CORE
+scope:
+  - DASHBOARD
+  - CORE-01
+  - CORE-02
+  - CORE-06
+fields:
+  - page_uid
+  - route
+  - sections
+  - components
+  - controls
+  - actions
+  - permission_binding
+status: implementation_mapping
+external_test: pending
