@@ -1,0 +1,23 @@
+batch: 032
+layer: frontend
+scope:
+  modules:
+    - CORE
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+    - EDITING
+    - VOICE
+structure:
+  - page_uid
+  - section
+  - component
+  - control_id
+  - control_type
+  - state
+  - validation
+  - action_binding
+  - permission_binding
+rule:
+  authority: R9
+  add_new_logic: false
