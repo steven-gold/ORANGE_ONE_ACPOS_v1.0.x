@@ -1,0 +1,17 @@
+batch: 017
+type: database_migration_reference
+scope:
+  - Project
+  - Workspace
+  - Asset
+  - Video
+  - Editing
+  - Voice
+fields:
+  - entity
+  - table
+  - migration_reference
+  - dependency
+  - status
+rules:
+  migration_execution: pending_external_test
