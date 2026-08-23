@@ -1,0 +1,4 @@
+endpoint_id,method,path,request,response,error,permission,runtime_event,qa_status
+API-001,POST,/projects,ProjectCreateRequest,ProjectCreateResponse,VALIDATION_ERROR,project.create,PROJECT_CREATED,PENDING
+API-002,POST,/topics,TopicCreateRequest,TopicCreateResponse,CONTRACT_ERROR,topic.create,TOPIC_CREATED,PENDING
+API-003,GET,/workspace/{id},WorkspaceQuery,WorkspaceResponse,NOT_FOUND,workspace.view,WORKSPACE_LOADED,PENDING
