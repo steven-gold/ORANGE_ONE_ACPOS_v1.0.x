@@ -1,0 +1,12 @@
+ui_contract:
+  authority: R9_FINAL
+  status: ACTIVE
+  required_chain:
+    - page_uid
+    - component_id
+    - control_id
+    - action_id
+    - permission
+  rules:
+    - ui_without_action_is_incomplete: true
+    - ui_without_data_binding_is_incomplete: true
