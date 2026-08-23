@@ -1,0 +1,8 @@
+batch: 004
+module: EDITING
+checks:
+  - page_binding
+  - control_binding
+  - action_binding
+  - runtime_binding
+  - output_reference
