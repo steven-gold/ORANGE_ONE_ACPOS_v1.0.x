@@ -1,0 +1,17 @@
+batch: 011
+module: ASSET
+layer: frontend_control
+control_fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - state
+  - validation
+  - permission
+  - action
+controls:
+  - asset_library
+  - asset_version
+  - asset_reference
+  - asset_handoff
