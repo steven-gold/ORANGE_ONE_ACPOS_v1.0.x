@@ -1,0 +1,8 @@
+VOICE_QA_BATCH_014:
+  checks:
+    - page_binding
+    - control_binding
+    - api_binding
+    - runtime_binding
+    - evidence_trace
+  external_test: pending
