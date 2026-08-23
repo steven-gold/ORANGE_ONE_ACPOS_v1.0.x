@@ -1,0 +1,13 @@
+batch: 018
+module: backend
+purpose: action_entity_expansion
+fields:
+  - action_id
+  - control_reference
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status:
+  external_runtime_test: pending
