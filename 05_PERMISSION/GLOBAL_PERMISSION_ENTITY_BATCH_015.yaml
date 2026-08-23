@@ -1,0 +1,14 @@
+batch: 015
+type: permission_entity_expansion
+scope:
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - resource
+  - action
+  - scope
+  - approval
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
