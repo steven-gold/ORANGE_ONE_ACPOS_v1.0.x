@@ -1,0 +1,9 @@
+version: R9
+module: VIDEO
+flow:
+  - contract_ready
+  - scene_ready
+  - shot_ready
+  - provider_execution
+  - artifact_registered
+  - qa_pending
