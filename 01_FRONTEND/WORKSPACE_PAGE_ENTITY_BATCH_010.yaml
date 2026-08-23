@@ -1,0 +1,11 @@
+WORKSPACE_PAGE_ENTITY_BATCH_010:
+  pages:
+    - page_uid: WORKSPACE-01
+      route: /workspace
+      sections:
+        - project_context
+        - conversation_workspace
+        - task_workspace
+      bindings:
+        permission: workspace_access
+        runtime: workspace_flow
