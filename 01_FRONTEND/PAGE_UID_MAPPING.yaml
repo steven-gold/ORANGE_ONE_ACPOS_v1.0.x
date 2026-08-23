@@ -1,0 +1,11 @@
+registry: PAGE_UID_MAPPING
+source: R9_FINAL
+mapping:
+  - page_uid: CORE-01
+    status: defined
+  - page_uid: CORE-02
+    status: defined
+  - page_uid: WORKSPACE
+    status: defined
+rule:
+  page_uid_is_unique: true
