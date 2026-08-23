@@ -1,0 +1,17 @@
+batch: 027
+scope: global_api_expansion
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status:
+  external_e2e: pending
