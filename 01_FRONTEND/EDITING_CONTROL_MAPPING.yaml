@@ -1,0 +1,8 @@
+module: EDITING
+controls:
+  - EDIT_TIMELINE_CONTROL
+  - EDIT_LAYER_CONTROL
+  - EDIT_SUBTITLE_CONTROL
+binding:
+  page: EDITING_PAGE_MAPPING
+source: R9_FINAL
