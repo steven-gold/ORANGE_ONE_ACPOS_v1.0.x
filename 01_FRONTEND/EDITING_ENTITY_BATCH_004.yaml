@@ -1,0 +1,13 @@
+batch: 004
+module: EDITING
+entities:
+  - Timeline
+  - Layer
+  - SubtitleTrack
+  - SyncMarker
+fields:
+  - id
+  - version
+  - relation
+  - state
+  - reference
