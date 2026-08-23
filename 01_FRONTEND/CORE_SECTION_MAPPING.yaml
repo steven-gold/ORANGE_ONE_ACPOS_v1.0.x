@@ -1,0 +1,22 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE page section mapping
+sections:
+  CORE-01:
+    page: project_creation_wizard
+    sections:
+      - conversation_workspace
+      - project_information
+      - blueprint_initialization
+  CORE-02:
+    page: topic_production_contract
+    sections:
+      - production_type
+      - delivery_contract
+  CORE-06:
+    page: script_view
+    sections:
+      - script_content
+      - candidate_studio
+      - conversation_workspace
+status: initialized
