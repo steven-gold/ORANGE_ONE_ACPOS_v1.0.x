@@ -1,0 +1,9 @@
+version: ACPOS_v1.0.x
+acceptance:
+  required:
+    - source_traceable
+    - registry_complete
+    - binding_complete
+    - permission_defined
+    - runtime_defined
+    - qa_defined
