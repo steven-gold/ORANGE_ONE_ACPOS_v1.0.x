@@ -1,0 +1,16 @@
+batch: 011
+module: ASSET
+layer: frontend
+entities:
+  - ASSET-01
+  - ASSET-02
+  - ASSET-03
+  - ASSET-04
+fields:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
