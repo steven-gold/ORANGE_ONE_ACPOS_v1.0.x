@@ -1,0 +1,21 @@
+version: ACPOS_v1.0.x
+permissions:
+  CORE-01:
+    resources:
+      - project
+    actions:
+      - create
+      - update
+  CORE-02:
+    resources:
+      - topic_contract
+    actions:
+      - create
+      - confirm
+  CORE-06:
+    resources:
+      - script_workspace
+    actions:
+      - view
+      - review
+status: initialized
