@@ -1,0 +1,8 @@
+registry: API_ENDPOINT_CONTRACT
+source: R9_FINAL
+contract:
+  method_required: true
+  request_required: true
+  response_required: true
+  error_mapping_required: true
+status: initialized
