@@ -1,0 +1,4 @@
+endpoint_id,method,path,request,response,error,permission
+API-001,GET,/health,,, ,
+API-002,POST,/project/create,,,,
+# Complete endpoint expansion follows API Contract authority.
