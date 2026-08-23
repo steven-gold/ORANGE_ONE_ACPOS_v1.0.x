@@ -1,0 +1,8 @@
+module: EDITING
+acceptance:
+  - page_binding
+  - control_binding
+  - action_binding
+  - runtime_binding
+  - output_reference
+source: R9_FINAL
