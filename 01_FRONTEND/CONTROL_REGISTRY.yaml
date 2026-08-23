@@ -1,0 +1,10 @@
+# ACPOS Control Registry
+# Authority: R9 construction source
+# Purpose: UI control entity mapping
+
+controls: []
+
+rules:
+  - control_requires_page_reference: true
+  - action_controls_require_action_id: true
+  - display_controls_require_data_source: true
