@@ -1,0 +1,15 @@
+batch: 026
+module: VOICE
+purpose: api request response expansion
+api:
+  - voice_generate
+  - voice_asset_bind
+  - voice_sync_execute
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status: construction
+external_test: pending
