@@ -1,0 +1,13 @@
+module: VIDEO
+batch: 012
+events:
+  - contract_ready
+  - scene_ready
+  - shot_ready
+  - provider_execution_started
+  - artifact_registered
+states:
+  - ready
+  - running
+  - review
+  - completed
