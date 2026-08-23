@@ -1,0 +1,14 @@
+batch: 008
+module: CORE
+api_fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+mapped_actions:
+  - project_create
+  - topic_create
+  - script_view_open
+status: implementation_mapping
+external_test: pending
