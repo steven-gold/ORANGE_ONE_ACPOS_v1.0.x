@@ -1,0 +1,19 @@
+voice_entities:
+  - id: VOICE_PROFILE
+    type: entity
+    fields:
+      - id
+      - version
+      - state
+  - id: VOICE_ARTIFACT
+    type: entity
+    fields:
+      - id
+      - source
+      - reference
+  - id: VOICE_SYNC_RECORD
+    type: entity
+    fields:
+      - id
+      - timeline_reference
+      - sync_state
