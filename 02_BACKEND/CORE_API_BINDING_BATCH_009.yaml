@@ -1,0 +1,16 @@
+batch: 009
+module: CORE
+api_binding:
+  - action: PROJECT_CREATE
+    entity: Project
+  - action: TOPIC_CREATE
+    entity: Topic
+  - action: SCRIPT_VIEW_OPEN
+    entity: Script
+fields:
+  - endpoint
+  - method
+  - request
+  - response
+  - error_mapping
+status: implementation_ready
