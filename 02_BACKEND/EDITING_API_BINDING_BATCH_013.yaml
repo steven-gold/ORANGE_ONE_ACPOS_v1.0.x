@@ -1,0 +1,12 @@
+module: EDITING
+batch: 013
+apis:
+  - timeline_update
+  - layer_update
+  - subtitle_sync
+fields:
+  - endpoint
+  - method
+  - request
+  - response
+  - error_mapping
