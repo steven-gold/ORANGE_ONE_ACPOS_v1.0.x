@@ -1,0 +1,10 @@
+batch: 036
+layer: permission
+matrix:
+  resource: defined
+  action: defined
+  scope: defined
+  approval: defined
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
