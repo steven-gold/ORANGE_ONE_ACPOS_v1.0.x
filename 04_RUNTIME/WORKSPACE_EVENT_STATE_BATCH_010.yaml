@@ -1,0 +1,11 @@
+WORKSPACE_EVENT_STATE_BATCH_010:
+  events:
+    - conversation_bound
+    - task_started
+    - task_completed
+  states:
+    - CREATED
+    - BOUND
+    - ACTIVE
+    - REVIEW
+    - COMPLETED
