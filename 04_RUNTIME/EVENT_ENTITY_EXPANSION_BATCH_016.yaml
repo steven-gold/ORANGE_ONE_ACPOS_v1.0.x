@@ -1,0 +1,11 @@
+batch: 016
+module: GLOBAL_RUNTIME
+purpose: event_entity_expansion
+entities:
+  - event
+  - trigger
+  - source
+  - target_state
+  - evidence_reference
+status:
+  external_worker_test: pending
