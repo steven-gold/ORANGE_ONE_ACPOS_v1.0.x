@@ -1,0 +1,20 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative database schema registry"
+rule:
+  - "Database structure follows master schema"
+  - "No application table may be invented outside registry"
+  - "Migration and seed are generated from approved schema"
+schema_required:
+  - table
+  - column
+  - datatype
+  - relation
+  - index
+  - migration
+  - seed
+  - api_binding
+  - permission_binding
+  - runtime_binding
+external_data:
+  status: pending_runtime_test
