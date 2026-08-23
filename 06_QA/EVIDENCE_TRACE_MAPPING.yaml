@@ -1,0 +1,16 @@
+evidence_trace:
+  required_chain:
+    - authority
+    - unit
+    - page
+    - control
+    - action
+    - api
+    - database
+    - runtime
+    - qa
+
+status:
+  external_execution:
+    value: pending
+    note: requires deployment test
