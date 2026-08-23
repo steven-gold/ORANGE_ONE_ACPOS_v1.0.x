@@ -1,0 +1,27 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative page registry for ACPOS construction"
+rule:
+  - "No page implementation without Page UID"
+  - "AI must use this registry as only page source"
+  - "External data and live verification are excluded until deployment testing"
+page_schema:
+  required:
+    - page_uid
+    - surface
+    - navigation_l1_l6
+    - route
+    - visibility
+    - layout
+    - sections
+    - components
+    - fields
+    - actions
+    - api_binding
+    - database_binding
+    - permission_binding
+    - runtime_events
+    - qa_evidence
+registry:
+  target_count: 92
+  current_state: controlled_expansion
