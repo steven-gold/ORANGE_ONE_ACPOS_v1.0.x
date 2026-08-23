@@ -1,0 +1,12 @@
+version: 1.0
+batch: 006
+purpose: permission matrix expansion
+rules:
+  explicit_grant_required: true
+  parent_permission_does_not_grant_child: true
+fields:
+  - resource
+  - action
+  - scope
+  - approval
+status: construction
