@@ -1,0 +1,9 @@
+module: EDITING
+batch: 013
+acceptance:
+  - page_binding
+  - control_binding
+  - api_binding
+  - runtime_binding
+  - evidence_trace
+external_test: pending
