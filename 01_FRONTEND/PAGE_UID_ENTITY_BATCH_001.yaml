@@ -1,0 +1,12 @@
+page_batch:
+  batch_id: PAGE_UID_ENTITY_BATCH_001
+  source: R9_AUTHORITY
+  pages:
+    - uid: DASHBOARD
+      status: mapped
+    - uid: CORE-01
+      status: mapped
+    - uid: CORE-02
+      status: mapped
+    - uid: CORE-06
+      status: mapped
