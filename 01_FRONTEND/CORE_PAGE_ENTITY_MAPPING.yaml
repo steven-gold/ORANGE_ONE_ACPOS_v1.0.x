@@ -1,0 +1,15 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+mapping:
+  - unit_id: CORE-01
+    entity: PROJECT
+    page_flow: project_creation_wizard
+    status: defined
+  - unit_id: CORE-02
+    entity: TOPIC_PRODUCTION_CONTRACT
+    page_flow: topic_creation_flow
+    status: defined
+  - unit_id: CORE-06
+    entity: SCRIPT_VIEW
+    page_flow: script_workspace
+    status: defined
