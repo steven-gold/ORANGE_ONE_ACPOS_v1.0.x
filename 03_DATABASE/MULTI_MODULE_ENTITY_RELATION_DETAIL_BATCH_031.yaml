@@ -1,0 +1,19 @@
+batch: 031
+layer: database
+type: entity_relation_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  - entity
+  - table
+  - column
+  - relation
+  - foreign_key
+  - index
+  - migration_reference
+migration: pending
