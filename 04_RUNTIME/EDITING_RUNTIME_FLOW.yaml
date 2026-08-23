@@ -1,0 +1,8 @@
+module: EDITING
+flow:
+  - Timeline Ready
+  - Layer Processing
+  - Subtitle Sync
+  - Output Ready
+state_source: STATE_MACHINE
+source: R9_FINAL
