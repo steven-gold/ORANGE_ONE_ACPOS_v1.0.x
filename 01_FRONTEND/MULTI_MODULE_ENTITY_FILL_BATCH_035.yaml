@@ -1,0 +1,20 @@
+batch: 035
+layer: frontend
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  - page_uid
+  - section
+  - component
+  - control_id
+  - control_type
+  - state
+  - validation
+  - action_binding
+  - permission_binding
+status: implementation_expansion
