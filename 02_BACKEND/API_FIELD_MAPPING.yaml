@@ -1,0 +1,14 @@
+version: R9
+source: API_REGISTRY
+purpose: "API request response field mapping entry"
+status: initialized
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+rules:
+  - endpoint_requires_action_binding
+  - response_requires_state_definition
+  - error_requires_handling_rule
