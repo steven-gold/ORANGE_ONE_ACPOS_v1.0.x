@@ -1,0 +1,7 @@
+registry: COMPONENT
+source: R9_FINAL
+purpose: frontend component mapping
+components:
+  - component_id: COMPONENT_BASE
+    type: ui_component
+    status: initialized
