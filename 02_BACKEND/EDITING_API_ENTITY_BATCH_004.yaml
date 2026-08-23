@@ -1,0 +1,10 @@
+batch: 004
+module: EDITING
+api:
+  - timeline_update
+  - layer_update
+  - subtitle_sync
+schema:
+  request: defined
+  response: defined
+  error_mapping: required
