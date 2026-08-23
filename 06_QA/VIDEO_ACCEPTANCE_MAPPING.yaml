@@ -1,0 +1,8 @@
+version: R9
+module: VIDEO
+checks:
+  - page_binding
+  - control_binding
+  - action_binding
+  - runtime_binding
+  - artifact_reference
