@@ -1,0 +1,19 @@
+batch: 036
+layer: frontend
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+structure:
+  page_uid: defined
+  section: defined
+  component: defined
+  control_binding: defined
+  action_binding: defined
+  permission_binding: defined
+validation:
+  source: R9_authority
+  external_test: pending
