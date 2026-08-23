@@ -1,0 +1,12 @@
+batch: 022
+module: ASSET
+events:
+  - asset_created
+  - asset_version_registered
+  - asset_reference_bound
+states:
+  - created
+  - versioned
+  - bound
+  - ready
+transition: explicit_only
