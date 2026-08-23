@@ -1,0 +1,12 @@
+batch: 017
+type: full_trace_validation
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+validation:
+  external_e2e: pending
