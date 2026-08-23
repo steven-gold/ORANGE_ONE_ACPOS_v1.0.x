@@ -1,0 +1,33 @@
+batch: 048
+mode: r9_regression_completion
+objective: restore_authority_content_and_fill_missing_construction_data
+rules:
+  authority: R9_final_definition_only
+  no_new_architecture: true
+  no_duplicate_system: true
+  remove_non_construction_content: true
+  fill_missing_only: true
+workflow:
+  - audit_existing_content
+  - identify_missing_authority_records
+  - remove_invalid_or_duplicate_records
+  - complete_page_control_action_api_db_runtime_permission_qa_chain
+  - continue_next_incomplete_unit
+construction_queue:
+  - CORE-01
+  - CORE-02
+  - CORE-06
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+closure_requirement:
+  page_uid: required
+  control_mapping: required
+  action_mapping: required
+  api_mapping: required
+  database_mapping: required
+  runtime_mapping: required
+  permission_mapping: required
+  qa_evidence: required
