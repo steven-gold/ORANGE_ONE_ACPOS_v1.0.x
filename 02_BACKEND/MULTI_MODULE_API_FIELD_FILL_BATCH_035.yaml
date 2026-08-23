@@ -1,0 +1,17 @@
+batch: 035
+layer: backend
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  - action_id
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status: implementation_expansion
