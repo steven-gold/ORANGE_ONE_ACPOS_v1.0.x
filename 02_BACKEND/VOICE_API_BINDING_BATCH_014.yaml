@@ -1,0 +1,11 @@
+VOICE_API_BINDING_BATCH_014:
+  apis:
+    - voice_generate
+    - voice_asset_bind
+    - voice_sync_execute
+  schema:
+    - endpoint
+    - method
+    - request
+    - response
+    - error_mapping
