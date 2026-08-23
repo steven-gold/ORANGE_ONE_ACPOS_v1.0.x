@@ -1,0 +1,17 @@
+batch: 002
+source: ACPOS_R9
+controls:
+  schema:
+    - control_id
+    - page_uid
+    - component_id
+    - type
+    - state
+    - validation
+    - permission
+    - action
+  domains:
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+status: construction
