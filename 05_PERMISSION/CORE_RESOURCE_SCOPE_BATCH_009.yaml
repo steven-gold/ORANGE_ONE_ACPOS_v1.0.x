@@ -1,0 +1,15 @@
+batch: 009
+module: CORE
+permissions:
+  resources:
+    - project
+    - topic
+    - script_workspace
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
+fields:
+  - resource
+  - action
+  - scope
+  - approval
