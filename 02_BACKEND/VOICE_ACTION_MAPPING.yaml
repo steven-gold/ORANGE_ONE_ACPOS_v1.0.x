@@ -1,0 +1,9 @@
+module: VOICE
+actions:
+  - VOICE_GENERATE
+  - VOICE_ASSET_BIND
+  - VOICE_SYNC_EXECUTE
+flow:
+  control_to_workflow: required
+source: R9_AUTHORITY
+status: initialized
