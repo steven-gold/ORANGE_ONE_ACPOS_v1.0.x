@@ -1,0 +1,16 @@
+batch: 029
+purpose: control master expansion
+schema:
+  control_id: required
+  page_uid: required
+  component_id: required
+  type: required
+  state: required
+  validation: required
+  data_source: linked
+  action: linked
+  permission: linked
+scope:
+  control_registry: 1141_target
+status:
+  external_test: pending
