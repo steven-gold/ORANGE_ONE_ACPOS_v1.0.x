@@ -1,0 +1,13 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE action mapping
+actions:
+  - action_id: PROJECT_CREATE
+    unit: CORE-01
+    workflow: project_creation
+  - action_id: TOPIC_CREATE
+    unit: CORE-02
+    workflow: topic_production_contract
+  - action_id: SCRIPT_VIEW_OPEN
+    unit: CORE-06
+    workflow: script_view
