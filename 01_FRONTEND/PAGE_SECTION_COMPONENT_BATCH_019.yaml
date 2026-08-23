@@ -1,0 +1,10 @@
+batch: 019
+type: PAGE_SECTION_COMPONENT_MAPPING
+scope:
+  - page_uid
+  - section
+  - component
+  - control
+rules:
+  authority: R9
+  external_test: pending
