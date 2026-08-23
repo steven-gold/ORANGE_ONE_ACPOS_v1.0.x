@@ -4,6 +4,23 @@ implementation_gate:
     - Validate registry binding
     - Confirm no conflicting definition
 
+construction_policy:
+  build_first:
+    enabled: true
+    description: "Complete internal architecture and execution procedures before external data and live testing"
+
+  external_data:
+    excluded_during_construction: true
+    examples:
+      - provider_api
+      - real_account
+      - production_data
+      - external_credentials
+
+  live_testing:
+    excluded_during_construction: true
+    purpose: "Only verify after complete implementation exists"
+
 blocked_if:
   - missing_page_contract
   - missing_api_contract
@@ -16,10 +33,14 @@ allowed_without_external_test:
   - frontend_structure
   - backend_structure
   - permission_logic
+  - runtime_logic
   - qa_definition
+  - workflow_definition
 
-external_testing_required:
-  - provider_api
-  - real_account
-  - production_data
-  - deployment_environment
+post_build_validation:
+  required:
+    - integration_test
+    - external_provider_test
+    - real_account_test
+    - deployment_environment_test
+  rule: "Testing results are appended after implementation completion and cannot replace missing construction content"
