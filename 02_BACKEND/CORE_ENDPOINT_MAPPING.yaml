@@ -1,0 +1,15 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+endpoints:
+  - action: PROJECT_CREATE
+    method: POST
+    contract: project_creation
+    status: defined
+  - action: TOPIC_CREATE
+    method: POST
+    contract: topic_production_contract
+    status: defined
+  - action: SCRIPT_VIEW_OPEN
+    method: GET
+    contract: script_workspace
+    status: defined
