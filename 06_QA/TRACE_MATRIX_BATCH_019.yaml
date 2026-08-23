@@ -1,0 +1,12 @@
+batch: 019
+type: TRACE_MATRIX
+chain:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+status:
+  e2e: pending
