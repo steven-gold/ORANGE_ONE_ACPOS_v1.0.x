@@ -1,0 +1,18 @@
+version: ACPOS_v1.0.x
+workflows:
+  PROJECT_CREATE_FLOW:
+    unit: CORE-01
+    states:
+      - CREATED
+      - READY
+  TOPIC_CONTRACT_FLOW:
+    unit: CORE-02
+    states:
+      - DRAFT
+      - CONFIRMED
+  SCRIPT_VIEW_FLOW:
+    unit: CORE-06
+    states:
+      - OPEN
+      - REVIEW
+status: initialized
