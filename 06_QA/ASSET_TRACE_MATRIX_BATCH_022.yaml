@@ -1,0 +1,11 @@
+batch: 022
+module: ASSET
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+e2e_test: pending
