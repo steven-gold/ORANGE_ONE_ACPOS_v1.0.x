@@ -1,0 +1,18 @@
+batch: 015
+type: page_uid_expansion
+pages:
+  - dashboard
+  - core
+  - workspace
+  - asset
+  - video
+  - editing
+  - voice
+fields:
+  - page_uid
+  - route
+  - sections
+  - components
+  - controls
+  - actions
+  - permissions
