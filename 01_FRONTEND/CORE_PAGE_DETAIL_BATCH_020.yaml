@@ -1,0 +1,16 @@
+batch: 020
+module: CORE
+scope:
+  - DASHBOARD
+  - CORE-01
+  - CORE-02
+  - CORE-06
+fields:
+  - page_uid
+  - section
+  - component
+  - control
+  - action
+  - permission
+status: construction
+external_test: pending
