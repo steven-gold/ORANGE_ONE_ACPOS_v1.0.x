@@ -1,0 +1,12 @@
+batch: 026
+module: VOICE
+purpose: permission scope expansion
+matrix:
+  - resource
+  - action
+  - scope
+  - approval
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
+status: construction
