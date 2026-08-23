@@ -1,0 +1,4 @@
+control_id,page_uid,component,type,label,api,db,permission,state
+CTRL-0001,PAGE-001,TEMPLATE,FIELD,,,
+CTRL-0002,PAGE-001,TEMPLATE,ACTION,,,
+# 1141 control mapping expansion follows authority definitions.
