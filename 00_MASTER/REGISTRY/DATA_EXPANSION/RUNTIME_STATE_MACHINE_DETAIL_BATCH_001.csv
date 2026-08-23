@@ -1,0 +1,4 @@
+event_id,trigger,from_state,to_state,handler,validation,error_recovery,qa_status
+PROJECT_CREATED,create_project,DRAFT,CREATED,ProjectCreatedHandler,contract_check,retry_or_manual_review,PENDING
+TOPIC_CREATED,create_topic,DRAFT,CREATED,TopicCreatedHandler,topic_contract_check,retry_or_manual_review,PENDING
+WORKSPACE_LOADED,open_workspace,REQUESTED,LOADED,WorkspaceLoader,permission_check,access_denied,PENDING
