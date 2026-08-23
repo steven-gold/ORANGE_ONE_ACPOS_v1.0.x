@@ -1,0 +1,13 @@
+batch: 016
+module: GLOBAL_RUNTIME
+purpose: state_transition_expansion
+fields:
+  - current_state
+  - next_state
+  - action
+  - permission_check
+  - rollback_rule
+rules:
+  explicit_transition_only: true
+status:
+  runtime_validation: pending
