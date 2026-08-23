@@ -1,0 +1,14 @@
+version: ACPOS_v1.0.x
+authority: R9_FINAL
+sequence:
+  - 00_MASTER
+  - 01_FRONTEND
+  - 02_BACKEND
+  - 03_DATABASE
+  - 04_RUNTIME
+  - 05_PERMISSION
+  - 06_QA
+rules:
+  - no_new_business_logic
+  - authority_first
+  - validate_each_unit_before_next
