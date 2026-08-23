@@ -1,0 +1,19 @@
+batch: 031
+layer: backend
+type: action_api_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  - action_id
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status: construction_ready
+external_e2e: pending
