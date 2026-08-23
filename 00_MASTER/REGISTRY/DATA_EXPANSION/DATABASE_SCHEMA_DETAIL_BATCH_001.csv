@@ -1,0 +1,5 @@
+table,column,type,relation,index,migration,source,qa_status
+projects,id,uuid,primary_key,PK,001,project_module,PENDING
+projects,status,varchar,state_machine,IDX,001,project_module,PENDING
+topics,id,uuid,primary_key,PK,002,topic_module,PENDING
+topics,status,varchar,state_machine,IDX,002,topic_module,PENDING
