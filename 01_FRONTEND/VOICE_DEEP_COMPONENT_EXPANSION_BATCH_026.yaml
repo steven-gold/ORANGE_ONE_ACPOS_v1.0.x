@@ -1,0 +1,18 @@
+batch: 026
+module: VOICE
+purpose: deep frontend component expansion
+chain:
+  - page_uid
+  - section
+  - component
+  - control
+  - action
+fields:
+  - control_id
+  - component_id
+  - data_source
+  - state
+  - validation
+  - permission_binding
+status: construction
+external_test: pending
