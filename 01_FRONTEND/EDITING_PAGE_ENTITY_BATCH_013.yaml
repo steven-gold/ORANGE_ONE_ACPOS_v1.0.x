@@ -1,0 +1,17 @@
+module: EDITING
+batch: 013
+pages:
+  - id: EDIT-01
+    name: Timeline
+  - id: EDIT-02
+    name: Layer Management
+  - id: EDIT-03
+    name: Subtitle Sync
+fields:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
