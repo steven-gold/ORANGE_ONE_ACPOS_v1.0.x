@@ -1,7 +1,28 @@
 registry: COMPONENT
 source: R9_FINAL
 purpose: frontend component mapping
+status: expanded
+
+rules:
+  - component_must_bind_page
+  - component_must_bind_section
+  - component_must_bind_control
+
+fields:
+  - component_id
+  - component_type
+  - page_uid
+  - section_id
+  - control_binding
+  - state_binding
+  - action_binding
+
 components:
   - component_id: COMPONENT_BASE
     type: ui_component
-    status: initialized
+    status: expanded
+    page_binding: required
+    section_binding: required
+    control_binding: required
+    state_binding: required
+    action_binding: required
