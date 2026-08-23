@@ -1,0 +1,18 @@
+batch: 030
+layer: backend
+purpose: API field detail expansion
+schema:
+  endpoint: required
+  method: required
+  request_schema: required
+  response_schema: required
+  error_mapping: required
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+status:
+  e2e_test: pending
