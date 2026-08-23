@@ -1,0 +1,23 @@
+batch: 030
+layer: frontend
+purpose: Page UID detail expansion
+schema:
+  page_uid: required
+  route: required
+  navigation:
+    l1_l6: required
+  sections: required
+  components: required
+  controls: linked
+  actions: linked
+  permissions: linked
+  qa_evidence: linked
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+status:
+  external_test: pending
