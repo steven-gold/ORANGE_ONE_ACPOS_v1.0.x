@@ -1,0 +1,15 @@
+batch: 008
+module: CORE
+entities:
+  - Project
+  - Topic
+  - Blueprint
+  - Script
+fields:
+  - table
+  - column
+  - datatype
+  - relation
+  - migration_reference
+status: implementation_mapping
+external_test: pending
