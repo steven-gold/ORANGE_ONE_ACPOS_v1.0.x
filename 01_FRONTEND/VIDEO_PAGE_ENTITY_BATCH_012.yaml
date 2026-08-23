@@ -1,0 +1,15 @@
+module: VIDEO
+batch: 012
+pages:
+  - VIDEO-01
+  - VIDEO-02
+  - VIDEO-03
+  - VIDEO-04
+fields:
+  - page_uid
+  - route
+  - sections
+  - components
+  - controls
+  - actions
+  - permission_binding
