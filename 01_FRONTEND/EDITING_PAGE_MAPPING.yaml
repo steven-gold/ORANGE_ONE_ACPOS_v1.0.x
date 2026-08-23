@@ -1,0 +1,9 @@
+module: EDITING
+pages:
+  - id: EDIT-01
+    name: Timeline
+  - id: EDIT-02
+    name: Layer Management
+  - id: EDIT-03
+    name: Subtitle Sync
+source: R9_FINAL
