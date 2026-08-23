@@ -1,0 +1,13 @@
+batch: 011
+module: ASSET
+layer: backend
+apis:
+  - asset_version_create
+  - asset_reference_bind
+  - asset_handoff_confirm
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
