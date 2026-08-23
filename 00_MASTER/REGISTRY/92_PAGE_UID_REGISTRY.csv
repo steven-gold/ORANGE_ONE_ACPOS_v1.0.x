@@ -1,0 +1,5 @@
+page_uid,l1,l2,l3,route,status,contract
+PAGE-001,,,,,TEMPLATE_READY,
+PAGE-002,,,,,TEMPLATE_READY,
+PAGE-003,,,,,TEMPLATE_READY,
+# 92 Page UID registry expansion follows the authority YAML source.
