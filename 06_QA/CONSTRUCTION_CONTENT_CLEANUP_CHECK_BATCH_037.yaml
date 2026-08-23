@@ -1,0 +1,14 @@
+batch: 037
+validation:
+  check_items:
+    - duplicate_content
+    - conflicting_definition
+    - non_construction_content
+    - empty_placeholder
+    - unauthorized_expansion
+handling:
+  duplicate_content: remove_after_verification
+  conflicting_definition: preserve_authority_source_only
+  non_construction_content: exclude_from_build
+  empty_placeholder: remove
+  unauthorized_expansion: exclude
