@@ -1,0 +1,13 @@
+batch: 025
+domain: VOICE
+events:
+  - voice_requested
+  - voice_generated
+  - voice_sync_completed
+states:
+  - requested
+  - generating
+  - synced
+  - qa_pending
+transition_policy:
+  explicit_only: true
