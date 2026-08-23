@@ -1,0 +1,17 @@
+batch: 033
+layer: permission_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  resource: required
+  action: required
+  scope: required
+  approval: required
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
