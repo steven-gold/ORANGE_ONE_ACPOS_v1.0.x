@@ -1,0 +1,11 @@
+version: ACPOS_v1.0.x
+states:
+  - CREATED
+  - READY
+  - RUNNING
+  - SUCCESS
+  - FAILED
+  - REVIEW
+  - CLOSED
+rules:
+  invalid_transition_blocked: true
