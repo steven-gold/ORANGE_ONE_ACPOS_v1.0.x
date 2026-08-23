@@ -1,0 +1,10 @@
+# ACPOS Binding Registry
+# Authority: R9 construction source
+# Purpose: Cross-layer binding mapping
+
+bindings: []
+
+rules:
+  - page_control_binding_required: true
+  - action_api_binding_required: true
+  - runtime_event_binding_required: true
