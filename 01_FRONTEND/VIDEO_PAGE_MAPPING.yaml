@@ -1,0 +1,11 @@
+version: R9
+module: VIDEO
+pages:
+  - unit_id: VIDEO-01
+    name: Production Contract
+  - unit_id: VIDEO-02
+    name: Scene Management
+  - unit_id: VIDEO-03
+    name: Generation Runtime
+  - unit_id: VIDEO-04
+    name: Output Management
