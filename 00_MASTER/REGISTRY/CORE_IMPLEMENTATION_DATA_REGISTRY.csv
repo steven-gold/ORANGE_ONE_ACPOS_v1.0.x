@@ -1,0 +1,7 @@
+module,page_uid,control_id,api_endpoint,db_entity,permission,runtime_state,qa_evidence
+CORE,CORE-01,,,,,,
+CORE,CORE-02,,,,,,
+CORE,CORE-03,,,,,,
+CORE,CORE-04,,,,,,
+CORE,CORE-05,,,,,,
+CORE,CORE-06,,,,,,
