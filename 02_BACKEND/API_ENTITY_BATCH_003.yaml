@@ -1,0 +1,16 @@
+batch: 003
+source: R9_AUTHORITY
+apis:
+  - domain: ASSET
+    actions:
+      - asset_version_create
+      - asset_reference_bind
+  - domain: VIDEO
+    actions:
+      - scene_create
+      - shot_bind
+      - artifact_register
+schema:
+  request: required
+  response: required
+  error_mapping: required
