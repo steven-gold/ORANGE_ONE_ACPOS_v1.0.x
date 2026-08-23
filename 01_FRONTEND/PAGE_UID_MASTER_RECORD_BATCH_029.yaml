@@ -1,0 +1,21 @@
+batch: 029
+purpose: page uid master expansion
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  page_uid: required
+  route: required
+  navigation: L1-L6
+  sections: required
+  components: required
+  controls: linked
+  actions: linked
+  permissions: linked
+  qa_evidence: linked
+status:
+  external_test: pending
