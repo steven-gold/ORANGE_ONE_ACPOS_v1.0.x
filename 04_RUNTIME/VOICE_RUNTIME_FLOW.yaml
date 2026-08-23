@@ -1,0 +1,10 @@
+module: VOICE
+flow:
+  - VOICE_REQUESTED
+  - VOICE_GENERATION
+  - VOICE_SYNC
+  - VOICE_READY
+states:
+  terminal: QA_PENDING
+source: R9_AUTHORITY
+status: initialized
