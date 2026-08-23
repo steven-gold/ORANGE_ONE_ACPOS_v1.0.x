@@ -1,0 +1,8 @@
+qa:
+  workspace:
+    checks:
+      - page_binding
+      - conversation_binding
+      - permission_binding
+      - runtime_state
+      - artifact_reference
