@@ -1,0 +1,17 @@
+batch: 036
+layer: backend
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+api_fields:
+  endpoint: defined
+  method: defined
+  request_schema: defined
+  response_schema: defined
+  error_mapping: defined
+status:
+  external_e2e: pending
