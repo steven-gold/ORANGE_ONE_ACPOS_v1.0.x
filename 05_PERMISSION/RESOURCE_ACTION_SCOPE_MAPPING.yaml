@@ -1,0 +1,12 @@
+version: R9
+source: PERMISSION_REGISTRY
+purpose: "Permission resource action scope mapping entry"
+status: initialized
+fields:
+  - resource
+  - action
+  - scope
+  - approval
+rules:
+  - permission_is_explicit
+  - parent_permission_does_not_grant_child
