@@ -1,0 +1,13 @@
+batch: 029
+purpose: runtime workflow master expansion
+schema:
+  event: required
+  trigger: required
+  state_transition: required
+  permission_check: required
+  worker_flow: linked
+  evidence_record: linked
+rules:
+  explicit_transition_only: true
+status:
+  worker_e2e: pending
