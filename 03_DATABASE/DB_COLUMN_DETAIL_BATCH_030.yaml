@@ -1,0 +1,20 @@
+batch: 030
+layer: database
+purpose: database column relation detail expansion
+schema:
+  entity: required
+  table: required
+  column: required
+  relation: required
+  foreign_key: required
+  index: required
+  migration_reference: required
+entities:
+  - Project
+  - Workspace
+  - Asset
+  - Video
+  - Editing
+  - Voice
+status:
+  migration: pending
