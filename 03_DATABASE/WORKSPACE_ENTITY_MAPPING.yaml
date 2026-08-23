@@ -1,0 +1,11 @@
+entities:
+  workspace:
+    - ConversationWorkspace
+    - ProjectContext
+    - TaskContext
+    - ArtifactReference
+relations:
+  ProjectContext:
+    has_many:
+      - ConversationWorkspace
+      - TaskContext
