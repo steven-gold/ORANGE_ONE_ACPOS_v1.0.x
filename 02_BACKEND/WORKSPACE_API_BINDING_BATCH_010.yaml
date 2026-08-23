@@ -1,0 +1,12 @@
+WORKSPACE_API_BINDING_BATCH_010:
+  apis:
+    - action: conversation_bind
+      method: POST
+      domain: workspace
+    - action: task_execute
+      method: POST
+      domain: workspace
+  schema:
+    request: defined
+    response: defined
+    error_mapping: defined
