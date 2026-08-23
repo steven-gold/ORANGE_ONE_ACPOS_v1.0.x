@@ -1,0 +1,19 @@
+batch: 032
+layer: qa
+evidence_chain:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - external_test
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+external_test: pending
