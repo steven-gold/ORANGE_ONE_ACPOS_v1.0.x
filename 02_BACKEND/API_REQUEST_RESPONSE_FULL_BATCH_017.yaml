@@ -1,0 +1,10 @@
+batch: 017
+type: api_request_response_expansion
+fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+scope:
+  api_validation: pending_external_test
