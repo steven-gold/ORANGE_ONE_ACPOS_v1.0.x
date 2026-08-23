@@ -1,0 +1,22 @@
+batch: 018
+module: frontend
+purpose: page_uid_full_entity_expansion
+scope:
+  - dashboard
+  - core
+  - workspace
+  - asset
+  - video
+  - editing
+  - voice
+fields:
+  - page_uid
+  - route
+  - navigation
+  - sections
+  - components
+  - controls
+  - actions
+  - permissions
+status:
+  external_runtime_test: pending
