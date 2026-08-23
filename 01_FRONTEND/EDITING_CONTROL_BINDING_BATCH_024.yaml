@@ -1,0 +1,14 @@
+batch: 024
+module: EDITING
+layer: frontend_control
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - state
+  - validation
+  - data_source
+  - action
+  - permission
+status: construction
