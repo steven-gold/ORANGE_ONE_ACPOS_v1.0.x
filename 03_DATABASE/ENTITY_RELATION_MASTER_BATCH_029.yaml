@@ -1,0 +1,19 @@
+batch: 029
+purpose: entity relation master expansion
+schema:
+  entity: required
+  table: required
+  column: required
+  relation: required
+  foreign_key: linked
+  index: linked
+  migration_reference: linked
+entities:
+  - Project
+  - Workspace
+  - Asset
+  - Video
+  - Editing
+  - Voice
+status:
+  migration_test: pending
