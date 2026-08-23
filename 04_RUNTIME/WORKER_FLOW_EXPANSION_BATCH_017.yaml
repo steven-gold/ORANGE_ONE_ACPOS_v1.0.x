@@ -1,0 +1,11 @@
+batch: 017
+type: runtime_worker_flow
+flow:
+  - event_capture
+  - state_validation
+  - permission_check
+  - worker_execution
+  - evidence_record
+states:
+  transition_policy: explicit_transition_only
+external_execution: pending
