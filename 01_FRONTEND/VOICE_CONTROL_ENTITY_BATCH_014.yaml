@@ -1,0 +1,11 @@
+VOICE_CONTROL_ENTITY_BATCH_014:
+  module: VOICE
+  controls:
+    - control_id
+    - page_uid
+    - component_id
+    - type
+    - state
+    - validation
+    - permission
+    - action
