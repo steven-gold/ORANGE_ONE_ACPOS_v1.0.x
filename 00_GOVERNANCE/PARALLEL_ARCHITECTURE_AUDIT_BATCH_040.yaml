@@ -1,0 +1,37 @@
+batch: 040
+purpose: parallel_architecture_audit_and_sequential_execution_control
+repository: ORANGE_ONE_ACPOS_v1.0.x
+rules:
+  - keep_single_authority_construction_source: true
+  - reject_duplicate_parallel_definitions: true
+  - remove_non_construction_content: true
+  - preserve_r9_authority: true
+  - complete_current_unit_before_next_unit: true
+
+execution_order:
+  - CORE-01_PROJECT_CREATION_WIZARD
+  - CORE-02_TOPIC_PRODUCTION_CONTRACT
+  - CORE-06_SCRIPT_VIEW
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+
+audit_scope:
+  frontend:
+    check: page_control_duplication
+  backend:
+    check: api_contract_duplication
+  database:
+    check: entity_relation_duplication
+  runtime:
+    check: state_flow_duplication
+  permission:
+    check: scope_rule_duplication
+  qa:
+    check: evidence_trace_duplication
+
+status:
+  audit_started: true
+  implementation_mode: sequential_closed_loop
