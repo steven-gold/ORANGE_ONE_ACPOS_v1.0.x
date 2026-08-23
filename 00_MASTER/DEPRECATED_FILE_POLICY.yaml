@@ -1,0 +1,13 @@
+purpose: Prevent AI from reading obsolete documents.
+
+rules:
+  deprecated_documents:
+    - old_design_notes
+    - duplicate_architecture_documents
+    - temporary_templates
+    - experimental_specs
+
+handling:
+  - Keep historical files only when required for audit.
+  - Do not use deprecated files as implementation authority.
+  - Authority Registry files override all previous documents.
