@@ -1,0 +1,17 @@
+batch: 034
+layer: permission_matrix_fill
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - resource
+  - action
+  - scope
+  - approval
+rules:
+  explicit_grant_required: true
+  parent_permission_not_child_grant: true
