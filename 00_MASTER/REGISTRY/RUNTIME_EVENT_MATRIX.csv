@@ -1,0 +1,4 @@
+event_id,event,source,target,state,validation
+EVT-001,PROJECT_CREATED,CORE,WORKSPACE,CREATED,PASS
+EVT-002,TASK_COMPLETED,WORKSPACE,QA,WAIT_REVIEW,PENDING
+# Runtime event expansion follows Runtime Contract.
