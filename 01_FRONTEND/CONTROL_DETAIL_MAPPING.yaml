@@ -1,0 +1,18 @@
+version: R9
+source: CONTROL_REGISTRY
+purpose: "1141 Control mapping expansion entry"
+status: initialized
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - label
+  - data_source
+  - state
+  - validation
+  - permission
+  - action
+rules:
+  - control_must_bind_page
+  - control_must_bind_action_if_operational
