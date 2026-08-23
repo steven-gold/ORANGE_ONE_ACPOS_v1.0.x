@@ -1,0 +1,15 @@
+batch: 022
+module: ASSET
+pages:
+  - ASSET-01
+  - ASSET-02
+  - ASSET-03
+  - ASSET-04
+schema:
+  - page_uid
+  - route
+  - section
+  - component
+  - control
+  - action_binding
+  - permission_binding
