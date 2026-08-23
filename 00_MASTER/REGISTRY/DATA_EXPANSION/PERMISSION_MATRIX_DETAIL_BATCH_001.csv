@@ -1,0 +1,4 @@
+role,resource,action,scope,approval,inherited,restriction,qa_status
+ADMIN,system,*,global,required,false,none,PENDING
+EXECUTIVE,project,view,organization,none,false,read_only,PENDING
+MANAGER,project,manage,department,required,false,department_scope,PENDING
