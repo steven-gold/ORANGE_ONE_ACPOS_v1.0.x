@@ -1,0 +1,9 @@
+module: VOICE
+controls:
+  - VOICE_CREATE
+  - VOICE_PROFILE_SELECT
+  - VOICE_SYNC_CONTROL
+binding:
+  layer: frontend
+source: R9_AUTHORITY
+status: initialized
