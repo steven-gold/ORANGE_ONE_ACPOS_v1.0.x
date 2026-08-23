@@ -1,0 +1,10 @@
+# ACPOS Action Registry
+# Authority: R9 construction source
+# Purpose: Business operation mapping
+
+actions: []
+
+rules:
+  - action_requires_workflow_reference: true
+  - action_requires_permission_reference: true
+  - action_requires_runtime_binding: true
