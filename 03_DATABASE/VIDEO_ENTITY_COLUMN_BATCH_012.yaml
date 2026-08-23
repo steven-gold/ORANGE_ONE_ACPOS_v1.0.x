@@ -1,0 +1,14 @@
+module: VIDEO
+batch: 012
+entities:
+  - VideoProductionContract
+  - Scene
+  - Shot
+  - VideoArtifact
+columns:
+  - id
+  - version
+  - relation
+  - state
+  - created_at
+  - updated_at
