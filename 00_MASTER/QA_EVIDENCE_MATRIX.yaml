@@ -1,0 +1,14 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Seven layer QA acceptance evidence"
+rule:
+  - "Implementation is incomplete without QA evidence"
+  - "External live provider testing is excluded until deployment"
+validation_layers:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - deployment_test
