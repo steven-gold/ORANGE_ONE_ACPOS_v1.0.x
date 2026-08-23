@@ -1,0 +1,12 @@
+batch: 011
+module: ASSET
+layer: runtime
+events:
+  - asset_created
+  - asset_version_registered
+  - asset_reference_bound
+states:
+  - created
+  - versioned
+  - bound
+  - ready
