@@ -1,0 +1,13 @@
+batch: 022
+module: ASSET
+actions:
+  - asset_version_create
+  - asset_reference_bind
+  - asset_handoff_confirm
+api_schema:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+external_test: pending
