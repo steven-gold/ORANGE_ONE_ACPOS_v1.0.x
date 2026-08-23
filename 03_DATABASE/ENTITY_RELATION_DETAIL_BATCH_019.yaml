@@ -1,0 +1,10 @@
+batch: 019
+type: ENTITY_RELATION_MAPPING
+fields:
+  - entity
+  - table
+  - column
+  - relation
+  - migration_reference
+status:
+  migration_execution: pending
