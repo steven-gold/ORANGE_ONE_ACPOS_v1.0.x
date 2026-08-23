@@ -1,0 +1,18 @@
+qa_scope:
+  source: R9_FINAL_AUTHORITY
+  modules:
+    - CORE
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+    - EDITING
+    - VOICE
+
+validation_layers:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - external_test
