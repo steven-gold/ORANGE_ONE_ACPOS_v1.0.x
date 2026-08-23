@@ -1,0 +1,9 @@
+module: ASSET
+source: R9_AUTHORITY
+flow:
+  - Asset Created
+  - Version Registered
+  - Reference Bound
+  - Handoff Ready
+state_source: STATE_MACHINE
+status: initialized
