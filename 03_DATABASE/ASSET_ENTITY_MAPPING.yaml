@@ -1,0 +1,10 @@
+module: ASSET
+source: R9_AUTHORITY
+entities:
+  - Asset
+  - AssetVersion
+  - AssetReference
+relations:
+  Asset: AssetVersion
+  AssetVersion: AssetReference
+status: initialized
