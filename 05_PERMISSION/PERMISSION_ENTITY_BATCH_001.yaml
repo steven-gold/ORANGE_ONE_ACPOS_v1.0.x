@@ -1,0 +1,8 @@
+permission_batch:
+  batch_id: PERMISSION_ENTITY_BATCH_001
+  source: R9_AUTHORITY
+  fields:
+    - resource
+    - action
+    - scope
+    - approval
