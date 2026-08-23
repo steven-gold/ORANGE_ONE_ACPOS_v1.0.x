@@ -1,0 +1,12 @@
+batch: 032
+layer: runtime
+workflow:
+  - event
+  - trigger
+  - state_transition
+  - permission_check
+  - worker_flow
+  - evidence_record
+rule:
+  explicit_transition_only: true
+external_worker_test: pending
