@@ -1,0 +1,1 @@
+endpoint_id,method,route,request_schema,response_schema,error_schema,permission_gate,runtime_event
