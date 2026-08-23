@@ -1,0 +1,11 @@
+batch: 019
+type: CONTROL_BINDING_DETAIL
+fields:
+  - control_id
+  - page_uid
+  - component_id
+  - data_source
+  - state
+  - validation
+  - permission
+  - action
