@@ -1,0 +1,15 @@
+version: R9
+source: DATABASE_SCHEMA
+purpose: "Entity column mapping expansion entry"
+status: initialized
+fields:
+  - entity
+  - table
+  - column
+  - datatype
+  - relation
+  - index
+  - migration_reference
+rules:
+  - schema_change_requires_migration
+  - entity_requires_registry_binding
