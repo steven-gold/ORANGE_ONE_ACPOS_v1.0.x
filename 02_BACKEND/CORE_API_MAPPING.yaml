@@ -1,0 +1,14 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+purpose: CORE API mapping
+apis:
+  PROJECT_CREATE:
+    unit: CORE-01
+    workflow: project_creation
+  TOPIC_CREATE:
+    unit: CORE-02
+    workflow: topic_production_contract
+  SCRIPT_VIEW:
+    unit: CORE-06
+    workflow: script_workspace
+status: initialized
