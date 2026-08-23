@@ -1,0 +1,8 @@
+registry: API
+source: R9_FINAL
+rules:
+  - api_requires_contract
+  - api_requires_permission
+  - api_requires_database_binding
+apis: []
+status: initialized
