@@ -1,0 +1,21 @@
+batch: 030
+layer: qa
+purpose: seven layer evidence detail expansion
+trace:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+layers:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - external_test
+status:
+  external_test: pending
