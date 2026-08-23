@@ -1,0 +1,15 @@
+batch: 008
+module: CORE
+control_fields:
+  - control_id
+  - page_uid
+  - component_id
+  - type
+  - label
+  - data_source
+  - state
+  - validation
+  - permission
+  - action
+status: implementation_mapping
+external_test: pending
