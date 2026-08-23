@@ -1,0 +1,20 @@
+version: 1.0
+batch: 006
+purpose: QA final system mapping
+scope:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+validation:
+  layers:
+    - data_model
+    - backend_api
+    - runtime
+    - frontend
+    - state_error
+    - i18n
+    - external_test_pending
+status: construction
