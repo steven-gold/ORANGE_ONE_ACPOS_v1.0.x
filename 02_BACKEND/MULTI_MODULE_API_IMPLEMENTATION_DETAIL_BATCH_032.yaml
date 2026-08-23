@@ -1,0 +1,18 @@
+batch: 032
+layer: backend
+scope:
+  modules:
+    - CORE
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+    - EDITING
+    - VOICE
+api_schema:
+  - action_id
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+external_test: pending
