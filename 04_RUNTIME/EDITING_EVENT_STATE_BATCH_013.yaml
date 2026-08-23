@@ -1,0 +1,11 @@
+module: EDITING
+batch: 013
+events:
+  - timeline_ready
+  - layer_processed
+  - subtitle_synced
+states:
+  - ready
+  - running
+  - review
+  - completed
