@@ -1,0 +1,16 @@
+batch: 002
+source: ACPOS_R9
+permissions:
+  domains:
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+  schema:
+    - resource
+    - action
+    - scope
+    - approval
+rules:
+  explicit_grant_required: true
+  parent_not_inherit_child: true
+status: construction
