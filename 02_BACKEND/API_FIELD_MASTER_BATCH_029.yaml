@@ -1,0 +1,17 @@
+batch: 029
+purpose: api field master expansion
+schema:
+  endpoint: required
+  method: required
+  request_schema: required
+  response_schema: required
+  error_mapping: required
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+status:
+  external_e2e: pending
