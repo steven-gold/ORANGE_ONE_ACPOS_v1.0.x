@@ -1,0 +1,43 @@
+batch: 037
+mode: construction_detail_fill
+modules:
+  CORE:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+  WORKSPACE:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+  ASSET:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+  VIDEO:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+  EDITING:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+  VOICE:
+    entities:
+      - page_uid
+      - section
+      - component
+      - control
+constraints:
+  - follow_existing_authority_definition: true
+  - no_extra_feature_creation: true
+  - no_duplicate_structure: true
