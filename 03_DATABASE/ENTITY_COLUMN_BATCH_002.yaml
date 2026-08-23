@@ -1,0 +1,20 @@
+batch: 002
+source: ACPOS_R9
+entities:
+  - ConversationWorkspace
+  - TaskContext
+  - AssetVersion
+  - AssetReference
+  - VideoProductionContract
+  - Scene
+  - Shot
+columns:
+  required:
+    - id
+    - created_at
+    - updated_at
+    - version
+relations:
+  required: true
+migration_reference: required
+status: construction
