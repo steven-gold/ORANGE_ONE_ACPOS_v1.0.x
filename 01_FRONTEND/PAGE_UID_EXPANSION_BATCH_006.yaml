@@ -1,0 +1,13 @@
+version: 1.0
+batch: 006
+purpose: page uid expansion
+fields:
+  - page_uid
+  - route
+  - navigation
+  - section
+  - component
+  - control
+  - permission
+  - action
+status: construction
