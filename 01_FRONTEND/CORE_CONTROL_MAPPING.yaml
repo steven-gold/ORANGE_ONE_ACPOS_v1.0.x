@@ -1,0 +1,17 @@
+version: ACPOS_v1.0.x
+mapping:
+  CORE-01:
+    controls:
+      - PROJECT_CREATE_WIZARD
+      - PROJECT_SAVE
+      - PROJECT_CANCEL
+  CORE-02:
+    controls:
+      - TOPIC_CONTRACT_FORM
+      - TOPIC_CONFIRM
+  CORE-06:
+    controls:
+      - SCRIPT_VIEW
+      - CANDIDATE_STUDIO
+      - CONVERSATION_WORKSPACE
+status: initialized
