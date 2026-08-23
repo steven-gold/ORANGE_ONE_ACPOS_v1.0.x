@@ -1,0 +1,9 @@
+# ACPOS Workflow Registry
+# Authority: R9 construction source
+# Purpose: Process flow mapping
+
+workflows: []
+
+rules:
+  - workflow_requires_action_reference: true
+  - workflow_requires_state_transition: true
