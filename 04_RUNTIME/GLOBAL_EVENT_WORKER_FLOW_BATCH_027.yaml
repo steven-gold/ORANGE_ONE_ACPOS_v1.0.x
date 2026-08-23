@@ -1,0 +1,18 @@
+batch: 027
+scope: global_runtime_expansion
+flow:
+  - event_capture
+  - state_validation
+  - permission_check
+  - worker_execution
+  - evidence_record
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+rules:
+  explicit_transition_only: true
+  external_worker_test: pending
