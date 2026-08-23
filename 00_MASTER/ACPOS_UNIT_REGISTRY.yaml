@@ -1,0 +1,24 @@
+units:
+  - id: CORE-01
+    name: Project Creation
+  - id: CORE-02
+    name: Topic Production Contract
+  - id: CORE-03
+    name: Blueprint Management
+  - id: CORE-04
+    name: DNA Management
+  - id: CORE-05
+    name: Conversation Workspace
+  - id: CORE-06
+    name: Script View
+  - id: ASSET-01
+    name: Asset Library
+  - id: VIDEO-01
+    name: Video Production Contract
+  - id: EDIT-01
+    name: Timeline
+  - id: VOICE-01
+    name: Voice Production
+  - id: QA-01
+    name: Quality Review
+status: defined
