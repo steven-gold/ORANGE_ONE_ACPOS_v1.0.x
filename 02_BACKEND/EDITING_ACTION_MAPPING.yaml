@@ -1,0 +1,7 @@
+module: EDITING
+actions:
+  - EDIT_TIMELINE_UPDATE
+  - EDIT_LAYER_UPDATE
+  - EDIT_SUBTITLE_SYNC
+workflow_binding: EDITING_RUNTIME_FLOW
+source: R9_FINAL
