@@ -1,0 +1,13 @@
+version: ACPOS_v1.0.x
+source: R9_AUTHORITY
+events:
+  - id: project_created
+    purpose: project lifecycle event
+  - id: blueprint_locked
+    purpose: blueprint state transition
+  - id: task_started
+    purpose: runtime execution start
+  - id: task_completed
+    purpose: runtime completion
+  - id: qa_required
+    purpose: quality review trigger
