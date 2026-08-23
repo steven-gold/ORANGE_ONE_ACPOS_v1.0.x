@@ -1,0 +1,8 @@
+registry: PAGE
+source: R9_FINAL
+rules:
+  - every_page_requires_uid
+  - every_page_requires_permission
+  - every_page_requires_action_binding
+pages: []
+status: initialized
