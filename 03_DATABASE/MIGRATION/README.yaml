@@ -1,0 +1,8 @@
+migration:
+  authority: DATABASE_SCHEMA
+  status: ACTIVE
+  rules:
+    - schema_changes_require_migration: true
+    - production_manual_schema_change: false
+  external_database_execution:
+    status: PENDING
