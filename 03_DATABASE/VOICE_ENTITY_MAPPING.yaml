@@ -1,0 +1,10 @@
+module: VOICE
+entities:
+  - VoiceProfile
+  - VoiceArtifact
+  - VoiceSyncRecord
+relations:
+  VoiceProfile: VoiceArtifact
+  VoiceArtifact: VoiceSyncRecord
+source: R9_AUTHORITY
+status: initialized
