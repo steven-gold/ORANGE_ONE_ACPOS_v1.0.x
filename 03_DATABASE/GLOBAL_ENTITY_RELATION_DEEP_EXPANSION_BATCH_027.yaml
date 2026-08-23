@@ -1,0 +1,19 @@
+batch: 027
+scope: global_database_expansion
+entities:
+  - Project
+  - Workspace
+  - Asset
+  - Video
+  - Editing
+  - Voice
+fields:
+  - entity
+  - table
+  - column
+  - relation
+  - foreign_key
+  - index
+  - migration_reference
+status:
+  migration_execution: pending
