@@ -1,0 +1,18 @@
+batch: 004
+module: EDITING
+entities:
+  Timeline:
+    columns:
+      - id
+      - project_id
+      - version
+  Layer:
+    columns:
+      - id
+      - timeline_id
+      - order
+  SubtitleTrack:
+    columns:
+      - id
+      - timeline_id
+      - language
