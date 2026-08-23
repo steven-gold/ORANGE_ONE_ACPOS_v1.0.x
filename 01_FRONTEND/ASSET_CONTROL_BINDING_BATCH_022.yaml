@@ -1,0 +1,13 @@
+batch: 022
+module: ASSET
+controls:
+  fields:
+    - control_id
+    - page_uid
+    - component_id
+    - type
+    - state
+    - validation
+    - data_source
+    - action
+    - permission
