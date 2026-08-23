@@ -1,0 +1,16 @@
+version: ACPOS_v1.0.x
+source: R9_FINAL_AUTHORITY
+flows:
+  - flow: PROJECT_CREATE_FLOW
+    events:
+      - PROJECT_CREATED
+    state: CREATED
+  - flow: TOPIC_CONFIRM_FLOW
+    events:
+      - TOPIC_CONFIRMED
+    state: READY
+  - flow: SCRIPT_VIEW_FLOW
+    events:
+      - SCRIPT_VIEW_OPENED
+    state: REVIEW
+status: defined
