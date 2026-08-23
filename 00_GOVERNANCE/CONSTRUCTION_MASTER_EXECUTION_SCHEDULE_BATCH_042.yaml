@@ -1,0 +1,57 @@
+construction_mode: sequential_closed_loop
+strategy: maximum_batch_planning
+rule:
+  - do_not_create_parallel_architecture
+  - do_not_duplicate_existing_definition
+  - only_fill_missing_finalized_content
+  - remove_conflicting_or_non_construction_content
+
+execution_queue:
+  - id: CORE-01
+    name: Project Creation Wizard
+    layers:
+      - frontend
+      - backend
+      - database
+      - runtime
+      - permission
+      - qa
+  - id: CORE-02
+    name: Topic Production Contract
+    layers:
+      - frontend
+      - backend
+      - database
+      - runtime
+      - permission
+      - qa
+  - id: CORE-06
+    name: Script View
+    layers:
+      - frontend
+      - backend
+      - database
+      - runtime
+      - permission
+      - qa
+  - id: WORKSPACE
+    name: Conversation Workspace
+  - id: ASSET
+    name: Asset Production
+  - id: VIDEO
+    name: Video Production
+  - id: EDITING
+    name: Editing Production
+  - id: VOICE
+    name: Voice Production
+
+completion_gate:
+  required:
+    - page_uid
+    - control
+    - action
+    - api
+    - database
+    - runtime
+    - permission
+    - qa_evidence
