@@ -1,0 +1,20 @@
+batch: 031
+layer: runtime
+type: event_workflow_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+flow:
+  - event
+  - trigger
+  - state_transition
+  - permission_check
+  - worker_flow
+  - evidence_record
+rule:
+  explicit_transition_only: true
+external_execution: pending
