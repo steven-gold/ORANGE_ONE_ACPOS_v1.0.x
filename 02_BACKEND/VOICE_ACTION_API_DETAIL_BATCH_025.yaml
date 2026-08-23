@@ -1,0 +1,14 @@
+batch: 025
+domain: VOICE
+api:
+  - action: voice_generate
+    method: POST
+  - action: voice_asset_bind
+    method: POST
+  - action: voice_sync_execute
+    method: POST
+schema:
+  request: defined
+  response: defined
+  error_mapping: required
+external_test: pending
