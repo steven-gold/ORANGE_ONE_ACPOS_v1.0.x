@@ -1,0 +1,20 @@
+batch: 028
+type: qa_expansion
+layers:
+  - data_model
+  - backend_api
+  - runtime
+  - frontend
+  - state_error
+  - i18n
+  - external_test
+evidence_chain:
+  - page_uid
+  - control_id
+  - action_id
+  - api_endpoint
+  - database_entity
+  - runtime_event
+  - permission_scope
+status:
+  external_test: pending
