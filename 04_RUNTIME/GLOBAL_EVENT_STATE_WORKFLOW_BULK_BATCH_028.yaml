@@ -1,0 +1,12 @@
+batch: 028
+type: runtime_expansion
+workflow:
+  - event_capture
+  - state_validation
+  - permission_check
+  - worker_execution
+  - evidence_record
+rules:
+  explicit_transition_only: true
+status:
+  external_worker_test: pending
