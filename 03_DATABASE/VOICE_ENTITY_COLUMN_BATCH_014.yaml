@@ -1,0 +1,12 @@
+VOICE_ENTITY_COLUMN_BATCH_014:
+  entities:
+    - VoiceProfile
+    - VoiceArtifact
+    - VoiceSyncRecord
+  columns:
+    - id
+    - version
+    - state
+    - relation
+    - created_at
+    - updated_at
