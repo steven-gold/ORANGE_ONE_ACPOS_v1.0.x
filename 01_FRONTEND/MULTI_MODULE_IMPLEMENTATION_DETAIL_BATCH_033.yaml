@@ -1,0 +1,18 @@
+batch: 033
+layer: frontend_detail
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+schema:
+  page_uid: required
+  section: required
+  component: required
+  control_id: required
+  state: required
+  validation: required
+  action_binding: required
+  permission_binding: required
