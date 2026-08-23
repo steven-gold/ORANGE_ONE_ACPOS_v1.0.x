@@ -1,0 +1,29 @@
+batch: 045
+mode: closed_loop_implementation
+rule:
+  authority: R9
+  construction_only: true
+  no_new_logic: true
+  no_parallel_architecture: true
+  remove_duplicate_definition: true
+queue:
+  current:
+    - CORE-01_PROJECT_CREATION_WIZARD
+  next:
+    - CORE-02_TOPIC_PRODUCTION_CONTRACT
+    - CORE-06_SCRIPT_VIEW
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+    - EDITING
+    - VOICE
+completion_requirement:
+  frontend: required
+  backend_contract: required
+  database_mapping: required
+  runtime_flow: required
+  permission_mapping: required
+  qa_evidence: required
+status:
+  batch_started: true
+  implementation_not_closed: true
