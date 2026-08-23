@@ -1,0 +1,4 @@
+page_uid,route,l1,l2,l3,l4,l5,l6,section,component,binding,permission,qa_status
+CORE-01,/workspace/project-creation,CORE,Workspace,Project,Creation,Wizard,,Project Creation Wizard,Wizard Container,Project Creation Contract,project.create,PENDING
+CORE-02,/workspace/topic-production,CORE,Workspace,Topic,Production,Contract,,Topic Production Contract,Production Contract Panel,Topic Contract Binding,topic.create,PENDING
+CORE-06,/workspace/script-view,CORE,Workspace,Script,View,,,Script View,Script Viewer,Script Runtime Contract,script.view,PENDING
