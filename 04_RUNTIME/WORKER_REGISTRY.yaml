@@ -1,0 +1,6 @@
+registry: WORKER
+source: R9_FINAL
+purpose: runtime worker mapping
+workers: []
+retry_policy: pending
+status: initialized
