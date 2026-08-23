@@ -1,0 +1,12 @@
+control_batch:
+  batch_id: CONTROL_ENTITY_BATCH_001
+  source: R9_AUTHORITY
+  fields:
+    - control_id
+    - page_uid
+    - component_id
+    - type
+    - state
+    - validation
+    - permission
+    - action
