@@ -1,0 +1,4 @@
+role,resource,action,scope,approval
+ADMIN,ALL,ALL,GLOBAL,REQUIRED
+EXECUTIVE,PROJECT,VIEW,ORG,REQUIRED
+# Full permission matrix expansion follows authority rules.
