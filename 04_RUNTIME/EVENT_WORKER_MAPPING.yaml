@@ -1,0 +1,7 @@
+registry: EVENT_WORKER_MAPPING
+source: R9_FINAL
+mapping:
+  event_required: true
+  worker_required: true
+  state_transition_required: true
+status: initialized
