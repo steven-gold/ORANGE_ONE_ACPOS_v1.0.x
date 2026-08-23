@@ -1,0 +1,13 @@
+batch: 021
+module: WORKSPACE
+events:
+  - conversation_bound
+  - task_started
+  - task_completed
+states:
+  - created
+  - bound
+  - active
+  - review
+  - completed
+transition: explicit_only
