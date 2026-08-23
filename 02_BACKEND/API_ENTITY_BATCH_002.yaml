@@ -1,0 +1,20 @@
+batch: 002
+source: ACPOS_R9
+apis:
+  - domain: WORKSPACE
+    operations:
+      - conversation_bind
+      - task_execute
+  - domain: ASSET
+    operations:
+      - asset_version_create
+      - asset_reference_bind
+  - domain: VIDEO
+    operations:
+      - scene_create
+      - artifact_register
+schema:
+  request: required
+  response: required
+  error_mapping: required
+status: construction
