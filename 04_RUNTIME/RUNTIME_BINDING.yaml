@@ -1,0 +1,10 @@
+runtime_binding:
+  authority: R9_FINAL
+  status: ACTIVE
+  chain:
+    - action
+    - event
+    - state
+    - audit
+  rules:
+    - runtime_state_required
