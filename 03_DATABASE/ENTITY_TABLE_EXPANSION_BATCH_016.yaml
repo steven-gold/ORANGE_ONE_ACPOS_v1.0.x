@@ -1,0 +1,18 @@
+batch: 016
+module: GLOBAL_DATABASE
+purpose: entity_table_expansion
+scope:
+  - project
+  - workspace
+  - asset
+  - video
+  - editing
+  - voice
+fields:
+  - entity
+  - table
+  - column
+  - relation
+  - migration_reference
+status:
+  external_migration_test: pending
