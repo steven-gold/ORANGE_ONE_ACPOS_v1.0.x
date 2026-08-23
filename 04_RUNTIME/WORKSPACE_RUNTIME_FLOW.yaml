@@ -1,0 +1,14 @@
+runtime:
+  flows:
+    conversation_workspace:
+      states:
+        - CREATED
+        - BOUND
+        - ACTIVE
+        - CLOSED
+    task_execution:
+      states:
+        - READY
+        - RUNNING
+        - REVIEW
+        - COMPLETE
