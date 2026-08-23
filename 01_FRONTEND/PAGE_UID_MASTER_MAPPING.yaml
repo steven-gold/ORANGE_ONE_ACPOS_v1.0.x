@@ -1,0 +1,17 @@
+version: R9
+source: PAGE_REGISTRY
+purpose: "92 Page UID master mapping entry"
+status: initialized
+fields:
+  - page_uid
+  - l1_l6_navigation
+  - route
+  - sections
+  - components
+  - controls
+  - permissions
+  - actions
+rules:
+  - no_page_without_uid
+  - no_route_without_navigation_binding
+  - no_control_without_page_binding
