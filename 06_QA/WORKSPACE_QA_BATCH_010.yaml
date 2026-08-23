@@ -1,0 +1,8 @@
+WORKSPACE_QA_BATCH_010:
+  checks:
+    - page_binding
+    - control_binding
+    - api_binding
+    - runtime_state
+    - permission_binding
+    - evidence_trace
