@@ -1,0 +1,12 @@
+module: ASSET
+source: R9_AUTHORITY
+controls:
+  - unit: ASSET-01
+    controls: Asset Search, Asset Preview, Asset Select
+  - unit: ASSET-02
+    controls: Version Create, Version Compare
+  - unit: ASSET-03
+    controls: Reference Link, Usage Check
+  - unit: ASSET-04
+    controls: Handoff Confirm
+status: initialized
