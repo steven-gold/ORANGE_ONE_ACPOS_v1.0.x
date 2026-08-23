@@ -1,0 +1,25 @@
+authority:
+  purpose: prevent_ai_reading_duplicate_or_obsolete_documents
+  source_of_truth:
+    - ACPOS_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
+    - PAGE_UID_MASTER_REGISTRY.yaml
+    - CONTROL_MASTER_REGISTRY.yaml
+    - API_MASTER_REGISTRY.yaml
+    - DATABASE_MASTER_SCHEMA.yaml
+    - RUNTIME_EVENT_REGISTRY.yaml
+    - PERMISSION_MATRIX.yaml
+    - QA_EVIDENCE_MATRIX.yaml
+
+cleanup_rules:
+  remove_when:
+    - content_is_replaced_by_authority_registry
+    - duplicate_definition_exists
+    - template_only_without_runtime_value
+  keep:
+    - audit_history
+    - migration_records
+    - deployment_test_records
+  forbidden:
+    - parallel_system_definition
+    - conflicting_navigation_definition
+    - duplicate_api_contract
