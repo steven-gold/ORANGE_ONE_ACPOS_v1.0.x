@@ -1,0 +1,14 @@
+batch: 020
+module: CORE
+actions:
+  - project_create
+  - topic_create
+  - script_view_open
+api_fields:
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+status: construction
+external_e2e: pending
