@@ -1,0 +1,17 @@
+batch: 034
+layer: backend_api_field_fill
+modules:
+  - CORE
+  - WORKSPACE
+  - ASSET
+  - VIDEO
+  - EDITING
+  - VOICE
+fields:
+  - action_id
+  - endpoint
+  - method
+  - request_schema
+  - response_schema
+  - error_mapping
+external_execution: pending
