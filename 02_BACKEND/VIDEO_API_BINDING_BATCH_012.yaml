@@ -1,0 +1,14 @@
+module: VIDEO
+batch: 012
+apis:
+  - video_production_create
+  - scene_create
+  - shot_bind
+  - generation_execute
+  - artifact_register
+schema:
+  - endpoint
+  - method
+  - request
+  - response
+  - error_mapping
