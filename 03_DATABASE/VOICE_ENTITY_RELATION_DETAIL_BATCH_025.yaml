@@ -1,0 +1,14 @@
+batch: 025
+domain: VOICE
+entities:
+  - VoiceProfile
+  - VoiceArtifact
+  - VoiceSyncRecord
+relation:
+  required:
+    - entity
+    - table
+    - column
+    - relation
+    - migration_reference
+migration_status: pending
