@@ -1,0 +1,10 @@
+database_batch:
+  batch_id: ENTITY_COLUMN_BATCH_001
+  source: R9_AUTHORITY
+  fields:
+    - entity
+    - table
+    - column
+    - datatype
+    - relation
+    - migration_reference
