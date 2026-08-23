@@ -1,0 +1,5 @@
+qa_id,layer,object,test_condition,evidence,pass_rule,status
+QA-001,DATA_MODEL,PROJECT,table_schema_validation,schema_snapshot,match_contract,PENDING
+QA-002,BACKEND_API,PROJECT_API,response_validation,api_test_log,all_cases_pass,PENDING
+QA-003,FRONTEND,WORKSPACE,component_render,screen_capture,ui_contract_match,PENDING
+QA-004,RUNTIME,WORKFLOW,state_transition,event_log,state_machine_match,PENDING
