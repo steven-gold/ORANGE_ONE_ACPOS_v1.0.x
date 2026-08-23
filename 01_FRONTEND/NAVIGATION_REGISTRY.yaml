@@ -1,0 +1,13 @@
+navigation_registry:
+  authority: R9_FINAL
+  status: ACTIVE
+  rules:
+    - source_from_canonical_navigation
+    - no_duplicate_navigation
+  structure:
+    dashboard:
+      route: /dashboard
+    workspace:
+      route: /workspace
+    admin:
+      route: /admin
