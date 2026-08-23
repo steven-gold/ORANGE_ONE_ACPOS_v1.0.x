@@ -1,0 +1,47 @@
+batch: BATCH_041
+scope: CORE-01_PROJECT_CREATION_WIZARD
+mode: construction_only
+rules:
+  - use_R9_authority_only
+  - no_parallel_duplicate_architecture
+  - remove_conflicting_content
+  - no_empty_placeholder
+construction_flow:
+  frontend:
+    - page_uid
+    - wizard_steps
+    - sections
+    - components
+    - controls
+    - validation
+    - actions
+  backend:
+    - api_contract
+    - request_schema
+    - response_schema
+    - error_mapping
+  database:
+    - project_entity
+    - blueprint_relation
+    - workspace_binding
+  runtime:
+    - state_transition
+    - event_flow
+    - lock_rule
+  permission:
+    - create
+    - edit
+    - review
+    - approve
+  qa:
+    - page_trace
+    - control_trace
+    - api_trace
+    - db_trace
+    - runtime_trace
+    - permission_trace
+status:
+  migration: pending
+  external_e2e: pending
+next_after_close:
+  - CORE-02_TOPIC_PRODUCTION_CONTRACT
