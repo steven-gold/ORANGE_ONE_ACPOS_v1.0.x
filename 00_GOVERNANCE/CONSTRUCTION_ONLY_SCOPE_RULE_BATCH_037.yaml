@@ -1,0 +1,23 @@
+batch: 037
+purpose: construction_only_scope_control
+rules:
+  - only_write_required_construction_content: true
+  - reject_non_construction_content: true
+  - remove_duplicate_or_conflicting_content_when_verified: true
+  - do_not_create_placeholder_modules: true
+  - do_not_expand_unapproved_logic: true
+scope:
+  modules:
+    - CORE
+    - WORKSPACE
+    - ASSET
+    - VIDEO
+    - EDITING
+    - VOICE
+  layers:
+    - frontend
+    - backend
+    - database
+    - runtime
+    - permission
+    - qa
