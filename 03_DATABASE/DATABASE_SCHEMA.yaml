@@ -1,0 +1,9 @@
+version: ACPOS_v1.0.x
+source: ENTITY_REGISTRY
+database:
+  engine: PostgreSQL
+  rules:
+    migration_required: true
+    manual_schema_change: false
+relations:
+  authority: entity_registry
