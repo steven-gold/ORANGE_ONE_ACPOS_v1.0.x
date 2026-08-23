@@ -1,0 +1,14 @@
+VOICE_PAGE_ENTITY_BATCH_014:
+  module: VOICE
+  pages:
+    - VOICE-01
+    - VOICE-02
+    - VOICE-03
+  fields:
+    - page_uid
+    - route
+    - section
+    - component
+    - control_binding
+    - action_binding
+    - permission_binding
