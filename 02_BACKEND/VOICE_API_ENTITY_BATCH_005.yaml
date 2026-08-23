@@ -1,0 +1,10 @@
+voice_api:
+  - action: VOICE_GENERATE
+    request: VoiceGenerationRequest
+    response: VoiceArtifactResponse
+  - action: VOICE_ASSET_BIND
+    request: VoiceBindingRequest
+    response: BindingResult
+  - action: VOICE_SYNC_EXECUTE
+    request: VoiceSyncRequest
+    response: SyncResult
