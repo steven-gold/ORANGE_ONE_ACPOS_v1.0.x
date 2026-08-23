@@ -1,0 +1,15 @@
+version: R9
+status: AUTHORITY_REGISTRY
+purpose: "Authoritative permission matrix"
+rule:
+  - "Permission is explicit only"
+  - "Parent permission does not automatically grant child permission"
+permission_schema:
+  required:
+    - role
+    - resource
+    - action
+    - scope
+    - approval
+    - inheritance_rule
+    - audit_event
