@@ -1,0 +1,20 @@
+version: R9_UI_ACCEPTANCE_v1.0
+status: authority
+purpose: "UI 施工驗收規範"
+
+checks:
+  shell:
+    - app_shell_applied
+    - navigation_consistent
+    - visual_language_consistent
+
+  workspace:
+    - ai_area_is_primary
+    - quick_actions_present
+    - input_area_present
+    - information_panel_present
+
+  consistency:
+    - component_from_library
+    - page_contract_followed
+    - no_unapproved_layout_change
