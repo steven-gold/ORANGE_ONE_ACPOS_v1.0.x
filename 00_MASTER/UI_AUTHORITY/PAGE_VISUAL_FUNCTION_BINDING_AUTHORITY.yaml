@@ -1,0 +1,32 @@
+version: R9
+purpose: "Bind UI visual elements to system functions"
+
+binding_chain:
+  - visual_layout
+  - section
+  - component
+  - control
+  - action
+  - api
+  - database
+  - runtime
+  - permission
+  - qa
+
+control_requirement:
+  every_button_requires:
+    - action_id
+    - api_endpoint
+    - permission_check
+    - runtime_event
+
+field_requirement:
+  every_input_requires:
+    - data_source
+    - validation
+    - storage_mapping
+
+prohibition:
+  - orphan_button
+  - visual_only_component
+  - undefined_action
