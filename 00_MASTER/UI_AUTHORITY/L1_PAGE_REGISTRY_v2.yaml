@@ -1,0 +1,87 @@
+# ACPOS L1 Page Registry v2
+# L1 Visual Design Authority Mapping
+# This file defines top-level page identities only.
+# Detailed Page Contracts must inherit this registry.
+
+system:
+  name: ORANGE ONE ACPOS
+  version: ACPOS_v1.0.x
+  authority: L1_PAGE_DESIGN_AUTHORITY_v2
+
+layout_rules:
+  shell: ACPOS_APP_SHELL_v2
+  top_secondary_navigation: false
+  collapsible_sidebar: true
+  dashboard_is_direct_l1: true
+
+l1_pages:
+  - uid: L1-01
+    name: Dashboard
+    type: overview_workspace
+    purpose: System overview, KPI, progress, notifications
+    layout: dashboard
+
+  - uid: L1-02
+    name: AI Workspace
+    type: ai_operation_workspace
+    purpose: AI conversation and production execution center
+    layout: three_column_workspace
+
+  - uid: L1-03
+    name: Project Topic Task Management
+    type: management_workspace
+    purpose: Project, Topic and Task management
+    layout: management
+
+  - uid: L1-04
+    name: Asset Library
+    type: asset_management
+    purpose: Asset storage, versioning and retrieval
+    layout: management_with_preview
+
+  - uid: L1-05
+    name: Video Production
+    type: production_workspace
+    purpose: Video generation workflow management
+    layout: production_workspace
+
+  - uid: L1-06
+    name: Editing
+    type: editing_workspace
+    purpose: Timeline editing and composition operations
+    layout: production_workspace
+
+  - uid: L1-07
+    name: Voice
+    type: voice_workspace
+    purpose: Voice, audio and synchronization operations
+    layout: production_workspace
+
+  - uid: L1-08
+    name: QA
+    type: quality_assurance
+    purpose: Quality review, scoring and evidence verification
+    layout: qa_workspace
+
+  - uid: L1-09
+    name: Admin
+    type: administration
+    purpose: System configuration, permissions and governance
+    layout: administration
+
+construction_rule:
+  require:
+    - page_contract
+    - component_mapping
+    - control_mapping
+    - action_mapping
+    - api_binding
+    - database_binding
+    - runtime_binding
+    - permission_binding
+    - qa_evidence
+
+prohibited:
+  - create_new_l1_without_authority
+  - change_shell_layout_without_approval
+  - create_duplicate_navigation_layer
