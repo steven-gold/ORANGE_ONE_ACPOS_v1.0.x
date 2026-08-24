@@ -1,0 +1,24 @@
+version: R9_APP_SHELL_v1.0
+status: authority
+purpose: "全站固定版型骨架"
+
+layout:
+  desktop:
+    type: three_column_workspace
+    left_panel: navigation
+    center_panel: ai_main_workspace
+    right_panel: information_panel
+
+rules:
+  center_is_primary: true
+  right_panel_required: true
+  left_navigation_required: true
+  avoid_chat_only_layout: true
+
+regions:
+  header: global_project_context
+  footer: system_status
+  center:
+    - conversation
+    - quick_actions
+    - input_area
