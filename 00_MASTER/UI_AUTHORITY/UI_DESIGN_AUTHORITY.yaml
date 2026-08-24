@@ -1,0 +1,27 @@
+version: R9_UI_AUTHORITY_v1.0
+status: authority
+brand: ORANGE ONE ACPOS
+purpose: "全案唯一 UI 視覺設計權威"
+
+style:
+  theme: dark_technology
+  direction:
+    - professional
+    - enterprise
+    - AI_workstation
+    - high_efficiency
+  colors:
+    primary: electric_blue
+    accent: orange_brand
+    background: deep_navy
+
+rules:
+  card_based_layout: true
+  consistent_components_only: true
+  no_freeform_page_design: true
+  no_new_visual_language_without_approval: true
+
+fixed_principles:
+  - "AI 工作區不是普通聊天室"
+  - "所有頁面必須遵守 App Shell"
+  - "所有元件必須來自 Component Library"
