@@ -3,7 +3,7 @@ page:
   name: AI Workspace
   purpose: AI collaboration production workspace
   template: AI_WORKSPACE
-  version: v2.0
+  version: v2.0.1
 
 visual_layout:
   shell: ACPOS_L1_VISUAL_DESIGN_AUTHORITY_v2
@@ -26,7 +26,7 @@ visual_layout:
 
   main_workspace:
     priority: highest
-    width: adaptive
+    width: expanded_adaptive
     sections:
       - conversation_header
       - ai_message_workspace
@@ -35,8 +35,12 @@ visual_layout:
 
   right_panel:
     width:
-      min: 320px
-      max: 420px
+      default: 280px
+      min: 260px
+      max: 340px
+    behavior:
+      collapsible: true
+      preserve_main_workspace_priority: true
     tabs:
       - blueprint
       - task_information
