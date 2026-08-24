@@ -1,0 +1,53 @@
+version: 1.0.0
+purpose: Page level construction template for AI implementation.
+
+page:
+  page_uid: REQUIRED
+  name: REQUIRED
+  route: REQUIRED
+  level: L1-L6
+  template_type: REQUIRED
+
+visual_layout:
+  shell: APP_SHELL_AUTHORITY
+  sections:
+    - section_id: REQUIRED
+      position: REQUIRED
+      size: REQUIRED
+      purpose: REQUIRED
+
+components:
+  - component_id: REQUIRED
+    type: REQUIRED
+    location: REQUIRED
+    size: REQUIRED
+    states: REQUIRED
+
+controls:
+  - control_id: REQUIRED
+    type: REQUIRED
+    label: REQUIRED
+    validation: REQUIRED
+    permission: REQUIRED
+
+bindings:
+  action:
+    trigger: REQUIRED
+    process: REQUIRED
+  api:
+    endpoint: REQUIRED
+    method: REQUIRED
+  database:
+    table: REQUIRED
+    fields: REQUIRED
+  runtime:
+    event: REQUIRED
+  qa:
+    evidence: REQUIRED
+
+restrictions:
+  forbidden:
+    - add undefined functions
+    - change approved layout without authority update
+    - create duplicated navigation
+    - create unbound controls
