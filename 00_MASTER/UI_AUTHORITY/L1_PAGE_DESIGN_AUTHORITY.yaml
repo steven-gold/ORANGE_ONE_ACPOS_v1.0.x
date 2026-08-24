@@ -1,0 +1,37 @@
+version: 1.0.0
+status: draft_authority
+project: ORANGE_ONE_ACPOS
+purpose: Define L1 frontend/backend page visual authority and prevent AI freeform layout generation.
+
+visual_reference:
+  base: ACPOS_AI_WORKBENCH_DESIGN_SYSTEM_v2
+  theme: deep_blue_technology
+  brightness: +2_levels_from_previous_v2_reference
+  principles:
+    - professional enterprise AI workstation
+    - high information density with clear hierarchy
+    - card based interface
+    - central workspace priority
+
+app_shell:
+  logo_position: top_left
+  account_position: top_right
+  top_navigation: disabled
+  sidebar:
+    position: left
+    collapsible: true
+    default_width: 280px
+    collapsed_width: 72px
+  main_workspace:
+    priority: highest
+    adaptive: true
+  right_panel:
+    purpose: task_information_and_context
+    width_range: 320px-420px
+
+rules:
+  - L1 pages must directly open as functional pages.
+  - Dashboard is not an intermediate menu layer.
+  - Do not create additional top navigation layer.
+  - Every page must define its own layout contract.
+  - Visual design must connect to component, action, API, database, runtime and QA definitions.
