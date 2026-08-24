@@ -1,0 +1,20 @@
+version: R9_COMPONENT_LIBRARY_v1.0
+status: authority
+purpose: "UI 元件唯一來源"
+
+components:
+  ai_message_card:
+    type: conversation_card
+  task_status_card:
+    type: information_card
+  quick_action_bar:
+    type: action_toolbar
+  reference_panel:
+    type: side_panel
+  input_workspace:
+    type: multiline_input
+
+rules:
+  reuse_existing_component: true
+  no_duplicate_component_style: true
+  no_unregistered_component: true
