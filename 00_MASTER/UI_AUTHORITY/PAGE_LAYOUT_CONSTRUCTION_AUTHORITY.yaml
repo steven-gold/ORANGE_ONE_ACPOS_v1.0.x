@@ -1,0 +1,33 @@
+version: R9
+purpose: "ACPOS page visual construction authority"
+rule: "Each page has its own fixed layout specification. AI must implement according to this contract."
+
+page_definition:
+  required:
+    - page_uid
+    - purpose
+    - layout_type
+    - sections
+    - components
+    - controls
+    - actions
+    - api_binding
+    - database_binding
+    - runtime_binding
+    - permission_binding
+    - qa_binding
+
+layout_types:
+  - AI_WORKSPACE
+  - DASHBOARD
+  - MANAGEMENT
+  - CREATION_WIZARD
+  - PRODUCTION_WORKSPACE
+  - DETAIL_EDITOR
+
+construction_rule:
+  visual_reference: required
+  component_position: fixed
+  section_order: fixed
+  workflow: fixed
+  ai_free_design: prohibited
