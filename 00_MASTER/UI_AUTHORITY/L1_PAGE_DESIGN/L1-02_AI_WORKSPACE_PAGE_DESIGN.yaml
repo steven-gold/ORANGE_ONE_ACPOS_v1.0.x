@@ -1,0 +1,107 @@
+page:
+  uid: L1-02_AI_WORKSPACE
+  name: AI Workspace
+  purpose: AI collaboration production workspace
+  template: AI_WORKSPACE
+  version: v2.0
+
+visual_layout:
+  shell: ACPOS_L1_VISUAL_DESIGN_AUTHORITY_v2
+  header:
+    logo: left
+    account: right
+    secondary_navigation: disabled
+
+  sidebar:
+    position: left
+    collapsible: true
+    expanded_width: 280px
+    collapsed_width: 72px
+    content:
+      - project_navigation
+      - topic_tree
+      - task_tree
+      - conversation_history
+      - workspace_modules
+
+  main_workspace:
+    priority: highest
+    width: adaptive
+    sections:
+      - conversation_header
+      - ai_message_workspace
+      - quick_action_bar
+      - input_composer
+
+  right_panel:
+    width:
+      min: 320px
+      max: 420px
+    tabs:
+      - blueprint
+      - task_information
+      - assets
+      - outputs
+      - qa_status
+
+sections:
+  conversation_header:
+    position: top
+    components:
+      - workspace_title
+      - status_badge
+      - execution_mode
+      - run_button
+
+  ai_message_workspace:
+    position: center
+    purpose: display user messages AI responses system messages and structured results
+    components:
+      - user_message_card
+      - ai_response_card
+      - system_event_card
+      - output_result_card
+
+  quick_action_bar:
+    position: bottom_before_input
+    actions:
+      - insert_blueprint
+      - insert_asset
+      - apply_script
+      - auto_correction
+
+  input_composer:
+    position: bottom
+    type: multiline_workspace_input
+    components:
+      - attachment_upload
+      - command_template
+      - submit_action
+
+controls:
+  - id: run_button
+    type: action_button
+    action: EXECUTE_WORKSPACE_TASK
+
+  - id: submit_action
+    type: action_button
+    action: SEND_AI_REQUEST
+
+  - id: insert_blueprint
+    type: quick_action
+    action: LOAD_BLUEPRINT_CONTEXT
+
+bindings:
+  action_flow:
+    - UI
+    - Action
+    - API
+    - Database
+    - Runtime
+    - QA
+
+restrictions:
+  - no_standard_chat_layout
+  - no_top_secondary_navigation
+  - no_removal_of_right_information_panel
+  - no_new_undefined_features
