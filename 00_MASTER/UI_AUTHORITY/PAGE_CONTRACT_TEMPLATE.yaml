@@ -1,0 +1,36 @@
+version: R9_PAGE_CONTRACT_v1.0
+status: template
+purpose: "頁面施工固定契約"
+
+page:
+  page_uid: required
+  layout_type: required
+
+sections:
+  required:
+    - section_id
+    - component_list
+
+component:
+  required:
+    - component_id
+    - control_binding
+
+control:
+  required:
+    - control_id
+    - state
+    - validation
+    - action
+    - permission
+
+closure:
+  required_chain:
+    - page
+    - component
+    - control
+    - api
+    - database
+    - runtime
+    - permission
+    - qa
