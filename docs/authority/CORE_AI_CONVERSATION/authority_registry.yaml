@@ -1,0 +1,20 @@
+authority:
+  id: ACPOS_CORE_AI_CONVERSATION_L1_L4
+  status: FROZEN
+  layer:
+    - L1
+    - L2
+    - L3
+    - L4
+  scope:
+    type: CORE_AI_CONVERSATION_WORKSPACE
+    excluded:
+      - ASSET
+      - VIDEO
+      - EDIT
+      - VOICE
+  validation:
+    complete_construction_closure: true
+    visual_definition: true
+    encoding_defined: true
+    upload_allowed: true
