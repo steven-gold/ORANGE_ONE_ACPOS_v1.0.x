@@ -1,0 +1,16 @@
+module: SYSTEM_MAINTENANCE
+status: AUTHORITY_FROZEN
+parent: AI_CORE
+scope:
+  - system_design
+  - sandbox
+  - test
+  - deployment
+  - maintenance
+lifecycle:
+  - requirement
+  - design
+  - simulation
+  - verification
+  - deployment
+  - audit
