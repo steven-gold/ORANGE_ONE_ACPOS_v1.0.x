@@ -1,0 +1,20 @@
+version: CORE-AUTHORITY-V1
+page_registry:
+  - page_uid: CORE-01
+    name: Project Creation Workspace
+    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    layout: AI_WORKSPACE
+    sections:
+      - conversation_workspace
+      - project_context
+      - topic_context
+      - blueprint_panel
+      - dna_panel
+      - script_panel
+      - version_panel
+      - decision_panel
+
+  - page_uid: CORE-02
+    name: Topic Production Workspace
+    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    layout: AI_WORKSPACE
