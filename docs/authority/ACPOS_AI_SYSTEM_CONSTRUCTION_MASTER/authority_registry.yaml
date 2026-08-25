@@ -1,0 +1,22 @@
+authority:
+  name: ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER
+  status: IN_PROGRESS
+  rule:
+    no_undefined_logic: true
+    no_parallel_authority: true
+    construction_closure_required: true
+
+modules:
+  - id: AI_CORE
+    name: AI Core Foundation Template
+    status: authority_building
+  - id: STRATEGIC_CENTER
+    name: Strategic Center Authority
+    status: authority_building
+  - id: SYSTEM_MAINTENANCE
+    name: System Maintenance Authority
+    status: authority_building
+
+integration:
+  status: pending
+  rule: integrate_only_after_all_modules_frozen
