@@ -1,0 +1,21 @@
+version: CORE-AUTHORITY-V1
+actions:
+  - id: CORE-ACT-CREATE-PROJECT
+    purpose: create_project_context
+
+  - id: CORE-ACT-CREATE-TOPIC
+    purpose: create_topic_context
+
+  - id: CORE-ACT-GENERATE-BLUEPRINT
+    purpose: generate_blueprint
+
+  - id: CORE-ACT-LOCK-BLUEPRINT
+    purpose: lock_blueprint
+    next: dna_definition
+
+  - id: CORE-ACT-GENERATE-SCRIPT
+    purpose: generate_internal_script
+
+  - id: CORE-ACT-CONFIRM-PRODUCTION
+    purpose: create_production_task_after_confirmation
+    handoff: ASSET
