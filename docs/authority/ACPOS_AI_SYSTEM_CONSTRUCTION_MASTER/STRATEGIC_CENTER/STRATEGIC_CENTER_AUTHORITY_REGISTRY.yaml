@@ -1,0 +1,10 @@
+module: STRATEGIC_CENTER
+status: AUTHORITY_FROZEN
+parent: AI_CORE
+scope:
+  - strategy
+  - analysis
+  - planning
+  - decision_support
+boundary:
+  modifies_workspace_logic: false
