@@ -1,0 +1,18 @@
+module: AI_CORE
+status: AUTHORITY_FROZEN
+base_template: AI_CONVERSATION_FRAMEWORK
+modules:
+  - Conversation
+  - Context
+  - Memory
+  - Decision
+  - Version
+  - Notebook_Record
+  - Provider
+  - Runtime_State
+  - Permission
+  - Audit
+validation:
+  traceable_runtime: true
+  traceable_actions: true
+  traceable_permissions: true
