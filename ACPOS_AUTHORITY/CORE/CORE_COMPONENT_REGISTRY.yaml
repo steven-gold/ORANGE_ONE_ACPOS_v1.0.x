@@ -1,0 +1,26 @@
+version: CORE-AUTHORITY-V1
+components:
+  - id: CORE-COMP-CONVERSATION
+    type: AI_CONVERSATION_WORKSPACE
+    purpose: story_design_blueprint_script_discussion
+    binding:
+      project: required
+      topic: required
+      task: required
+
+  - id: CORE-COMP-BLUEPRINT
+    type: BLUEPRINT_PANEL
+    purpose: blueprint_definition_and_lock
+
+  - id: CORE-COMP-DNA
+    type: DNA_PANEL
+    purpose: character_object_scene_consistency
+
+  - id: CORE-COMP-SCRIPT
+    type: SCRIPT_PANEL
+    purpose: production_script_generation
+    editable: revision_only
+
+  - id: CORE-COMP-VERSION
+    type: VERSION_PANEL
+    purpose: version_tracking
