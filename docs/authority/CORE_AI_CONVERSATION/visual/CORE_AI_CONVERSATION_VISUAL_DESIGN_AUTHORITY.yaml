@@ -1,0 +1,80 @@
+authority:
+  id: CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY
+  status: FROZEN_PENDING_BINARY_DOC_ARCHIVE
+  scope: CORE_AI_CONVERSATION_WORKSPACE
+
+source:
+  type: confirmed_visual_definition
+  principle:
+    - do_not_recreate_visual_direction
+    - use_confirmed_design_reference
+
+layout:
+  canvas: "16:9"
+  style: "AI production workstation"
+  regions:
+    - id: CORE-AREA-001
+      name: AI Conversation Main Area
+      priority: highest
+    - id: CORE-AREA-002
+      name: Project Context Area
+      collapsible: true
+    - id: CORE-AREA-003
+      name: Output Result Area
+    - id: CORE-AREA-004
+      name: Version Decision Area
+
+visual_identity:
+  direction:
+    - professional
+    - technology_blue_AI_workstation
+    - high_information_density
+    - modular_card_interface
+  avoid:
+    - normal_chat_interface
+    - undefined_panels
+    - undefined_controls
+
+components:
+  message_card:
+    id: CORE-COMP-MSG-001
+    states:
+      - default
+      - expanded
+      - referenced
+  context_card:
+    id: CORE-COMP-CONTEXT-001
+    binding:
+      - Project_ID
+      - Context_ID
+      - Version_ID
+  output_card:
+    id: CORE-COMP-OUTPUT-001
+    states:
+      - Draft
+      - Candidate
+      - Approved
+      - Locked
+
+controls:
+  - id: CORE-ACT-GENERATE-001
+    action: Generate
+  - id: CORE-ACT-REVISE-001
+    action: Revise
+  - id: CORE-ACT-COMPARE-001
+    action: Compare
+  - id: CORE-ACT-LOCK-001
+    action: Lock Version
+
+binding:
+  required:
+    - Project_ID
+    - Conversation_ID
+    - Context_ID
+    - Candidate_ID
+    - Decision_ID
+    - Version_ID
+
+rules:
+  - no_new_visual_structure_without_authority_update
+  - no_upload_without_complete_closure
