@@ -1,6 +1,6 @@
 authority:
   id: AI_CONVERSATION_INTERFACE_AUTHORITY
-  version: V1.0
+  version: V1.1
   status: AUTHORITY_FROZEN
   scope: AI_CORE_SHARED_CONVERSATION_INTERFACE
   purpose: Shared AI conversation interface authority inherited by ACPOS units that use AI Conversation.
@@ -26,52 +26,321 @@ inheritance:
     - source_trace_rule
 
 conversation_modes:
-  allowed:
-    - SINGLE_AI
-    - MULTI_AI
-  forbidden:
-    - ASSISTANT_AS_THIRD_MODE
-  mode_selector:
-    component_id: AICORE-COMP-MODE-SELECTOR
-    control_id: AICORE-CTRL-MODE-SELECT
-    presentation: compact_control
-    placement: conversation_toolbar
-    labels:
-      SINGLE_AI: 單一 AI
-      MULTI_AI: 多 AI
+  allowed: [SINGLE_AI, MULTI_AI]
+  forbidden: [ASSISTANT_AS_THIRD_MODE]
   assistant:
     persistent_in_single_ai: true
     persistent_in_multi_ai: true
 
-single_ai:
-  component_id: AICORE-COMP-SINGLE-AI-WORKSPACE
-  behavior:
-    - one_active_ai_response_stream
-    - assistant_available
-    - runtime_status_shown_near_active_response
-    - human_input_uses_shared_input_composer
+multi_ai_semantics:
+  same_question_to_all_selected_ai: true
+  same_relevant_context_to_all_selected_ai: true
+  fixed_role_assignment: forbidden
+  ai_panes_independent: true
+  independent_scroll_per_pane: true
+  pane_count:
+    fixed_count: false
+    source: unit_or_runtime_authority
+    invent_count: forbidden
+  user_input_position: below_ai_panes
+  provider_brand_visible_per_pane: true
 
-multi_ai:
-  component_id: AICORE-COMP-MULTI-AI-WORKSPACE
-  launch_control_id: AICORE-CTRL-OPEN-MULTI-AI
-  return_control_id: AICORE-CTRL-RETURN-SINGLE-AI
-  behavior:
-    same_question_to_all_selected_ai: true
-    same_relevant_context_to_all_selected_ai: true
-    fixed_role_assignment: forbidden
-    ai_panes_independent: true
-    independent_scroll_per_pane: true
-    pane_count:
-      fixed_count: false
-      source: unit_or_runtime_authority
-      invent_count: forbidden
-    user_input_position: below_ai_panes
-    assistant_available: true
-    provider_brand_visible_per_pane: true
+page_context_boundary:
+  page_context_controls_are_outside_shared_ai_conversation_module: true
+  page_context_examples:
+    - Project
+    - Topic
+    - Work_Item
+    - Production_Task_when_authorized_by_page
+  ai_module_must_not_duplicate_page_context_selectors: true
+
+component_registry:
+  - id: AICORE-COMP-MODE-SELECTOR
+    type: COMPACT_MODE_SELECTOR
+    purpose: switch_between_single_ai_and_multi_ai
+    placement: conversation_toolbar
+
+  - id: AICORE-COMP-SINGLE-AI-WORKSPACE
+    type: SINGLE_AI_RESPONSE_WORKSPACE
+    purpose: one_active_ai_response_stream
+    scroll: independent_main_stream
+
+  - id: AICORE-COMP-MULTI-AI-WORKSPACE
+    type: MULTI_AI_RESPONSE_WORKSPACE
+    purpose: multiple_independent_ai_views_for_same_question_and_context
+    scroll: independent_per_ai_pane
+
+  - id: AICORE-COMP-MESSAGE-WORKSPACE
+    type: MESSAGE_AND_STRUCTURED_OUTPUT_WORKSPACE
+    purpose: display_user_ai_system_and_structured_output
+
+  - id: AICORE-COMP-MESSAGE-CARD
+    type: MESSAGE_CARD
+    purpose: render_message_with_source_and_provider_brand
+
+  - id: AICORE-COMP-RUNTIME-STATUS
+    type: COLLAPSIBLE_RUNTIME_STATUS_STRIP
+    purpose: show_current_ai_execution_stage_near_active_response
+
+  - id: AICORE-COMP-ASSISTANT
+    type: FIXED_ASSISTANT
+    purpose: meeting_assistant_and_secretary
+
+  - id: AICORE-COMP-ASSISTANT-RECORD
+    type: ASSISTANT_RECORD_PANEL
+    purpose: view_discussion_decision_branch_pending_and_summary_records
+
+  - id: AICORE-COMP-SCORE-PANEL
+    type: SCORE_EVALUATION_PANEL
+    purpose: show_base_plus_unit_specific_review_before_human_decision
+
+  - id: AICORE-COMP-DECISION-PANEL
+    type: HUMAN_DECISION_PANEL
+    purpose: collect_human_decision_then_assistant_structure_then_final_confirm
+
+  - id: AICORE-COMP-INPUT-COMPOSER
+    type: MULTILINE_INPUT_COMPOSER
+    purpose: human_input_at_parser_attachments_and_reference_images
+
+  - id: AICORE-COMP-REPLY-CONTEXT-MENU
+    type: RIGHT_CLICK_CONTEXT_MENU
+    purpose: reply_level_operations_without_hover_toolbar
+
+  - id: AICORE-COMP-PROVIDER-BRAND
+    type: PROVIDER_BRAND_DISPLAY
+    purpose: display_provider_brand_only_on_ai_reply_or_multi_ai_pane
+
+control_registry:
+  - id: AICORE-CTRL-MODE-SELECT
+    component_id: AICORE-COMP-MODE-SELECTOR
+    type: SELECT_OR_SEGMENTED_COMPACT_CONTROL
+    action_id: AICORE-ACT-SWITCH-MODE
+    permission_id: AICORE-PERM-MODE-USE
+    states: [READY, ACTIVE, DISABLED]
+
+  - id: AICORE-CTRL-OPEN-MULTI-AI
+    component_id: AICORE-COMP-MODE-SELECTOR
+    type: ACTION
+    action_id: AICORE-ACT-OPEN-MULTI-AI
+    permission_id: AICORE-PERM-MULTI-AI-USE
+    states: [READY, LOADING, ACTIVE, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-RETURN-SINGLE-AI
+    component_id: AICORE-COMP-MULTI-AI-WORKSPACE
+    type: ACTION
+    action_id: AICORE-ACT-RETURN-SINGLE-AI
+    permission_id: AICORE-PERM-MODE-USE
+    states: [READY, LOADING, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-RUNTIME-TOGGLE
+    component_id: AICORE-COMP-RUNTIME-STATUS
+    type: COLLAPSE_TOGGLE
+    action_id: AICORE-ACT-TOGGLE-RUNTIME-DETAIL
+    permission_id: AICORE-PERM-CONVERSATION-READ
+    states: [COLLAPSED, EXPANDED, DISABLED]
+
+  - id: AICORE-CTRL-ASSISTANT-RECORD-OPEN
+    component_id: AICORE-COMP-ASSISTANT-RECORD
+    type: ACTION
+    action_id: AICORE-ACT-OPEN-ASSISTANT-RECORD
+    permission_id: AICORE-PERM-ASSISTANT-READ
+    states: [READY, ACTIVE, DISABLED]
+
+  - id: AICORE-CTRL-HUMAN-DECISION-INPUT
+    component_id: AICORE-COMP-DECISION-PANEL
+    type: MULTILINE_INPUT
+    action_id: AICORE-ACT-HUMAN-DECISION-INPUT
+    permission_id: AICORE-PERM-DECISION-USE
+    states: [READY, FOCUSED, DIRTY, DISABLED, ERROR]
+
+  - id: AICORE-CTRL-ASSISTANT-STRUCTURE
+    component_id: AICORE-COMP-DECISION-PANEL
+    type: ACTION
+    action_id: AICORE-ACT-ASSISTANT-STRUCTURE-DECISION
+    permission_id: AICORE-PERM-DECISION-USE
+    states: [READY, LOADING, SUCCESS, ERROR, DISABLED]
+    precondition: human_decision_input_present
+
+  - id: AICORE-CTRL-FINAL-CONFIRM
+    component_id: AICORE-COMP-DECISION-PANEL
+    type: ACTION
+    action_id: AICORE-ACT-HUMAN-FINAL-CONFIRM
+    permission_id: AICORE-PERM-DECISION-CONFIRM
+    states: [READY, LOADING, SUCCESS, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-RETURN-MODIFY
+    component_id: AICORE-COMP-DECISION-PANEL
+    type: ACTION
+    action_id: AICORE-ACT-RETURN-TO-MODIFICATION
+    permission_id: AICORE-PERM-DECISION-USE
+    states: [READY, LOADING, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-INPUT
+    component_id: AICORE-COMP-INPUT-COMPOSER
+    type: MULTILINE_INPUT
+    action_id: AICORE-ACT-INPUT-CHANGE
+    permission_id: AICORE-PERM-CONVERSATION-USE
+    states: [READY, FOCUSED, DIRTY, LOADING, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-SEND
+    component_id: AICORE-COMP-INPUT-COMPOSER
+    type: ACTION
+    action_id: AICORE-ACT-SEND
+    permission_id: AICORE-PERM-CONVERSATION-USE
+    states: [READY, LOADING, SUCCESS, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-ATTACH
+    component_id: AICORE-COMP-INPUT-COMPOSER
+    type: ATTACHMENT
+    action_id: AICORE-ACT-ATTACH-REFERENCE
+    permission_id: AICORE-PERM-REFERENCE-ATTACH
+    states: [READY, LOADING, SUCCESS, ERROR, DISABLED]
+
+  - id: AICORE-CTRL-REPLY-CONTEXT-MENU
+    component_id: AICORE-COMP-REPLY-CONTEXT-MENU
+    type: RIGHT_CLICK_TRIGGER
+    action_id: AICORE-ACT-OPEN-REPLY-MENU
+    permission_id: AICORE-PERM-CONVERSATION-READ
+    states: [HIDDEN, OPEN, DISABLED]
+
+action_registry:
+  - id: AICORE-ACT-SWITCH-MODE
+    trigger: user_mode_selection
+    input: [conversation_id, target_mode]
+    output: [active_mode]
+    rule: target_mode_must_be_SINGLE_AI_or_MULTI_AI
+
+  - id: AICORE-ACT-OPEN-MULTI-AI
+    trigger: user_select_multi_ai
+    input: [conversation_id, selected_ai_ids, relevant_context]
+    output: [multi_ai_workspace_ready]
+    rule: same_question_same_context_for_all_selected_ai
+
+  - id: AICORE-ACT-RETURN-SINGLE-AI
+    trigger: user_return_single_ai
+    input: [conversation_id]
+    output: [single_ai_workspace_ready]
+
+  - id: AICORE-ACT-TOGGLE-RUNTIME-DETAIL
+    trigger: user_toggle_runtime
+    input: [runtime_strip_state]
+    output: [runtime_strip_state]
+
+  - id: AICORE-ACT-OPEN-ASSISTANT-RECORD
+    trigger: user_open_assistant_record
+    input: [conversation_id]
+    output: [assistant_record_view]
+
+  - id: AICORE-ACT-HUMAN-DECISION-INPUT
+    trigger: human_edit_decision
+    input: [decision_text, referenced_decision_material_ids]
+    output: [human_decision_draft]
+
+  - id: AICORE-ACT-ASSISTANT-STRUCTURE-DECISION
+    trigger: human_request_structure
+    input: [human_decision_draft, selected_ai_points, assistant_record]
+    output: [assistant_structured_decision_draft]
+    precondition: human_decision_draft_present
+
+  - id: AICORE-ACT-HUMAN-FINAL-CONFIRM
+    trigger: human_confirm_final
+    input: [assistant_structured_decision_draft]
+    output: [human_confirmed_decision]
+    rule: unit_extension_owns_post_confirm_processing
+
+  - id: AICORE-ACT-RETURN-TO-MODIFICATION
+    trigger: human_return_modify
+    input: [decision_context]
+    output: [modification_requested]
+
+  - id: AICORE-ACT-INPUT-CHANGE
+    trigger: human_input
+    input: [text, at_tokens, references]
+    output: [composer_draft]
+
+  - id: AICORE-ACT-SEND
+    trigger: human_submit
+    input: [conversation_id, active_mode, text, at_tokens, references]
+    output: [ai_request_created]
+
+  - id: AICORE-ACT-ATTACH-REFERENCE
+    trigger: human_attach
+    input: [file_or_image_reference]
+    output: [reference_id]
+
+  - id: AICORE-ACT-OPEN-REPLY-MENU
+    trigger: right_click_reply
+    input: [message_id]
+    output: [reply_context_menu_open]
+
+  - id: AICORE-REPLY-ACT-QUOTE
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [quoted_reference]
+
+  - id: AICORE-REPLY-ACT-CONTINUE
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [continued_discussion_context]
+
+  - id: AICORE-REPLY-ACT-ANALYZE
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [analysis_request]
+
+  - id: AICORE-REPLY-ACT-ADD-DECISION
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [decision_material_reference]
+
+  - id: AICORE-REPLY-ACT-CREATE-BRANCH
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [branch_topic_reference]
+
+  - id: AICORE-REPLY-ACT-COPY
+    trigger: reply_context_menu
+    input: [message_id]
+    output: [copied_text]
+
+state_registry:
+  conversation_mode: [SINGLE_AI, MULTI_AI]
+  single_ai_workspace: [READY, RUNNING, ERROR]
+  multi_ai_workspace: [READY, RUNNING, WAITING, ERROR]
+  assistant_record: [READY, ACTIVE, ERROR]
+  runtime_strip: [COLLAPSED, EXPANDED]
+  runtime_stage:
+    - READ_DATA
+    - RETRIEVE
+    - ANALYZE
+    - MULTI_AI_ANALYZE
+    - SUMMARIZE
+    - SCORE
+    - WAIT_HUMAN_DECISION
+    - WRITE_CANDIDATE
+    - LOCK
+    - ERROR
+  score: [NOT_STARTED, RUNNING, READY, MODIFICATION_REQUIRED, HUMAN_REVIEW_REQUIRED, ERROR]
+  decision: [DRAFT, WAITING_HUMAN, HUMAN_INPUT_READY, ASSISTANT_STRUCTURING, ASSISTANT_DRAFT_READY, CONFIRMED, RETURN_MODIFY, ERROR]
+  input: [READY, FOCUSED, DIRTY, LOADING, SUCCESS, ERROR, DISABLED]
+  reply_menu: [HIDDEN, OPEN, DISABLED]
+
+permission_contract:
+  permission_ids:
+    - AICORE-PERM-CONVERSATION-READ
+    - AICORE-PERM-CONVERSATION-USE
+    - AICORE-PERM-MODE-USE
+    - AICORE-PERM-MULTI-AI-USE
+    - AICORE-PERM-ASSISTANT-READ
+    - AICORE-PERM-DECISION-USE
+    - AICORE-PERM-DECISION-CONFIRM
+    - AICORE-PERM-REFERENCE-ATTACH
+  resolution_rule:
+    - unit_extension_must_map_shared_permission_id_to_unit_permission_authority
+    - shared_interface_does_not_grant_role_permission_by_itself
+    - unresolved_permission_blocks_runtime_action
 
 assistant:
-  component_id: AICORE-COMP-ASSISTANT
-  record_component_id: AICORE-COMP-ASSISTANT-RECORD
   fixed_presence: true
   role: meeting_assistant_and_secretary
   responsibilities:
@@ -83,29 +352,13 @@ assistant:
     - maintain_pending_unresolved_items
     - produce_meeting_summary
     - preserve_decided_and_pending_content
-  commands:
-    source: input_at_parser
-    examples:
-      - add_to_decision
-      - create_branch_discussion
-      - summarize_meeting
+  command_source: input_at_parser
   rules:
     - assistant_does_not_replace_human_decision
     - assistant_structures_after_human_decision_input
     - assistant_record_must_be_viewable
 
-page_context_boundary:
-  rule: page_context_controls_are_outside_shared_ai_conversation_module
-  examples:
-    - Project
-    - Topic
-    - Work_Item
-    - Production_Task_when_authorized_by_page
-  ai_module_must_not_duplicate_page_context_selectors: true
-
 conversation_content:
-  message_workspace_component_id: AICORE-COMP-MESSAGE-WORKSPACE
-  message_card_component_id: AICORE-COMP-MESSAGE-CARD
   supports:
     - user_message
     - ai_response
@@ -115,9 +368,6 @@ conversation_content:
     - image_reference
   provider_display:
     show_in_chat: provider_brand_only
-    examples:
-      - OpenAI
-      - provider_brand_name
     forbidden_in_chat:
       - model_id
       - capability_matrix
@@ -131,26 +381,6 @@ runtime_status:
   presentation: collapsible_status_strip
   placement: near_active_ai_response
   large_header_status_panel: forbidden
-  stages:
-    - READ_DATA
-    - RETRIEVE
-    - ANALYZE
-    - MULTI_AI_ANALYZE
-    - SUMMARIZE
-    - SCORE
-    - WAIT_HUMAN_DECISION
-    - WRITE_CANDIDATE
-    - LOCK
-  display_labels:
-    READ_DATA: 讀取資料
-    RETRIEVE: 檢索
-    ANALYZE: 分析
-    MULTI_AI_ANALYZE: 多 AI 分析
-    SUMMARIZE: 彙整
-    SCORE: 評分
-    WAIT_HUMAN_DECISION: 等待人工決策
-    WRITE_CANDIDATE: 寫入候選
-    LOCK: 封板
   conditional_rules:
     MULTI_AI_ANALYZE: only_when_multi_ai
     SCORE: after_summary_before_human_decision
@@ -180,19 +410,9 @@ human_decision:
     - assistant_structure_after_human_input
     - human_final_confirm_or_return_modify
   decision_material:
-    source: reply_context_action_add_to_decision
+    source: AICORE-REPLY-ACT-ADD-DECISION
     store_as_reference_link: true
     force_full_duplicate_copy: false
-  controls:
-    - id: AICORE-CTRL-HUMAN-DECISION-INPUT
-      action: HUMAN_DECISION_INPUT
-    - id: AICORE-CTRL-ASSISTANT-STRUCTURE
-      action: ASSISTANT_STRUCTURE_DECISION
-      precondition: human_decision_input_present
-    - id: AICORE-CTRL-FINAL-CONFIRM
-      action: HUMAN_FINAL_CONFIRM
-    - id: AICORE-CTRL-RETURN-MODIFY
-      action: RETURN_TO_MODIFICATION
   rules:
     - ai_fusion_before_human_decision_forbidden
     - human_may_combine_multiple_ai_points_in_own_words
@@ -220,20 +440,13 @@ input_composer:
 reply_interaction:
   trigger: right_click_context_menu_only
   hover_action_bar: forbidden
-  menu_component_id: AICORE-COMP-REPLY-CONTEXT-MENU
-  actions:
-    - id: AICORE-REPLY-ACT-QUOTE
-      label: 引用回覆
-    - id: AICORE-REPLY-ACT-CONTINUE
-      label: 繼續討論
-    - id: AICORE-REPLY-ACT-ANALYZE
-      label: 分析此內容
-    - id: AICORE-REPLY-ACT-ADD-DECISION
-      label: 加入決策
-    - id: AICORE-REPLY-ACT-CREATE-BRANCH
-      label: 建立分支議題
-    - id: AICORE-REPLY-ACT-COPY
-      label: 複製
+  required_actions:
+    - AICORE-REPLY-ACT-QUOTE
+    - AICORE-REPLY-ACT-CONTINUE
+    - AICORE-REPLY-ACT-ANALYZE
+    - AICORE-REPLY-ACT-ADD-DECISION
+    - AICORE-REPLY-ACT-CREATE-BRANCH
+    - AICORE-REPLY-ACT-COPY
   rules:
     - add_to_decision_and_create_branch_are_separate_actions
     - no_duplicate_hover_toolbar
@@ -246,16 +459,21 @@ version_and_candidate:
   old_replaced_content_must_not_contaminate_future_context: true
 
 content_language_rule:
-  internal_standard_language_for_production_script: zh_TW_or_internal_chinese
+  internal_standard_language_for_production_script: chinese_canonical
   provider_specific_syntax_layer: execution_layer_only
   provider_syntax_must_not_overwrite_internal_canonical_content: true
 
 source_trace:
-  every_visible_component_requires_source: true
-  every_interactive_control_requires_action: true
-  every_action_requires_permission_and_audit_trace: true
+  every_visible_component_requires_component_id: true
+  every_interactive_control_requires_control_id: true
+  every_interactive_control_requires_action_id: true
+  every_interactive_control_requires_permission_id: true
+  every_stateful_control_requires_registered_state: true
+  every_action_requires_audit_trace: true
   unknown_component: reject_render
   unknown_control: reject_render
+  unknown_action: reject_runtime
+  unknown_permission: block_runtime
   unknown_mode: reject_render
 
 visual_rules:
@@ -265,6 +483,7 @@ visual_rules:
   high_information_density_with_clear_hierarchy: true
   undefined_panel: reject_render
   undefined_control: reject_render
+  oversized_mode_header: forbidden
 
 finalization:
   common_ai_core_owns:
@@ -279,7 +498,13 @@ finalization:
     - system_write_when_authorized
     - deployment_or_publish_when_authorized
 
-validation:
+closure_validation:
+  component_registry_complete: required
+  control_registry_complete: required
+  action_registry_complete: required
+  state_registry_complete: required
+  permission_contract_complete: required
+  source_trace_complete: required
   only_two_conversation_modes: true
   assistant_present_in_both_modes: true
   score_after_summary_before_human_decision: true
