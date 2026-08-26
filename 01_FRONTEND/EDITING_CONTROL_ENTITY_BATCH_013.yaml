@@ -1,7 +1,8 @@
 module: EDITING
 batch: 013
+source: R9_FINAL
 controls:
-  fields:
+  schema:
     - control_id
     - page_uid
     - component_id
@@ -10,3 +11,86 @@ controls:
     - validation
     - permission
     - action
+  EDIT-01:
+    - control_id: EDIT01_PLAY_PAUSE
+      component_id: TransportControls
+      type: toggle_button
+      state: default|active|disabled
+      validation: timeline_loaded
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_PREVIOUS_FRAME
+      component_id: TransportControls
+      type: button
+      state: default|disabled
+      validation: playhead_gt_timeline_start
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_NEXT_FRAME
+      component_id: TransportControls
+      type: button
+      state: default|disabled
+      validation: playhead_lt_timeline_end
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_TIMECODE
+      component_id: TimecodeDisplayInput
+      type: timecode_input
+      state: default|focus|error|disabled
+      validation: valid_timecode_and_frame_within_timeline
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_PLAYHEAD
+      component_id: Playhead
+      type: timeline_cursor
+      state: default|dragging|disabled
+      validation: position_within_timeline
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_CORRECTION_START
+      component_id: CorrectionRange
+      type: range_handle_start
+      state: default|dragging|error|disabled
+      validation: start_lte_end
+      permission: EDITING_TIMELINE_EDIT
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_CORRECTION_END
+      component_id: CorrectionRange
+      type: range_handle_end
+      state: default|dragging|error|disabled
+      validation: end_gte_start
+      permission: EDITING_TIMELINE_EDIT
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_QA_MARKER
+      component_id: QAMarkerRail
+      type: marker_selector
+      state: default|selected|resolved|disabled
+      validation: marker_must_reference_existing_qa_evidence
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_ZOOM_OUT
+      component_id: TimelineZoom
+      type: button
+      state: default|disabled
+      validation: zoom_above_minimum
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_ZOOM_IN
+      component_id: TimelineZoom
+      type: button
+      state: default|disabled
+      validation: zoom_below_frame_level_maximum
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+    - control_id: EDIT01_ZOOM_FIT
+      component_id: TimelineZoom
+      type: button
+      state: default|disabled
+      validation: timeline_loaded
+      permission: EDITING_TIMELINE_VIEW
+      action: EDIT_TIMELINE_UPDATE
+control_rules:
+  player_progress_bar_only: forbidden
+  minimum_positioning_precision: frame
+  playhead_and_correction_range_are_independent: true
+  controls_must_bind_existing_action: true
