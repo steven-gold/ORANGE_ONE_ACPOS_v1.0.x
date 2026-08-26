@@ -23,3 +23,46 @@ cleanup_rules:
     - parallel_system_definition
     - conflicting_navigation_definition
     - duplicate_api_contract
+
+explicit_replacements:
+  global_shell_identity:
+    current_authority:
+      - ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_REGISTRY.yaml
+      - ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_CONTRACT.yaml
+    rule:
+      - GLOBAL-SHELL-001_is_template_not_page
+      - HOME-001_page_identity_forbidden
+      - Dashboard_L1-01_remains_only_home_page
+
+  core_single_page:
+    current_authority:
+      - ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
+      - ACPOS_AUTHORITY/CORE/CORE_FINAL_AUTHORITY_PRIORITY.yaml
+    replaced_active_definitions:
+      - CORE-02
+      - CORE-03
+      - CORE-04
+      - CORE-05
+      - CORE-06
+    replacement_page_uid: CORE-01
+    active_render_for_legacy_ids: false
+    legacy_ids_retained_for: audit_and_migration_trace_only
+
+  restructured_registry_core_rows:
+    source: 00_MASTER/REGISTRY/ACPOS_REGISTRY_RESTRUCTURED_COMPLETE.csv
+    scope: CORE-01_through_CORE-06_legacy_rows
+    status: SUPERSEDED_FOR_CURRENT_CORE_UI_CONSTRUCTION
+    current_source:
+      - 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+      - 00_MASTER/ACPOS_UNIT_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    rule:
+      - do_not_use_legacy_core_csv_rows_for_active_page_render
+      - keep_csv_for_audit_history_and_non_core_rows
+
+validation:
+  legacy_core_active_render: reject
+  HOME_001_page_render: reject
+  parallel_core_definition: reject
+  lower_priority_replaced_definition: ignore_and_audit
