@@ -1,0 +1,32 @@
+version: CORE-AUTHORITY-V1
+binding_rules:
+  conversation:
+    required:
+      - project_id
+      - topic_id
+    forbidden:
+      - production_task_id
+
+  production_task:
+    owner: PRODUCTION_FLOW
+    created_by: CORE_CONFIRMATION
+    trigger:
+      - blueprint_locked
+      - dna_locked
+      - script_confirmed
+      - version_created
+
+  handoff:
+    source: CORE
+    target: ASSET
+    payload:
+      - project
+      - topic
+      - script
+      - blueprint_reference
+      - dna_reference
+      - version_reference
+
+validation:
+  reject:
+    - CORE_UI_SHOWS_TASK_BEFORE_PRODUCTION_TASK_CREATED
