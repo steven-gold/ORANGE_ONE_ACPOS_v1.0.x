@@ -1,0 +1,21 @@
+version: CORE-AUTHORITY-V1
+runtime:
+  events:
+    - CORE_BLUEPRINT_LOCKED
+    - CORE_DNA_CONFIRMED
+    - CORE_SCRIPT_CONFIRMED
+    - CORE_ASSET_HANDOFF_READY
+
+permission:
+  rule: all_actions_must_be_traceable
+  project_scope: required
+  topic_scope: required
+
+qa:
+  required:
+    - page_binding
+    - component_binding
+    - action_binding
+    - runtime_binding
+    - permission_binding
+    - handoff_validation
