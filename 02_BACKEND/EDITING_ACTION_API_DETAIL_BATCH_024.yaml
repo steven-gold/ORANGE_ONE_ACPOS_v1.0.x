@@ -1,43 +1,197 @@
 batch: 024
 module: EDITING
 source: R9_FINAL
+active_page: EDIT-01
+
 actions:
+  EDIT_MEDIA_IMPORT:
+    api_key: media_import
+    accepted_operations: [upload_media, remove_queued_media, finalize_import]
+    request_schema:
+      operation: required
+      source_mode: required_for_upload
+      project_id: nullable
+      task_id: nullable
+      owner_user_id: required_for_standalone
+      files: required_for_upload
+      upload_session_id: conditional
+      upload_item_id: conditional
+    response_schema: [upload_session_id, imported_asset_version_ids, rejected_items, import_state]
+    error_mapping: [EDITING_UNSUPPORTED_MEDIA, EDITING_UPLOAD_SIZE_EXCEEDED, EDITING_UPLOAD_FAILED, EDITING_PERMISSION_DENIED]
+
   EDIT_TIMELINE_UPDATE:
     api_key: timeline_update
     accepted_operations:
+      - set_source_mode
+      - load_project_source
       - set_playback_position
       - set_playback_state
+      - set_playback_speed
+      - set_range_loop
       - frame_step
       - set_correction_range
       - load_existing_qa_marker_context
+      - undo
+      - redo
+      - split_clip
+      - trim_clip_start
+      - trim_clip_end
+      - move_clip
+      - delete_clip
+      - duplicate_clip
+      - replace_clip_source
+      - set_transition
+      - set_clip_speed
+    request_schema:
+      timeline_id: conditional
+      operation: required
+      working_draft_id: conditional
+      project_id: nullable
+      task_id: nullable
+      owner_user_id: nullable
+      source_mode: conditional
+      clip_id: conditional
+      asset_version_id: conditional
+      layer_id: conditional
+      target_layer_id: conditional
+      playback_position_frame: conditional
+      delta_frames: conditional
+      playback_state: conditional
+      playback_speed: conditional
+      correction_start_frame: conditional
+      correction_end_frame: conditional
+      source_in_frame: conditional
+      source_out_frame: conditional
+      timeline_start_frame: conditional
+      timeline_end_frame: conditional
+      transition_type: conditional
+      duration_frames: conditional
+      speed_ratio: conditional
+      evidence_id: conditional
+      marker_frame: conditional
+    response_schema: [timeline_id, working_draft_id, accepted_operation_state, current_position_frame, correction_range, changed_clip_ids, undo_available, redo_available]
+    error_mapping: [EDITING_TIMELINE_NOT_FOUND, EDITING_CLIP_NOT_FOUND, EDITING_INVALID_EDIT_RANGE, EDITING_TIMECODE_OUT_OF_RANGE, EDITING_ASSET_VERSION_NOT_FOUND, EDITING_QA_EVIDENCE_NOT_FOUND, EDITING_PERMISSION_DENIED]
+
+  EDIT_LAYER_UPDATE:
+    api_key: layer_update
+    accepted_operations:
+      - set_clip_volume
+      - set_fade
+      - set_track_visibility
+      - set_track_mute
+      - set_track_solo
+      - set_track_lock
+      - reorder_layer
+      - add_music_asset
+      - add_sfx_asset
     request_schema:
       timeline_id: required
       operation: required
-      playback_position_frame: conditional
-      playback_state: conditional
+      layer_id: conditional
+      clip_id: conditional
+      asset_version_id: conditional
+      order: conditional
+      visible: conditional
+      muted: conditional
+      solo: conditional
+      locked: conditional
+      gain_db: conditional
+      fade_in_frames: conditional
+      fade_out_frames: conditional
+      timeline_start_frame: conditional
+    response_schema: [timeline_id, changed_layer_ids, changed_clip_ids, accepted_operation_state]
+    error_mapping: [EDITING_LAYER_NOT_FOUND, EDITING_CLIP_NOT_FOUND, EDITING_INVALID_AUDIO_PARAMETER, EDITING_PERMISSION_DENIED]
+
+  EDIT_API_EDIT_EXECUTE:
+    api_key: api_edit_execute
+    accepted_operations: [set_provider, set_model, set_target_scope, set_instruction, execute_edit, cancel_job, apply_candidate]
+    request_schema:
+      operation: required
+      timeline_id: conditional
+      working_version_id: conditional
+      provider_id: conditional
+      model_id: conditional
+      target_scope: conditional
+      selected_clip_ids: conditional
       correction_start_frame: conditional
       correction_end_frame: conditional
-      evidence_id: conditional
-      marker_frame: conditional
-    response_schema:
-      timeline_id: required
-      accepted_operation_state: required
-      current_position_frame: required
-      correction_range: nullable
-    error_mapping:
-      - EDITING_TIMELINE_NOT_FOUND
-      - EDITING_TIMECODE_OUT_OF_RANGE
-      - EDITING_CORRECTION_RANGE_INVALID
-      - EDITING_QA_EVIDENCE_NOT_FOUND
-      - EDITING_PERMISSION_DENIED
-  EDIT_LAYER_UPDATE:
-    api_key: layer_update
-    preserve_existing_r9_contract: true
+      instruction_text: conditional
+      api_edit_job_id: conditional
+      candidate_id: conditional
+    response_schema: [api_edit_job_id, job_state, candidate_ids, provider_id, model_id, target_scope, candidate_preview_reference, apply_state]
+    error_mapping: [EDITING_PROVIDER_UNAVAILABLE, EDITING_MODEL_UNAVAILABLE, EDITING_API_EDIT_FAILED, EDITING_API_JOB_NOT_FOUND, EDITING_API_CANDIDATE_NOT_FOUND, EDITING_PERMISSION_DENIED]
+    rules:
+      provider_adapter_required: true
+      candidate_before_apply: required
+      applying_candidate_updates_working_draft_only: true
+
   EDIT_SUBTITLE_SYNC:
     api_key: subtitle_sync
-    preserve_existing_r9_contract: true
+    accepted_operations: [import_subtitle, create_subtitle_segment, update_subtitle_text, split_subtitle, merge_subtitles, update_subtitle_range, set_subtitle_language, set_subtitle_format, api_sync]
+    request_schema:
+      timeline_id: required
+      operation: required
+      subtitle_track_id: conditional
+      subtitle_segment_id: conditional
+      subtitle_segment_ids: conditional
+      file: conditional
+      text: conditional
+      start_frame: conditional
+      end_frame: conditional
+      language: conditional
+      format: conditional
+      playback_position_frame: conditional
+      provider_id: conditional
+      model_id: conditional
+    response_schema: [subtitle_track_id, changed_segment_ids, sync_state, validation_result]
+    error_mapping: [EDITING_SUBTITLE_FORMAT_UNSUPPORTED, EDITING_SUBTITLE_RANGE_INVALID, EDITING_SUBTITLE_NOT_FOUND, EDITING_SUBTITLE_SYNC_FAILED, EDITING_PERMISSION_DENIED]
+
+  EDIT_QA_RECHECK:
+    api_key: qa_recheck
+    accepted_operations: [selected_issue, full_timeline]
+    request_schema:
+      timeline_id: required
+      operation: required
+      working_version_id: conditional
+      issue_id: conditional
+      correction_start_frame: conditional
+      correction_end_frame: conditional
+    response_schema: [qa_run_id, qa_state, issue_results, blocking_issue_count, evidence_ids]
+    error_mapping: [EDITING_QA_NOT_READY, EDITING_QA_RUN_FAILED, EDITING_PERMISSION_DENIED]
+
+  EDIT_VERSION_SAVE:
+    api_key: version_save
+    accepted_operations: [save_new_version, restore_as_new_draft]
+    request_schema:
+      timeline_id: required
+      operation: required
+      working_draft_id: conditional
+      source_version_id: conditional
+      change_summary: conditional
+    response_schema: [timeline_id, new_version_id, working_draft_id, version_number, version_state]
+    error_mapping: [EDITING_VERSION_SOURCE_NOT_FOUND, EDITING_VERSION_SAVE_FAILED, EDITING_PERMISSION_DENIED]
+    rules:
+      overwrite_existing_saved_version: forbidden
+
+  EDIT_OUTPUT_RENDER:
+    api_key: output_render
+    accepted_operations: [set_render_settings, render, export_download, handoff]
+    request_schema:
+      operation: required
+      timeline_id: conditional
+      approved_version_id: conditional
+      render_settings: conditional
+      render_job_id: conditional
+      output_id: conditional
+      target_department: conditional
+      handoff_payload: conditional
+    response_schema: [render_job_id, render_state, output_id, output_reference, export_state, handoff_state]
+    error_mapping: [EDITING_COMPLETION_GATE_FAILED, EDITING_RENDER_FAILED, EDITING_OUTPUT_NOT_FOUND, EDITING_HANDOFF_FAILED, EDITING_PERMISSION_DENIED]
+
 rules:
-  no_new_business_action: true
-  correction_timeline_is_detail_of_EDIT_TIMELINE_UPDATE: true
-  external_provider_operation: none
+  all_actions_must_have_permission_database_runtime_and_qa_binding: true
+  standalone_upload_allowed_without_project_task: true
+  external_provider_specific_endpoint_hardcode: forbidden
+  source_video_regeneration_routes_to_VIDEO: true
+  saved_version_overwrite: forbidden
 external_e2e: pending
