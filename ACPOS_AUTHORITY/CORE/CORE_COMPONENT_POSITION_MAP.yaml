@@ -1,4 +1,4 @@
-version: CORE-COMPONENT-POSITION-MAP-V2
+version: CORE-COMPONENT-POSITION-MAP-V2.1
 status: AUTHORITY_ACTIVE
 layout:
   CORE-COMP-PAGE-CONTEXT:
@@ -51,8 +51,22 @@ layout:
     order: 5
     source: CORE_COMPONENT_REGISTRY
 
+right_rail_geometry:
+  order_source: CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
+  exact_card_height_source: unresolved_authority_required
+  exact_vertical_gap_source: unresolved_authority_required
+  exact_padding_source: unresolved_authority_required
+  overflow_source: unresolved_authority_required
+  policy:
+    - do_not_guess_missing_geometry
+    - preserve_confirmed_order
+    - preserve_right_rail_width_28_percent
+    - pixel_exact_render_blocked_until_geometry_authority_resolved
+
 constraint:
   component_without_position: invalid
   duplicate_component_region_order: invalid
   production_task_context_component: forbidden
   work_item_navigation_missing: invalid
+  ai_generated_right_rail_geometry: forbidden
+  unresolved_right_rail_geometry_for_pixel_exact_render: blocked
