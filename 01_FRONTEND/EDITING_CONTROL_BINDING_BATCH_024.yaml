@@ -2,90 +2,105 @@ batch: 024
 module: EDITING
 layer: frontend_control
 source: R9_FINAL
+active_page: EDIT-01
+
 bindings:
-  EDIT01_PLAY_PAUSE:
-    page_uid: EDIT-01
-    component_id: TransportControls
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, playback_position_frame, playback_state]
-  EDIT01_PREVIOUS_FRAME:
-    page_uid: EDIT-01
-    component_id: TransportControls
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, playback_position_frame]
-    delta_frames: -1
-  EDIT01_NEXT_FRAME:
-    page_uid: EDIT-01
-    component_id: TransportControls
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, playback_position_frame]
-    delta_frames: 1
-  EDIT01_TIMECODE:
-    page_uid: EDIT-01
-    component_id: TimecodeDisplayInput
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, playback_position_frame]
-  EDIT01_PLAYHEAD:
-    page_uid: EDIT-01
-    component_id: Playhead
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, playback_position_frame]
-  EDIT01_CORRECTION_START:
-    page_uid: EDIT-01
-    component_id: CorrectionRange
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_EDIT
-    payload: [timeline_id, correction_start_frame, correction_end_frame]
-  EDIT01_CORRECTION_END:
-    page_uid: EDIT-01
-    component_id: CorrectionRange
-    data_source: Timeline
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_EDIT
-    payload: [timeline_id, correction_start_frame, correction_end_frame]
-  EDIT01_QA_MARKER:
-    page_uid: EDIT-01
-    component_id: QAMarkerRail
-    data_source: QA_EVIDENCE_TRACE
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    payload: [timeline_id, evidence_id, marker_frame, correction_start_frame, correction_end_frame]
-  EDIT01_ZOOM_OUT:
-    page_uid: EDIT-01
-    component_id: TimelineZoom
-    data_source: TimelineViewState
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    persistence: ui_state_only
-  EDIT01_ZOOM_IN:
-    page_uid: EDIT-01
-    component_id: TimelineZoom
-    data_source: TimelineViewState
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    persistence: ui_state_only
-  EDIT01_ZOOM_FIT:
-    page_uid: EDIT-01
-    component_id: TimelineZoom
-    data_source: TimelineViewState
-    action: EDIT_TIMELINE_UPDATE
-    permission: EDITING_TIMELINE_VIEW
-    persistence: ui_state_only
+  source_and_upload:
+    EDIT01_SOURCE_MODE: { action: EDIT_TIMELINE_UPDATE, operation: set_source_mode, payload: [timeline_id, source_mode, project_id, task_id, owner_user_id] }
+    EDIT01_PROJECT_SOURCE: { action: EDIT_TIMELINE_UPDATE, operation: load_project_source, payload: [source_mode, project_id, task_id] }
+    EDIT01_UPLOAD_FILES: { action: EDIT_MEDIA_IMPORT, operation: upload_media, payload: [source_mode, project_id, owner_user_id, files] }
+    EDIT01_IMPORT_REMOVE: { action: EDIT_MEDIA_IMPORT, operation: remove_queued_media, payload: [upload_session_id, upload_item_id] }
+
+  transport:
+    EDIT01_PLAY_PAUSE: { action: EDIT_TIMELINE_UPDATE, operation: set_playback_state, payload: [timeline_id, playback_state] }
+    EDIT01_PREVIOUS_FRAME: { action: EDIT_TIMELINE_UPDATE, operation: frame_step, payload: [timeline_id, delta_frames], fixed_delta_frames: -1 }
+    EDIT01_NEXT_FRAME: { action: EDIT_TIMELINE_UPDATE, operation: frame_step, payload: [timeline_id, delta_frames], fixed_delta_frames: 1 }
+    EDIT01_TIMECODE: { action: EDIT_TIMELINE_UPDATE, operation: set_playback_position, payload: [timeline_id, playback_position_frame] }
+    EDIT01_PLAYHEAD: { action: EDIT_TIMELINE_UPDATE, operation: set_playback_position, payload: [timeline_id, playback_position_frame] }
+    EDIT01_PLAYBACK_SPEED: { action: EDIT_TIMELINE_UPDATE, operation: set_playback_speed, payload: [timeline_id, playback_speed] }
+    EDIT01_RANGE_LOOP: { action: EDIT_TIMELINE_UPDATE, operation: set_range_loop, payload: [timeline_id, correction_start_frame, correction_end_frame, enabled] }
+
+  manual_edit:
+    EDIT01_UNDO: { action: EDIT_TIMELINE_UPDATE, operation: undo, payload: [timeline_id, working_draft_id] }
+    EDIT01_REDO: { action: EDIT_TIMELINE_UPDATE, operation: redo, payload: [timeline_id, working_draft_id] }
+    EDIT01_CORRECTION_START: { action: EDIT_TIMELINE_UPDATE, operation: set_correction_range, payload: [timeline_id, correction_start_frame, correction_end_frame] }
+    EDIT01_CORRECTION_END: { action: EDIT_TIMELINE_UPDATE, operation: set_correction_range, payload: [timeline_id, correction_start_frame, correction_end_frame] }
+    EDIT01_SPLIT_CLIP: { action: EDIT_TIMELINE_UPDATE, operation: split_clip, payload: [timeline_id, clip_id, playback_position_frame] }
+    EDIT01_TRIM_START: { action: EDIT_TIMELINE_UPDATE, operation: trim_clip_start, payload: [timeline_id, clip_id, source_in_frame, timeline_start_frame] }
+    EDIT01_TRIM_END: { action: EDIT_TIMELINE_UPDATE, operation: trim_clip_end, payload: [timeline_id, clip_id, source_out_frame, timeline_end_frame] }
+    EDIT01_MOVE_CLIP: { action: EDIT_TIMELINE_UPDATE, operation: move_clip, payload: [timeline_id, clip_id, target_layer_id, timeline_start_frame] }
+    EDIT01_DELETE_CLIP: { action: EDIT_TIMELINE_UPDATE, operation: delete_clip, payload: [timeline_id, clip_id] }
+    EDIT01_DUPLICATE_CLIP: { action: EDIT_TIMELINE_UPDATE, operation: duplicate_clip, payload: [timeline_id, clip_id, target_layer_id, timeline_start_frame] }
+    EDIT01_REPLACE_CLIP: { action: EDIT_TIMELINE_UPDATE, operation: replace_clip_source, payload: [timeline_id, clip_id, asset_version_id] }
+    EDIT01_TRANSITION: { action: EDIT_TIMELINE_UPDATE, operation: set_transition, payload: [timeline_id, clip_id, transition_type, duration_frames] }
+    EDIT01_CLIP_SPEED: { action: EDIT_TIMELINE_UPDATE, operation: set_clip_speed, payload: [timeline_id, clip_id, speed_ratio] }
+    EDIT01_CLIP_VOLUME: { action: EDIT_LAYER_UPDATE, operation: set_clip_volume, payload: [timeline_id, clip_id, gain_db] }
+    EDIT01_FADE: { action: EDIT_LAYER_UPDATE, operation: set_fade, payload: [timeline_id, clip_id, fade_in_frames, fade_out_frames] }
+
+  frontend_only:
+    EDIT01_ZOOM_OUT: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_ZOOM_IN: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_ZOOM_FIT: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_SNAP: { action: FRONTEND_STATE, persistence: local_view_state }
+    EDIT01_API_COMPARE: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_VOICE_PREVIEW: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_MIX_PREVIEW: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_VERSION_COMPARE: { action: FRONTEND_STATE, persistence: none }
+    EDIT01_FINAL_PREVIEW: { action: FRONTEND_STATE, persistence: none }
+
+  api_edit:
+    EDIT01_API_PROVIDER: { action: EDIT_API_EDIT_EXECUTE, operation: set_provider, payload: [provider_id] }
+    EDIT01_API_MODEL: { action: EDIT_API_EDIT_EXECUTE, operation: set_model, payload: [provider_id, model_id] }
+    EDIT01_API_SCOPE: { action: EDIT_API_EDIT_EXECUTE, operation: set_target_scope, payload: [timeline_id, target_scope, selected_clip_ids, correction_start_frame, correction_end_frame] }
+    EDIT01_API_INSTRUCTION: { action: EDIT_API_EDIT_EXECUTE, operation: set_instruction, payload: [instruction_text] }
+    EDIT01_API_EXECUTE: { action: EDIT_API_EDIT_EXECUTE, operation: execute_edit, payload: [timeline_id, working_version_id, provider_id, model_id, target_scope, selected_clip_ids, correction_start_frame, correction_end_frame, instruction_text] }
+    EDIT01_API_CANCEL: { action: EDIT_API_EDIT_EXECUTE, operation: cancel_job, payload: [api_edit_job_id] }
+    EDIT01_API_APPLY: { action: EDIT_API_EDIT_EXECUTE, operation: apply_candidate, payload: [timeline_id, working_version_id, api_edit_job_id, candidate_id] }
+
+  layers_audio_voice:
+    EDIT01_TRACK_VISIBILITY: { action: EDIT_LAYER_UPDATE, operation: set_track_visibility, payload: [timeline_id, layer_id, visible] }
+    EDIT01_TRACK_MUTE: { action: EDIT_LAYER_UPDATE, operation: set_track_mute, payload: [timeline_id, layer_id, muted] }
+    EDIT01_TRACK_SOLO: { action: EDIT_LAYER_UPDATE, operation: set_track_solo, payload: [timeline_id, layer_id, solo] }
+    EDIT01_TRACK_LOCK: { action: EDIT_LAYER_UPDATE, operation: set_track_lock, payload: [timeline_id, layer_id, locked] }
+    EDIT01_VOICE_ASSET: { action: VOICE_ASSET_BIND, operation: bind_voice_asset, payload: [timeline_id, layer_id, voice_asset_version_id, timeline_start_frame] }
+    EDIT01_VOICE_PROVIDER: { action: VOICE_GENERATE, operation: set_provider, payload: [provider_id] }
+    EDIT01_VOICE_MODEL: { action: VOICE_GENERATE, operation: set_model, payload: [provider_id, model_id] }
+    EDIT01_VOICE_GENERATE: { action: VOICE_GENERATE, operation: generate_voice_take, payload: [timeline_id, script_reference_id, provider_id, model_id, voice_parameters] }
+    EDIT01_VOICE_APPLY: { action: VOICE_ASSET_BIND, operation: apply_voice_take, payload: [timeline_id, layer_id, voice_take_id, timeline_start_frame] }
+    EDIT01_MUSIC_PICK: { action: EDIT_LAYER_UPDATE, operation: add_music_asset, payload: [timeline_id, layer_id, asset_version_id, timeline_start_frame] }
+    EDIT01_SFX_PICK: { action: EDIT_LAYER_UPDATE, operation: add_sfx_asset, payload: [timeline_id, layer_id, asset_version_id, timeline_start_frame] }
+    EDIT01_AUDIO_MIX: { action: VOICE_SYNC_EXECUTE, operation: audio_mix, payload: [timeline_id, voice_layer_ids, music_layer_ids, sfx_layer_ids, mix_parameters] }
+    EDIT01_LIPSYNC_TARGET: { action: VOICE_SYNC_EXECUTE, operation: set_lipsync_target, payload: [timeline_id, video_clip_id, voice_clip_id] }
+    EDIT01_LIPSYNC_EXECUTE: { action: VOICE_SYNC_EXECUTE, operation: lip_sync, payload: [timeline_id, video_clip_id, voice_clip_id] }
+    EDIT01_LIPSYNC_RETRY_RANGE: { action: VOICE_SYNC_EXECUTE, operation: lip_sync_range, payload: [timeline_id, video_clip_id, voice_clip_id, correction_start_frame, correction_end_frame] }
+
+  subtitle_qa_version_output:
+    EDIT01_SUBTITLE_IMPORT: { action: EDIT_SUBTITLE_SYNC, operation: import_subtitle, payload: [timeline_id, file, language, format] }
+    EDIT01_SUBTITLE_CREATE: { action: EDIT_SUBTITLE_SYNC, operation: create_subtitle_segment, payload: [timeline_id, start_frame, end_frame, text, language] }
+    EDIT01_SUBTITLE_TEXT: { action: EDIT_SUBTITLE_SYNC, operation: update_subtitle_text, payload: [timeline_id, subtitle_segment_id, text] }
+    EDIT01_SUBTITLE_SPLIT: { action: EDIT_SUBTITLE_SYNC, operation: split_subtitle, payload: [timeline_id, subtitle_segment_id, playback_position_frame] }
+    EDIT01_SUBTITLE_MERGE: { action: EDIT_SUBTITLE_SYNC, operation: merge_subtitles, payload: [timeline_id, subtitle_segment_ids] }
+    EDIT01_SUBTITLE_TIMECODE: { action: EDIT_SUBTITLE_SYNC, operation: update_subtitle_range, payload: [timeline_id, subtitle_segment_id, start_frame, end_frame] }
+    EDIT01_SUBTITLE_LANGUAGE: { action: EDIT_SUBTITLE_SYNC, operation: set_subtitle_language, payload: [timeline_id, subtitle_track_id, language] }
+    EDIT01_SUBTITLE_FORMAT: { action: EDIT_SUBTITLE_SYNC, operation: set_subtitle_format, payload: [timeline_id, subtitle_track_id, format] }
+    EDIT01_SUBTITLE_API_SYNC: { action: EDIT_SUBTITLE_SYNC, operation: api_sync, payload: [timeline_id, subtitle_track_id, provider_id, model_id] }
+    EDIT01_QA_MARKER: { action: EDIT_TIMELINE_UPDATE, operation: load_existing_qa_marker_context, payload: [timeline_id, evidence_id, marker_frame, correction_start_frame, correction_end_frame] }
+    EDIT01_QA_RECHECK_SELECTED: { action: EDIT_QA_RECHECK, operation: selected_issue, payload: [timeline_id, issue_id, correction_start_frame, correction_end_frame] }
+    EDIT01_QA_RECHECK_FULL: { action: EDIT_QA_RECHECK, operation: full_timeline, payload: [timeline_id, working_version_id] }
+    EDIT01_SAVE_VERSION: { action: EDIT_VERSION_SAVE, operation: save_new_version, payload: [timeline_id, working_draft_id, change_summary] }
+    EDIT01_RESTORE_DRAFT: { action: EDIT_VERSION_SAVE, operation: restore_as_new_draft, payload: [timeline_id, source_version_id] }
+    EDIT01_RENDER_SETTINGS: { action: EDIT_OUTPUT_RENDER, operation: set_render_settings, payload: [timeline_id, output_format, resolution, frame_rate, codec, audio_settings, subtitle_mode] }
+    EDIT01_FINAL_RENDER: { action: EDIT_OUTPUT_RENDER, operation: render, payload: [timeline_id, approved_version_id, render_settings] }
+    EDIT01_EXPORT_DOWNLOAD: { action: EDIT_OUTPUT_RENDER, operation: export_download, payload: [render_job_id, output_id] }
+    EDIT01_HANDOFF: { action: EDIT_OUTPUT_RENDER, operation: handoff, payload: [output_id, target_department, handoff_payload] }
+
 rules:
-  all_controls_must_have_action_and_permission: true
-  zoom_must_not_create_database_entity: true
-  qa_marker_must_reference_existing_evidence: true
-  correction_range_must_not_create_parallel_editing_object: true
+  every_active_binding_page_uid: EDIT-01
+  EDIT-02_bindings: forbidden
+  EDIT-03_bindings: forbidden
+  standalone_upload_does_not_require_project_task: true
+  manual_edit_writes_working_draft_only: true
+  api_edit_candidate_must_be_reviewed_before_apply: true
+  saved_version_overwrite: forbidden
 status: contract_defined
 external_e2e: pending
