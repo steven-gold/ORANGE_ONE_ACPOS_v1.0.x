@@ -1,31 +1,91 @@
-version: CORE-UI-RENDER-BINDING-V1
+version: CORE-UI-RENDER-BINDING-V2
+status: AUTHORITY_ACTIVE
 purpose: 1_to_1_authority_render_mapping
 rules:
   source_required: true
   unknown_component: reject_render
   unknown_control: reject_render
   unknown_state: reject_render
+  unknown_position: reject_render
+  page_content_outside_global_workspace: reject_render
 
 mapping:
   CORE-01:
     shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
-    regions:
-      left:
-        - PROJECT_CONTEXT
-        - TOPIC_CONTEXT
-      center:
-        - AI_CONVERSATION_WORKSPACE
-      right:
-        - BLUEPRINT_PANEL
-        - DNA_PANEL
-        - SCRIPT_PANEL
-        - VERSION_PANEL
-        - DECISION_PANEL
+    global_inheritance:
+      header: GLOBAL_HEADER_001
+      sidebar: GLOBAL_SIDEBAR_001
+      workspace: GLOBAL_WORKSPACE_001
+    page_context_bar:
+      section_id: CORE-SEC-PAGE-CONTEXT
+      component_id: CORE-COMP-PAGE-CONTEXT
+      position:
+        x: 0
+        y: 0
+        width: "100%"
+        height: "64px"
+      controls:
+        - CORE-CTRL-PROJECT-SELECTOR
+        - CORE-CTRL-CREATE-PROJECT
+        - CORE-CTRL-TOPIC-SELECTOR
+        - CORE-CTRL-CREATE-TOPIC
+    body:
+      y: "80px"
+      height: "calc(100%-80px)"
+      columns:
+        left:
+          width: "22%"
+          component_id: CORE-COMP-WORK-ITEM-NAV
+          section_id: CORE-SEC-WORK-ITEM-NAV
+          controls:
+            - CORE-CTRL-WORK-ITEM-SELECT
+            - CORE-CTRL-NEW-THREAD
+        center:
+          width: "50%"
+          component_id: CORE-COMP-CONVERSATION
+          section_id: CORE-SEC-CONVERSATION
+          controls:
+            - CORE-CTRL-CONVERSATION-INPUT
+          primary: true
+        right:
+          width: "28%"
+          rail:
+            - order: 1
+              component_id: CORE-COMP-DNA
+              section_id: CORE-SEC-DNA
+              controls: [CORE-CTRL-CONFIRM-DNA]
+            - order: 2
+              component_id: CORE-COMP-BLUEPRINT
+              section_id: CORE-SEC-BLUEPRINT
+              controls: [CORE-CTRL-GENERATE-BLUEPRINT, CORE-CTRL-LOCK-BLUEPRINT]
+            - order: 3
+              component_id: CORE-COMP-SCRIPT
+              section_id: CORE-SEC-SCRIPT
+              controls: [CORE-CTRL-GENERATE-SCRIPT, CORE-CTRL-CONFIRM-SCRIPT]
+            - order: 4
+              component_id: CORE-COMP-VERSION
+              section_id: CORE-SEC-VERSION
+            - order: 5
+              component_id: CORE-COMP-DECISION
+              section_id: CORE-SEC-DECISION
+              controls: [CORE-CTRL-CONFIRM-CORE, CORE-CTRL-CREATE-PRODUCTION-TASK]
 
 binding_flow:
   Page: required
   Section: required
   Component: required
   Control: required
+  Action: required
   State: required
   Position: required
+  VisualSource: required
+
+context_rules:
+  project_selector: required
+  topic_selector: required
+  work_item_selector: required
+  production_task_context: forbidden
+
+final_rule:
+  render_must_include_work_item_rail: true
+  render_must_not_replace_global_shell: true
