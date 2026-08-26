@@ -1,36 +1,196 @@
 batch: 004
 module: EDITING
 source: R9_FINAL
+active_page: EDIT-01
+
 entities:
   Timeline:
     columns:
       - id
-      - project_id
-      - version
-    correction_timeline_binding:
-      identity_field: id
-      request_binding: timeline_id
-      playback_position_frame: runtime_operation_state
-      correction_start_frame: runtime_operation_state
-      correction_end_frame: runtime_operation_state
-      qa_evidence_reference: existing_QA_evidence_trace_only
-      schema_expansion_required: false
+      - project_id_nullable
+      - task_id_nullable
+      - owner_user_id
+      - source_mode
+      - frame_rate
+      - duration_frames
+      - current_working_draft_id
+      - current_saved_version_id_nullable
+      - status
+      - created_at
+      - updated_at
+    rules:
+      standalone_project_id_nullable: true
+      standalone_task_id_null: true
+      project_task_mode_task_id_required: true
+
   Layer:
     columns:
       - id
       - timeline_id
+      - layer_type
       - order
-    timeline_context_use: existing_track_context_only
+      - visible
+      - muted
+      - solo
+      - locked
+      - gain_db
+      - created_at
+      - updated_at
+    layer_type_enum: [VIDEO, VOICE, MUSIC, SFX, SUBTITLE, LIP_SYNC, OVERLAY]
+
+  TimelineClip:
+    columns:
+      - id
+      - timeline_id
+      - layer_id
+      - asset_version_id_nullable
+      - source_reference_id_nullable
+      - source_in_frame
+      - source_out_frame
+      - timeline_start_frame
+      - timeline_end_frame
+      - speed_ratio
+      - gain_db
+      - fade_in_frames
+      - fade_out_frames
+      - transition_in_type_nullable
+      - transition_in_frames_nullable
+      - transition_out_type_nullable
+      - transition_out_frames_nullable
+      - enabled
+      - clip_metadata_json
+      - created_at
+      - updated_at
+    constraints:
+      source_in_lt_source_out: true
+      timeline_start_lt_timeline_end: true
+      layer_must_belong_to_timeline: true
+
   SubtitleTrack:
     columns:
       - id
       - timeline_id
       - language
-    timeline_context_use: existing_subtitle_context_only
+      - format
+      - enabled
+      - created_at
+      - updated_at
+
+  SubtitleSegment:
+    columns:
+      - id
+      - subtitle_track_id
+      - start_frame
+      - end_frame
+      - text
+      - style_reference_nullable
+      - created_at
+      - updated_at
+    constraints:
+      start_lt_end: true
+
+  EditWorkingDraft:
+    columns:
+      - id
+      - timeline_id
+      - base_version_id_nullable
+      - revision
+      - dirty
+      - change_summary_nullable
+      - created_by
+      - created_at
+      - updated_at
+    rules:
+      mutable: true
+      one_current_draft_per_timeline: true
+
+  EditVersion:
+    columns:
+      - id
+      - timeline_id
+      - version_number
+      - source_working_draft_id
+      - snapshot_reference
+      - change_summary
+      - created_by
+      - created_at
+      - state
+    rules:
+      immutable_after_save: true
+      overwrite_forbidden: true
+
+  ApiEditJob:
+    columns:
+      - id
+      - timeline_id
+      - working_draft_id
+      - provider_id
+      - model_id
+      - target_scope
+      - target_payload_json
+      - instruction_text
+      - state
+      - error_code_nullable
+      - created_by
+      - created_at
+      - updated_at
+    target_scope_enum: [FULL_TIMELINE, SELECTED_RANGE, SELECTED_CLIP]
+
+  ApiEditCandidate:
+    columns:
+      - id
+      - api_edit_job_id
+      - candidate_index
+      - candidate_snapshot_reference
+      - preview_reference
+      - score_nullable
+      - state
+      - created_at
+      - applied_at_nullable
+    rules:
+      candidate_apply_changes_working_draft_only: true
+
+  RenderJob:
+    columns:
+      - id
+      - timeline_id
+      - edit_version_id
+      - render_settings_json
+      - state
+      - progress_percent
+      - output_reference_nullable
+      - error_code_nullable
+      - created_by
+      - created_at
+      - updated_at
+
+  OutputReference:
+    columns:
+      - id
+      - render_job_id
+      - asset_version_id_nullable
+      - storage_reference
+      - format
+      - duration_frames
+      - file_size_bytes_nullable
+      - qa_status
+      - created_at
+
+runtime_only_state:
+  - playback_position_frame
+  - playback_state
+  - correction_start_frame
+  - correction_end_frame
+  - zoom_scale
+  - snap_enabled
+  - selected_clip_ids
+  - selected_range
+
 rules:
-  create_CorrectionRange_entity: forbidden
-  create_QAMarker_entity_inside_EDITING: forbidden
   create_parallel_timeline_table: forbidden
-  zoom_state_database_persistence: forbidden
-  use_existing_timeline_layer_subtitle_entities_only: true
-migration_required_for_this_change: false
+  qa_marker_uses_existing_QA_evidence_trace: true
+  uploaded_media_must_create_or_bind_AssetVersion_reference: true
+  saved_version_overwrite: forbidden
+  source_video_regeneration_does_not_write_new_VIDEO_artifact_from_EDITING_directly: true
+migration_required_for_this_change: true
+migration_execution: pending_deployment_database
