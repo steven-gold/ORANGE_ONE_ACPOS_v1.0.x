@@ -2,20 +2,21 @@ module: EDITING
 batch: 013
 source: R9_FINAL
 approved_functional_extension: FULL_POST_PRODUCTION_AND_STANDALONE_EDITING
+
 construction_rule:
   actual_function_completion_first: true
-  multi_workspace_allowed: true
-  reuse_existing_page_uids_first: true
-  invent_duplicate_page_uid: forbidden
+  single_active_editing_page: EDIT-01
+  split_editing_pages: forbidden
   api_editing_required: true
   manual_editing_required: true
   standalone_use_without_project_task_required: true
-  immutable_saved_versions: true
+  saved_version_overwrite: forbidden
 
 pages:
   - id: EDIT-01
-    name: Timeline Editing & Media Import
-    role: primary_video_editing_workspace
+    name: Integrated Post-Production Workspace
+    active_render: true
+    role: complete_editing_voice_music_sfx_lipsync_subtitle_qa_output_workspace
     source_modes:
       - PROJECT_TASK
       - PROJECT_FREE_EDIT
@@ -32,22 +33,22 @@ pages:
         task_id: forbidden
         owner_user_id: required
         upload_required_before_edit: true
-    required_capabilities:
-      - media_upload_and_import
-      - asset_version_reference
-      - preview_and_transport
-      - frame_accurate_playhead
-      - timecode_navigation
-      - multi_track_timeline
-      - manual_clip_editing
-      - api_assisted_editing
-      - correction_range
-      - qa_marker_navigation
-      - undo_redo
-      - timeline_zoom_and_snap
-      - working_draft
-      - save_new_timeline_version
-      - version_compare
+    functional_zones:
+      - SOURCE_AND_UPLOAD
+      - PREVIEW_AND_TRANSPORT
+      - MULTITRACK_TIMELINE
+      - MANUAL_EDITING
+      - API_EDITING
+      - LAYER_MANAGEMENT
+      - VOICE
+      - MUSIC_AND_SFX
+      - AUDIO_MIX
+      - LIP_SYNC
+      - SUBTITLE
+      - QA_AND_CORRECTION
+      - VERSION
+      - FINAL_PREVIEW
+      - RENDER_EXPORT_HANDOFF
     track_types:
       - VIDEO
       - VOICE
@@ -72,86 +73,43 @@ pages:
       - set_fade_in_out
       - enable_disable_track
       - mute_unmute_track
+      - solo_unsolo_track
       - lock_unlock_track
     api_edit_operations:
       - edit_full_timeline_from_instruction
       - edit_selected_range_from_instruction
+      - edit_selected_clip_from_instruction
       - replace_selected_segment_by_api
       - generate_edit_candidate
       - compare_api_candidate_with_current_version
+      - apply_selected_api_candidate
+    integrated_service_binding:
+      timeline_layer_editing: EDITING
+      voice_generation: VOICE
+      voice_asset_binding: VOICE
+      lip_sync: VOICE
+      subtitle_sync: EDITING
+      asset_reference_and_version: ASSET
+      source_video_regeneration_when_required: VIDEO
     version_rule:
       working_draft_may_change: true
-      saved_version_overwrite: forbidden
       save_creates_new_version: true
+      previous_saved_versions_remain_immutable: true
 
   - id: EDIT-02
-    name: Layer Audio Voice Music SFX & Lip Sync
-    role: audio_layer_and_sync_workspace
-    shared_timeline_with: EDIT-01
-    required_capabilities:
-      - layer_management
-      - voice_asset_binding
-      - voice_api_generation
-      - voice_take_preview_and_compare
-      - voice_clip_timing
-      - music_import_and_timing
-      - sfx_import_and_timing
-      - waveform_display
-      - per_track_volume
-      - per_clip_volume
-      - fade_in_out
-      - mute_solo_lock
-      - manual_audio_alignment
-      - audio_mix_preview
-      - audio_mix_commit
-      - lip_sync_execute
-      - lip_sync_preview
-      - lip_sync_selected_range_retry
-      - save_new_audio_edit_version
-    service_binding:
-      editing_layer_service: EDITING
-      voice_generation_and_sync_service: VOICE
-      asset_version_service: ASSET
+    status: INTEGRATED_INTO_EDIT-01
+    active_render: false
+    retained_for: legacy_uid_trace_only
+    integrated_zone: LAYER_MANAGEMENT|VOICE|MUSIC_AND_SFX|AUDIO_MIX|LIP_SYNC
 
   - id: EDIT-03
-    name: Subtitle QA & Finalize
-    role: subtitle_quality_and_output_workspace
-    shared_timeline_with:
-      - EDIT-01
-      - EDIT-02
-    required_capabilities:
-      - subtitle_import
-      - subtitle_create
-      - subtitle_text_edit
-      - subtitle_split
-      - subtitle_merge
-      - subtitle_timecode_edit
-      - subtitle_language_and_format
-      - subtitle_manual_sync
-      - subtitle_api_sync
-      - qa_issue_list
-      - qa_marker_jump
-      - issue_correction_range
-      - full_preview
-      - output_validation
-      - final_render
-      - export
-      - handoff
-    closure_rule:
-      final_output_requires_timeline_audio_lipsync_subtitle_validation: true
-
-cross_page_rules:
-  same_timeline_id_across_pages: required
-  same_working_version_across_pages: required
-  page_switch_must_preserve_playhead_and_selection: true
-  project_task_context_not_required_for_STANDALONE_UPLOAD: true
-  imported_media_must_have_asset_version_reference: true
-  external_api_must_use_provider_adapter_and_not_hardcode_provider: true
-  generated_video_regeneration_still_routes_to_VIDEO_when_source_content_must_be_regenerated: true
+    status: INTEGRATED_INTO_EDIT-01
+    active_render: false
+    retained_for: legacy_uid_trace_only
+    integrated_zone: SUBTITLE|QA_AND_CORRECTION|FINAL_PREVIEW|RENDER_EXPORT_HANDOFF
 
 fields:
   - page_uid
-  - route
   - source_mode
   - project_id
   - task_id
