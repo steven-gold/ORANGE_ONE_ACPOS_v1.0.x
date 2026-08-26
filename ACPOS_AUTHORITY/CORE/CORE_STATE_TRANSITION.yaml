@@ -1,0 +1,125 @@
+version: CORE-STATE-TRANSITION-V1
+status: AUTHORITY_ACTIVE
+
+transitions:
+  project_context:
+    - from: EMPTY
+      event: CORE-ACT-SELECT-PROJECT
+      to: LOADING
+    - from: LOADING
+      event: PROJECT_CONTEXT_LOAD_SUCCESS
+      to: READY
+    - from: READY
+      event: CORE-ACT-CONFIRM-CORE
+      to: LOCKED
+    - from: LOADING
+      event: PROJECT_CONTEXT_LOAD_FAILURE
+      to: ERROR
+
+  topic_context:
+    - from: EMPTY
+      event: CORE-ACT-SELECT-TOPIC
+      to: LOADING
+    - from: LOADING
+      event: TOPIC_CONTEXT_LOAD_SUCCESS
+      to: READY
+    - from: READY
+      event: CORE-ACT-CONFIRM-CORE
+      to: LOCKED
+    - from: LOADING
+      event: TOPIC_CONTEXT_LOAD_FAILURE
+      to: ERROR
+
+  work_item:
+    - from: DRAFT
+      event: CORE-ACT-OPEN-WORK-ITEM
+      to: IN_DISCUSSION
+    - from: IN_DISCUSSION
+      event: SUBMIT_FOR_REVIEW
+      to: REVIEW
+    - from: REVIEW
+      event: HUMAN_CONFIRM
+      to: LOCKED
+    - from: LOCKED
+      event: AUTHORIZED_REOPEN
+      to: REOPENED
+    - from: REOPENED
+      event: RESUME_DISCUSSION
+      to: IN_DISCUSSION
+
+  conversation:
+    - from: EMPTY
+      event: CORE-ACT-OPEN-WORK-ITEM
+      to: READY
+    - from: READY
+      event: AI_CORE_CONVERSATION_SEND
+      to: RUNNING
+    - from: RUNNING
+      event: AI_OUTPUT_READY
+      to: WAITING_HUMAN
+    - from: WAITING_HUMAN
+      event: HUMAN_CONTINUE
+      to: READY
+    - from: RUNNING
+      event: AI_RUNTIME_ERROR
+      to: ERROR
+
+  dna:
+    - from: DRAFT
+      event: DNA_READY_FOR_REVIEW
+      to: REVIEW
+    - from: REVIEW
+      event: CORE-ACT-CONFIRM-DNA
+      to: LOCKED
+
+  blueprint:
+    - from: DRAFT
+      event: BLUEPRINT_READY_FOR_REVIEW
+      to: REVIEW
+    - from: REVIEW
+      event: CORE-ACT-LOCK-BLUEPRINT
+      to: LOCKED
+
+  script:
+    - from: GENERATED
+      event: SCRIPT_REVIEW_START
+      to: REVIEW
+    - from: REVIEW
+      event: SCRIPT_REVISION_REQUIRED
+      to: REVISION
+    - from: REVISION
+      event: SCRIPT_REVIEW_START
+      to: REVIEW
+    - from: REVIEW
+      event: CORE-ACT-CONFIRM-SCRIPT
+      to: CONFIRMED
+
+  core_scope:
+    - from: OPEN
+      event: REQUIRED_WORK_ITEMS_COMPLETE
+      to: READY_TO_LOCK
+    - from: READY_TO_LOCK
+      event: CORE-ACT-CONFIRM-CORE
+      to: LOCKED
+
+  production_handoff:
+    - from: HIDDEN
+      event: CORE_SCOPE_LOCKED
+      to: READY
+    - from: READY
+      event: CORE-ACT-CREATE-PRODUCTION-TASK
+      to: CREATING
+    - from: CREATING
+      event: PRODUCTION_TASK_CREATE_SUCCESS
+      to: CREATED
+    - from: CREATED
+      event: ASSET_HANDOFF_SENT
+      to: HANDED_OFF_ASSET
+    - from: CREATING
+      event: PRODUCTION_TASK_CREATE_FAILURE
+      to: ERROR
+
+rules:
+  - every_from_and_to_state_must_exist_in_CORE_STATE_REGISTRY
+  - unknown_transition_rejected
+  - production_handoff_does_not_change_conversation_binding
