@@ -1,0 +1,70 @@
+authority: ACPOS_GLOBAL_HOME_QA_EVIDENCE
+version: V1.0
+status: AUTHORITY_ACTIVE
+page_uid: HOME-001
+
+matrix:
+  frontend:
+    required: true
+    evidence:
+      - GLOBAL_HOME_PAGE_REGISTRY
+      - GLOBAL_HOME_COMPONENT_REGISTRY
+      - GLOBAL_HOME_CONTROL_REGISTRY
+      - GLOBAL_HOME_CONTROL_ACTION_REGISTRY
+      - GLOBAL_HOME_STATE_REGISTRY
+      - GLOBAL_HOME_STATE_TRANSITION
+      - GLOBAL_HOME_VISUAL_MAPPING
+      - GLOBAL_HOME_UI_RENDER_BINDING
+    status: CONTRACT_DEFINED
+
+  source_trace:
+    required: true
+    evidence:
+      - GLOBAL_HOME_AUTHORITY_PRIORITY
+      - GLOBAL_HOME_VISUAL_MAPPING
+      - GLOBAL_HOME_UI_RENDER_BINDING
+    status: CONTRACT_DEFINED
+
+  permission:
+    required: true
+    evidence_source: GLOBAL_HOME_PERMISSION_MATRIX
+    status: CONTRACT_DEFINED
+
+  i18n:
+    required: true
+    evidence_source: GLOBAL_HOME_I18N
+    status: CONTRACT_DEFINED
+
+  data_api:
+    required: true
+    evidence_source: GLOBAL_HOME_DATA_API_BINDING
+    status: CONTRACT_DEFINED_API_RESOLUTION_PENDING
+
+  brand_asset:
+    required: true
+    evidence_source: GLOBAL_HOME_BRAND_ASSET_BINDING
+    status: CANONICAL_BINARY_ASSET_REQUIRED_FOR_PIXEL_EXACT_VALIDATION
+
+  navigation:
+    required: true
+    evidence_source: GLOBAL_HOME_NAVIGATION_REGISTRY
+    status: MASTER_NAVIGATION_ITEM_RESOLUTION_REQUIRED
+
+  test_evidence:
+    required: true
+    types:
+      - render_snapshot
+      - responsive_layout
+      - navigation_interaction
+      - state_transition
+      - i18n
+    status: NOT_EXECUTED
+
+freeze_gate:
+  structure_authority_complete_when_all_contracts_defined: true
+  final_frozen_requires_real_test_evidence: true
+  pixel_exact_brand_render_requires_canonical_binary_asset: true
+
+rules:
+  - do_not_mark_REAL_TEST_PASS_without_execution
+  - do_not_mark_FINAL_FROZEN_while_test_evidence_NOT_EXECUTED
