@@ -1,36 +1,37 @@
 module: EDITING
 source: R9_FINAL
-pages:
-  - id: EDIT-01
-    name: Timeline Editing & Media Import
-    responsibility:
-      - source_mode
-      - upload_import
-      - preview
-      - manual_timeline_edit
-      - api_edit
-      - timeline_version
-  - id: EDIT-02
-    name: Layer Audio Voice Music SFX & Lip Sync
-    responsibility:
-      - layer_management
-      - voice
-      - music
-      - sfx
-      - audio_mix
-      - lip_sync
-      - audio_layer_version
-  - id: EDIT-03
-    name: Subtitle QA & Finalize
-    responsibility:
-      - subtitle
-      - qa
-      - final_preview
-      - render
-      - export
-      - handoff
-shared_contract:
-  timeline_id: same_across_pages
-  working_version: same_across_pages
+active_page:
+  id: EDIT-01
+  name: Integrated Post-Production Workspace
+  responsibility:
+    - source_mode
+    - standalone_upload
+    - project_source
+    - preview
+    - manual_timeline_edit
+    - api_edit
+    - layer_management
+    - voice
+    - music
+    - sfx
+    - audio_mix
+    - lip_sync
+    - subtitle
+    - qa
+    - version
+    - final_preview
+    - render
+    - export
+    - handoff
+legacy_page_uids:
+  EDIT-02:
+    active_render: false
+    integrated_into: EDIT-01
+  EDIT-03:
+    active_render: false
+    integrated_into: EDIT-01
+rules:
+  single_route_for_all_editing_functions: true
+  separate_editing_page_navigation: forbidden
   standalone_upload_supported: true
   project_task_required_for_all_modes: false
