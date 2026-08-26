@@ -1,0 +1,40 @@
+authority: ACPOS_GLOBAL_HOME_CONTROL
+version: V1.1
+purpose: Global Home control authority and render binding
+
+controls:
+  - id: BRAND_LOGO
+    type: BRAND
+    source: GLOBAL_HEADER_001
+    rules:
+      preserve_ratio: true
+      immutable: true
+
+  - id: PROJECT_CONTEXT
+    type: CONTEXT_DISPLAY
+    source: GLOBAL_HEADER_001
+
+  - id: TOP_STATUS
+    type: STATUS_DISPLAY
+    source: GLOBAL_HEADER_001
+
+  - id: USER_CONTROL
+    type: USER_MENU
+    source: GLOBAL_HEADER_001
+
+  - id: MENU_ITEM
+    type: NAVIGATION_ITEM
+    source: GLOBAL_SIDEBAR_001
+
+  - id: ACTIVE_STATE
+    type: NAVIGATION_STATE
+    source: GLOBAL_SIDEBAR_001
+
+  - id: COLLAPSE_BUTTON
+    type: SIDEBAR_CONTROL
+    source: GLOBAL_SIDEBAR_001
+
+rules:
+  - every_control_requires_source_id
+  - no_unknown_control_render
+  - departments_cannot_override_global_controls
