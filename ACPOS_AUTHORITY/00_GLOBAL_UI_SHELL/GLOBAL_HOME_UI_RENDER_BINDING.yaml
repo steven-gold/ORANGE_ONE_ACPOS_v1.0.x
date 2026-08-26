@@ -1,10 +1,14 @@
 authority: ACPOS_GLOBAL_HOME_UI_RENDER_BINDING
-version: V1.1
+version: V1.2
 status: AUTHORITY_ACTIVE
-purpose: 1_to_1_global_shell_render_binding
+purpose: 1_to_1_global_shell_template_render_binding
 
 binding:
-  HOME-001:
+  GLOBAL-SHELL-001:
+    template_type: GLOBAL_UI_SHELL
+    standalone_page: false
+    consumer_page_uid: required
+    consumer_page_route: inherited_from_consumer_page_authority
     shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
     sections:
       GLOBAL-SEC-HEADER:
@@ -47,8 +51,9 @@ binding:
           - CONTENT_SLOT
 
 render_requirements:
-  - PageContract
-  - Page
+  - TemplateContract
+  - ConsumerPageUID
+  - ConsumerPageContract
   - Section
   - Component
   - Control
@@ -60,6 +65,10 @@ render_requirements:
   - I18N
 
 rules:
+  shell_template_must_not_create_route: true
+  shell_template_must_not_create_page_uid: true
+  dashboard_l1_01_remains_home_page: true
+  HOME_001_render: reject_render
   unknown_element: reject_render
   unknown_control: reject_render
   unknown_state: reject_render
