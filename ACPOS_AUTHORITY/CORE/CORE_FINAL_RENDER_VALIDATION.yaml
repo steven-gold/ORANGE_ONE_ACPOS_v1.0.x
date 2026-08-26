@@ -1,0 +1,23 @@
+version: CORE-FINAL-RENDER-VALIDATION-V1
+purpose: validate_ui_can_be_rendered_from_authority
+checklist:
+  page_registry: required
+  screen_layout: required
+  component_registry: required
+  control_registry: required
+  state_registry: required
+  visual_mapping: required
+  ui_render_binding: required
+
+render_rule:
+  every_element_requires_source: true
+  ai_free_design_element: reject
+
+status:
+  previous:
+    control_mapping: incomplete
+    state_mapping: incomplete
+    visual_mapping: incomplete
+    render_binding: missing
+  target:
+    authority_driven_render: complete
