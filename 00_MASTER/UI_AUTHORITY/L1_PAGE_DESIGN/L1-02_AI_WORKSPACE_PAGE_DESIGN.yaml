@@ -3,19 +3,21 @@ page:
   name: AI Workspace
   purpose: AI collaboration production workspace
   template: AI_WORKSPACE
-  version: v2.0.1
+  version: v2.0.2
 
 visual_layout:
-  shell: ACPOS_L1_VISUAL_DESIGN_AUTHORITY_v2
+  shell: R9_APP_SHELL_v1.1
+  visual_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
   header:
     logo: left
     account: right
+    height: 72px
     secondary_navigation: disabled
 
   sidebar:
     position: left
     collapsible: true
-    expanded_width: 280px
+    expanded_width: 240px
     collapsed_width: 72px
     content:
       - project_navigation
@@ -34,6 +36,7 @@ visual_layout:
       - input_composer
 
   right_panel:
+    ownership: page_specific_authority
     width:
       default: 280px
       min: 260px
@@ -96,6 +99,8 @@ controls:
     action: LOAD_BLUEPRINT_CONTEXT
 
 bindings:
+  ai_core_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  ai_conversation_visual_source: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
   action_flow:
     - UI
     - Action
@@ -107,5 +112,6 @@ bindings:
 restrictions:
   - no_standard_chat_layout
   - no_top_secondary_navigation
-  - no_removal_of_right_information_panel
+  - no_global_forced_right_panel
   - no_new_undefined_features
+  - no_legacy_sidebar_280px
