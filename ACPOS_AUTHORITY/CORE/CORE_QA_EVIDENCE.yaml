@@ -1,0 +1,66 @@
+version: CORE-QA-EVIDENCE-V1
+status: AUTHORITY_ACTIVE
+page_uid: CORE-01
+
+matrix:
+  data_model:
+    required: true
+    evidence_source: authoritative_database_binding
+    status: PENDING_RUNTIME_EVIDENCE
+  backend:
+    required: true
+    evidence_source: authoritative_api_binding
+    status: PENDING_RUNTIME_EVIDENCE
+  runtime:
+    required: true
+    evidence_source: CORE_RUNTIME_PERMISSION_QA
+    status: CONTRACT_DEFINED
+  frontend:
+    required: true
+    evidence:
+      - CORE_PAGE_REGISTRY
+      - CORE_SCREEN_LAYOUT
+      - CORE_COMPONENT_REGISTRY
+      - CORE_CONTROL_REGISTRY
+      - CORE_VISUAL_MAPPING
+      - CORE_UI_RENDER_BINDING
+    status: CONTRACT_DEFINED
+  state_error:
+    required: true
+    evidence:
+      - CORE_STATE_REGISTRY
+      - CORE_STATE_TRANSITION
+      - CORE_PAGE_CONTRACT.error_contract
+    status: CONTRACT_DEFINED
+  permission:
+    required: true
+    evidence_source: CORE_PERMISSION_MATRIX
+    status: CONTRACT_DEFINED
+  i18n:
+    required: true
+    evidence_source: CORE_I18N
+    status: CONTRACT_DEFINED
+  source_trace:
+    required: true
+    evidence:
+      - CORE_FINAL_AUTHORITY_PRIORITY
+      - CORE_VISUAL_MAPPING
+      - CORE_UI_RENDER_BINDING
+    status: CONTRACT_DEFINED
+  test_evidence:
+    required: true
+    types:
+      - unit
+      - integration
+      - e2e
+      - render_snapshot
+    status: NOT_EXECUTED
+
+freeze_gate:
+  require_all_contracts_defined: true
+  require_real_test_evidence_for_final_frozen: true
+  render_snapshot_must_match_global_shell_and_core_binding: true
+
+rules:
+  - do_not_mark_REAL_TEST_PASS_without_actual_execution
+  - do_not_mark_FINAL_FROZEN_while_test_evidence_NOT_EXECUTED
