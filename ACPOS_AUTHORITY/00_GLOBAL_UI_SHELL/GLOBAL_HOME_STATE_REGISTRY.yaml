@@ -1,0 +1,26 @@
+authority: ACPOS_GLOBAL_HOME_STATE
+version: V1.1
+purpose: Global Home UI state authority
+
+states:
+  HEADER:
+    - DEFAULT
+    - RUNTIME_CONNECTED
+    - WARNING
+    - ERROR
+
+  SIDEBAR:
+    - EXPANDED
+    - COLLAPSED
+    - ACTIVE
+
+  WORKSPACE:
+    - EMPTY
+    - LOADING
+    - READY
+    - ERROR
+
+rules:
+  - state_requires_source_definition
+  - state_transition_must_be_registered
+  - no_ai_generated_state
