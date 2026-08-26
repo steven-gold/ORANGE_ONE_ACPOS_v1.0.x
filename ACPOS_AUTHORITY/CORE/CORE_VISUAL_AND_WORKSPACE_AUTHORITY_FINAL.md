@@ -1,179 +1,110 @@
-# ACPOS CORE Department Visual and Workspace Authority FINAL
+# ACPOS CORE Visual and Workspace Authority V2
 
 ## 文件定位
-
-本文件定義 CORE 部門在 Global UI Shell 下的專屬工作區內容。
+本文件定義 CORE 在 Global UI Shell 下的最新單一工作頁。舊的 CORE-01/CORE-02 分頁式操作視為已取代，不得再由渲染層建立平行頁面。
 
 基礎來源：
-- ACPOS Global UI Shell Visual Authority Purple Freeze
-- AI Core Authority
-- CORE Department Logic
+- ACPOS Global UI Shell Visual Authority Purple Freeze FINAL
+- AI Conversation Core Authority
+- CORE 最新作業邏輯
 
 禁止：
-- 修改 Header
-- 修改 Sidebar
-- 修改全站色系
-- 新增未定義功能
+- 修改 Header / Sidebar / Logo / 全站色系
+- 把 Production Task 當成 CORE Conversation 綁定欄位
+- 把所有 CORE 工作塞進單一無分類聊天紀錄
+- 新增未定義 Dashboard 元件
 
-CORE 僅定義 Main Workspace 內部內容。
+## 1. CORE 定位
+CORE 負責 Project / Topic 的核心內容建立與封板，故事、章節、世界設定、DNA、Blueprint、Script 等內容以 AI Conversation 為主要工作方式。
 
----
+Project 與 Topic 為頁面綁定上下文；不同核心工作項目擁有各自 Conversation Thread。
 
-# 1. CORE 部門定位
+## 2. 單一頁面架構
+CORE 使用一個主要工作頁：CORE-01。
 
-CORE 是 ACPOS 生產鏈的核心建立部門。
+Main Workspace：
+1. 上方固定 Page Context Bar：Project Selector + Topic Selector + 對應建立入口。
+2. 左側 Work Item / Conversation Rail：顯示目前 Project / Topic 下的核心工作項目與各自對話紀錄入口。
+3. 中央 AI Conversation Workspace：載入目前所選 Work Item 的獨立 Conversation Thread，為最大操作區。
+4. 右側 Output / State Rail：顯示 DNA、Blueprint、Script、Version、Decision 等目前狀態與結果入口。
 
-負責：
-- Project 核心建立
-- Topic 建立
-- 故事核心
-- 故事章節
+## 3. Work Item 與 Task 名稱邊界
+左側「任務欄」屬於 CORE 內部 Work Item / Conversation Item Navigation，不是 Production Task。
+
+Work Item 可對應：
+- Story
+- Chapter
+- World / Setting
 - DNA
 - Blueprint
 - Script
-- Decision
-- Version
+- 其他由 CORE Authority 正式建立的核心項目
 
-流程：
+每個 Work Item 必須綁定自己的 conversation_thread_id、version_id、status 與 lock state。
 
-Project
-↓
-Topic
-↓
-AI Conversation
-↓
-故事章節
-↓
-DNA
-↓
-Blueprint
-↓
-Script
-↓
-確認完成
-↓
-Production Task 產生
+Production Task 僅在 CORE Project / Topic 完成封板後建立並交接 ASSET；不得出現在 CORE Page Context Selector。
 
----
-
-# 2. CORE Workspace Layout
-
-沿用 Global Shell：
-
-Header 固定
-Sidebar 固定
-Main Workspace 固定
-
-CORE 內容配置：
-
-左側：Context / Structure
-
-中央：AI Conversation Core Workspace
-
-右側：Blueprint / DNA / Version / Decision 狀態
-
----
-
-# 3. AI Conversation Core Area
-
-定位：
-
-CORE 主要操作區。
-
-用途：
-- 討論故事
-- 建立內容
-- 修正內容
-- 生成 Blueprint
-- 生成 Script
-
-不是一般聊天視窗。
-
-必須綁定：
+## 4. AI Conversation
+Conversation 必須綁定：
 - Project
 - Topic
-- Task
-- Context
-- Version
+- Work Item
+- Conversation Thread
+- Version / Context
 
----
+Conversation 不綁定 Production Task。
 
-# 4. CORE Output Panels
+使用者切換 Work Item 時，中央 Conversation Workspace 必須載入該項目的獨立歷史，不得混用其他 Work Item 的訊息。
 
-## Story Core
+## 5. 右側狀態區
+右側為狀態與結果入口，不是另一套獨立工作流程。
 
-顯示故事核心定義。
+顯示順序依核心依賴：
+1. DNA
+2. Blueprint
+3. Script
+4. Version
+5. Decision
 
-## Chapter Structure
+Story / Chapter / World 等工作項目的細節由左側 Work Item Navigation 與中央 Conversation 處理。
 
-顯示章節架構。
+## 6. CORE 正確流程
+Project 建立與基本設定
+→ Project 內各核心 Work Item 透過 Conversation 建立並逐項定案
+→ Project 完整後鎖定
+→ Topic 建立 / Production Scope 定義
+→ Topic 內產生後續部門所需 Script
+→ Topic 完成鎖定
+→ 建立 Production Task
+→ 通知 ASSET
 
-## Character/Object/Scene DNA
+在單一工作項目的依賴中：
+Story / Chapter / World Context
+→ DNA
+→ Blueprint
+→ Script
+→ Version
+→ Decision / Lock
 
-顯示 DNA 狀態。
+禁止 Blueprint Lock 後再回頭把 DNA 當下一個必經步驟。
 
-## Blueprint
+## 7. 版面比例
+Global Header / Sidebar 由 Global Shell 固定。
+CORE Main Workspace 內：
+- Page Context Bar：上方固定橫列
+- Left Work Item Rail：約 22%
+- Center AI Conversation：約 50%，主要區域
+- Right Output State Rail：約 28%
 
-顯示正式生產藍圖。
+若畫面寬度改變，中央 Conversation 優先保留最大可用區域。
 
-## Script
+## 8. 封板規則
+任何 CORE 畫面元素必須能回溯：Page → Section → Component → Control → Action → State → Position → Source。
 
-顯示部門 Production Script。
+未知來源：Reject Render。
 
----
-
-# 5. Decision / Version
-
-Decision：
-記錄重大確認與修改原因。
-
-Version：
-管理：
-- Draft
-- Review
-- Locked
-
-禁止覆蓋歷史版本。
-
----
-
-# 6. CORE → Production Handoff
-
-完成條件：
-
-- Blueprint Locked
-- DNA Locked
-- Script Confirmed
-- Version Created
-
-產生：
-
-Production Task
-
-通知後續 ASSET 部門。
-
----
-
-# 7. Visual Rule
-
-沿用 Global Purple Tech Theme：
-
-- 深色紫霧科技風
-- ORANGE ONE 品牌固定
-- 模組化工作站
-- 企業級 AI Production OS
-
-禁止：
-- 白色 SaaS 風格
-- 一般聊天介面
-- 自行增加 Dashboard 元件
-
----
-
-# 8. 封板狀態
-
-CORE Logic: FINAL
-CORE Workspace Structure: FINAL
-CORE Visual Binding: FINAL
-
-後續只允許依施工需求補充編碼，不得改變架構。
+## Status
+CORE Latest Architecture: ACTIVE AUTHORITY
+Legacy split-page model: REPLACED
+Production Task binding inside CORE Conversation: FORBIDDEN
+Work Item / Conversation Navigation: REQUIRED
