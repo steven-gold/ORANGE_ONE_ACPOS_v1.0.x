@@ -10,19 +10,22 @@ purpose:
   rule: Dashboard 即為 L1 首頁，不得增加第二層首頁
 
 layout:
-  shell: ACPOS_APP_SHELL_v2
+  shell: R9_APP_SHELL_v1.1
+  visual_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
   type: dashboard_workspace
   header:
     logo_position: left
     account_position: right
+    height: 72px
     secondary_navigation: disabled
   sidebar:
     enabled: true
     collapsible: true
-    expanded_width: 280px
+    expanded_width: 240px
     collapsed_width: 72px
   right_panel:
     enabled: true
+    ownership: page_specific_authority
     width_range: 320-420px
 
 sections:
@@ -86,3 +89,4 @@ restrictions:
     - add_top_navigation
     - change_global_shell
     - add_undefined_widgets
+    - use_legacy_sidebar_280px
