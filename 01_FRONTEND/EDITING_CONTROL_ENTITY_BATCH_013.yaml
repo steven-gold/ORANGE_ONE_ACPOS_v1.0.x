@@ -1,96 +1,107 @@
 module: EDITING
 batch: 013
 source: R9_FINAL
+active_page: EDIT-01
+
+control_schema:
+  required: [control_id, page_uid, component_id, type, state, validation, permission, action]
+
 controls:
-  schema:
-    - control_id
-    - page_uid
-    - component_id
-    - type
-    - state
-    - validation
-    - permission
-    - action
   EDIT-01:
-    - control_id: EDIT01_PLAY_PAUSE
-      component_id: TransportControls
-      type: toggle_button
-      state: default|active|disabled
-      validation: timeline_loaded
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_PREVIOUS_FRAME
-      component_id: TransportControls
-      type: button
-      state: default|disabled
-      validation: playhead_gt_timeline_start
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_NEXT_FRAME
-      component_id: TransportControls
-      type: button
-      state: default|disabled
-      validation: playhead_lt_timeline_end
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_TIMECODE
-      component_id: TimecodeDisplayInput
-      type: timecode_input
-      state: default|focus|error|disabled
-      validation: valid_timecode_and_frame_within_timeline
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_PLAYHEAD
-      component_id: Playhead
-      type: timeline_cursor
-      state: default|dragging|disabled
-      validation: position_within_timeline
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_CORRECTION_START
-      component_id: CorrectionRange
-      type: range_handle_start
-      state: default|dragging|error|disabled
-      validation: start_lte_end
-      permission: EDITING_TIMELINE_EDIT
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_CORRECTION_END
-      component_id: CorrectionRange
-      type: range_handle_end
-      state: default|dragging|error|disabled
-      validation: end_gte_start
-      permission: EDITING_TIMELINE_EDIT
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_QA_MARKER
-      component_id: QAMarkerRail
-      type: marker_selector
-      state: default|selected|resolved|disabled
-      validation: marker_must_reference_existing_qa_evidence
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_ZOOM_OUT
-      component_id: TimelineZoom
-      type: button
-      state: default|disabled
-      validation: zoom_above_minimum
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_ZOOM_IN
-      component_id: TimelineZoom
-      type: button
-      state: default|disabled
-      validation: zoom_below_frame_level_maximum
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
-    - control_id: EDIT01_ZOOM_FIT
-      component_id: TimelineZoom
-      type: button
-      state: default|disabled
-      validation: timeline_loaded
-      permission: EDITING_TIMELINE_VIEW
-      action: EDIT_TIMELINE_UPDATE
+    source_and_upload:
+      - { control_id: EDIT01_SOURCE_MODE, page_uid: EDIT-01, component_id: SourceModeSelector, type: segmented_selector, state: default|active|disabled, validation: valid_source_mode, permission: EDITING_USE, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_PROJECT_SOURCE, page_uid: EDIT-01, component_id: ProjectTaskSourcePicker, type: source_picker, state: default|loading|selected|error|disabled, validation: source_context_valid, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_UPLOAD_FILES, page_uid: EDIT-01, component_id: MediaUploadDropzone, type: multi_file_upload, state: default|dragover|uploading|success|error|disabled, validation: supported_media_and_size, permission: EDITING_UPLOAD, action: EDIT_MEDIA_IMPORT }
+      - { control_id: EDIT01_IMPORT_REMOVE, page_uid: EDIT-01, component_id: ImportQueue, type: button, state: default|disabled, validation: queued_item_exists, permission: EDITING_UPLOAD, action: EDIT_MEDIA_IMPORT }
+
+    transport:
+      - { control_id: EDIT01_PLAY_PAUSE, page_uid: EDIT-01, component_id: TransportControls, type: toggle_button, state: default|active|disabled, validation: timeline_loaded, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_PREVIOUS_FRAME, page_uid: EDIT-01, component_id: TransportControls, type: button, state: default|disabled, validation: playhead_gt_start, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_NEXT_FRAME, page_uid: EDIT-01, component_id: TransportControls, type: button, state: default|disabled, validation: playhead_lt_end, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_TIMECODE, page_uid: EDIT-01, component_id: TimecodeDisplayInput, type: timecode_input, state: default|focus|error|disabled, validation: valid_timecode, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_PLAYHEAD, page_uid: EDIT-01, component_id: Playhead, type: timeline_cursor, state: default|dragging|disabled, validation: within_timeline, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_PLAYBACK_SPEED, page_uid: EDIT-01, component_id: PlaybackSpeed, type: selector, state: default|active|disabled, validation: supported_speed, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_RANGE_LOOP, page_uid: EDIT-01, component_id: RangeLoopToggle, type: toggle_button, state: default|active|disabled, validation: selected_range_exists, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+
+    timeline_and_manual_edit:
+      - { control_id: EDIT01_UNDO, page_uid: EDIT-01, component_id: ManualEditToolbar, type: button, state: default|disabled, validation: undo_available, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_REDO, page_uid: EDIT-01, component_id: ManualEditToolbar, type: button, state: default|disabled, validation: redo_available, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_CORRECTION_START, page_uid: EDIT-01, component_id: CorrectionRange, type: range_handle_start, state: default|dragging|error|disabled, validation: start_lte_end, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_CORRECTION_END, page_uid: EDIT-01, component_id: CorrectionRange, type: range_handle_end, state: default|dragging|error|disabled, validation: end_gte_start, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_SPLIT_CLIP, page_uid: EDIT-01, component_id: ManualEditToolbar, type: button, state: default|disabled, validation: selected_clip_and_playhead_inside, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_TRIM_START, page_uid: EDIT-01, component_id: ClipInspector, type: timecode_or_drag, state: default|editing|error|disabled, validation: valid_trim_start, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_TRIM_END, page_uid: EDIT-01, component_id: ClipInspector, type: timecode_or_drag, state: default|editing|error|disabled, validation: valid_trim_end, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_MOVE_CLIP, page_uid: EDIT-01, component_id: MultiTrackTimeline, type: drag_operation, state: default|dragging|error|disabled, validation: valid_target_track_and_time, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_DELETE_CLIP, page_uid: EDIT-01, component_id: ManualEditToolbar, type: button, state: default|disabled, validation: selected_clip_exists, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_DUPLICATE_CLIP, page_uid: EDIT-01, component_id: ManualEditToolbar, type: button, state: default|disabled, validation: selected_clip_exists, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_REPLACE_CLIP, page_uid: EDIT-01, component_id: ClipInspector, type: asset_picker_button, state: default|loading|disabled, validation: selected_clip_exists, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_TRANSITION, page_uid: EDIT-01, component_id: ClipInspector, type: selector, state: default|active|disabled, validation: valid_clip_boundary, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_CLIP_SPEED, page_uid: EDIT-01, component_id: ClipInspector, type: numeric_input, state: default|editing|error|disabled, validation: valid_speed, permission: EDITING_EDIT, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_CLIP_VOLUME, page_uid: EDIT-01, component_id: ClipInspector, type: slider_input, state: default|editing|disabled, validation: valid_gain_range, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_FADE, page_uid: EDIT-01, component_id: ClipInspector, type: dual_duration_input, state: default|editing|error|disabled, validation: fade_within_clip_duration, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_ZOOM_OUT, page_uid: EDIT-01, component_id: TimelineZoom, type: button, state: default|disabled, validation: above_min_zoom, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_ZOOM_IN, page_uid: EDIT-01, component_id: TimelineZoom, type: button, state: default|disabled, validation: below_frame_zoom, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_ZOOM_FIT, page_uid: EDIT-01, component_id: TimelineZoom, type: button, state: default|disabled, validation: timeline_loaded, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_SNAP, page_uid: EDIT-01, component_id: SnapToggle, type: toggle_button, state: default|active|disabled, validation: timeline_loaded, permission: EDITING_EDIT, action: FRONTEND_STATE }
+
+    api_editing:
+      - { control_id: EDIT01_API_PROVIDER, page_uid: EDIT-01, component_id: ApiProviderSelector, type: selector, state: default|loading|error|disabled, validation: provider_enabled, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_MODEL, page_uid: EDIT-01, component_id: ApiModelSelector, type: selector, state: default|loading|error|disabled, validation: model_supported_by_provider, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_SCOPE, page_uid: EDIT-01, component_id: ApiTargetScopeSelector, type: selector, state: default|active|disabled, validation: target_scope_resolvable, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_INSTRUCTION, page_uid: EDIT-01, component_id: EditInstructionComposer, type: multiline_input, state: default|focus|error|disabled, validation: non_empty_instruction, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_EXECUTE, page_uid: EDIT-01, component_id: ApiEditExecute, type: primary_button, state: default|loading|disabled|error, validation: provider_model_scope_instruction_valid, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_CANCEL, page_uid: EDIT-01, component_id: ApiJobStatus, type: button, state: default|loading|disabled, validation: cancellable_job_exists, permission: EDITING_API_EXECUTE, action: EDIT_API_EDIT_EXECUTE }
+      - { control_id: EDIT01_API_COMPARE, page_uid: EDIT-01, component_id: ApiCandidateCompare, type: button, state: default|active|disabled, validation: candidate_ready, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_API_APPLY, page_uid: EDIT-01, component_id: ApiCandidateApply, type: primary_button, state: default|loading|disabled, validation: candidate_ready, permission: EDITING_EDIT, action: EDIT_API_EDIT_EXECUTE }
+
+    layers_audio_voice_lipsync:
+      - { control_id: EDIT01_TRACK_VISIBILITY, page_uid: EDIT-01, component_id: TrackHeaderControls, type: toggle_button, state: default|active|disabled, validation: track_exists, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_TRACK_MUTE, page_uid: EDIT-01, component_id: TrackHeaderControls, type: toggle_button, state: default|active|disabled, validation: audio_track, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_TRACK_SOLO, page_uid: EDIT-01, component_id: TrackHeaderControls, type: toggle_button, state: default|active|disabled, validation: audio_track, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_TRACK_LOCK, page_uid: EDIT-01, component_id: TrackHeaderControls, type: toggle_button, state: default|active|disabled, validation: track_exists, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_VOICE_ASSET, page_uid: EDIT-01, component_id: VoiceAssetPicker, type: asset_picker, state: default|loading|selected|disabled, validation: compatible_voice_asset, permission: EDITING_VOICE_EXECUTE, action: VOICE_ASSET_BIND }
+      - { control_id: EDIT01_VOICE_PROVIDER, page_uid: EDIT-01, component_id: VoiceProviderSelector, type: selector, state: default|loading|disabled, validation: voice_provider_enabled, permission: EDITING_VOICE_EXECUTE, action: VOICE_GENERATE }
+      - { control_id: EDIT01_VOICE_MODEL, page_uid: EDIT-01, component_id: VoiceModelSelector, type: selector, state: default|loading|disabled, validation: voice_model_supported, permission: EDITING_VOICE_EXECUTE, action: VOICE_GENERATE }
+      - { control_id: EDIT01_VOICE_GENERATE, page_uid: EDIT-01, component_id: VoiceGenerate, type: primary_button, state: default|loading|disabled|error, validation: voice_request_valid, permission: EDITING_VOICE_EXECUTE, action: VOICE_GENERATE }
+      - { control_id: EDIT01_VOICE_PREVIEW, page_uid: EDIT-01, component_id: VoicePreview, type: button, state: default|playing|disabled, validation: voice_take_exists, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_VOICE_APPLY, page_uid: EDIT-01, component_id: VoiceApplyToTimeline, type: primary_button, state: default|loading|disabled, validation: selected_voice_take_exists, permission: EDITING_EDIT, action: VOICE_ASSET_BIND }
+      - { control_id: EDIT01_MUSIC_PICK, page_uid: EDIT-01, component_id: MusicAssetPicker, type: asset_picker, state: default|loading|selected|disabled, validation: compatible_music_asset, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_SFX_PICK, page_uid: EDIT-01, component_id: SfxAssetPicker, type: asset_picker, state: default|loading|selected|disabled, validation: compatible_sfx_asset, permission: EDITING_EDIT, action: EDIT_LAYER_UPDATE }
+      - { control_id: EDIT01_MIX_PREVIEW, page_uid: EDIT-01, component_id: MixPreview, type: button, state: default|playing|disabled, validation: audio_tracks_exist, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_AUDIO_MIX, page_uid: EDIT-01, component_id: AudioMixExecute, type: primary_button, state: default|loading|disabled|error, validation: audio_tracks_valid, permission: EDITING_VOICE_EXECUTE, action: VOICE_SYNC_EXECUTE }
+      - { control_id: EDIT01_LIPSYNC_TARGET, page_uid: EDIT-01, component_id: LipSyncTargetSelector, type: target_selector, state: default|selected|disabled, validation: video_and_voice_target_exist, permission: EDITING_VOICE_EXECUTE, action: VOICE_SYNC_EXECUTE }
+      - { control_id: EDIT01_LIPSYNC_EXECUTE, page_uid: EDIT-01, component_id: LipSyncExecute, type: primary_button, state: default|loading|disabled|error, validation: lipsync_target_valid, permission: EDITING_VOICE_EXECUTE, action: VOICE_SYNC_EXECUTE }
+      - { control_id: EDIT01_LIPSYNC_RETRY_RANGE, page_uid: EDIT-01, component_id: LipSyncSelectedRangeRetry, type: button, state: default|loading|disabled, validation: selected_range_and_lipsync_target_valid, permission: EDITING_VOICE_EXECUTE, action: VOICE_SYNC_EXECUTE }
+
+    subtitle_qa_version_output:
+      - { control_id: EDIT01_SUBTITLE_IMPORT, page_uid: EDIT-01, component_id: SubtitleImport, type: file_upload, state: default|uploading|success|error|disabled, validation: supported_subtitle_format, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_CREATE, page_uid: EDIT-01, component_id: SubtitleCreate, type: button, state: default|disabled, validation: timeline_loaded, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_TEXT, page_uid: EDIT-01, component_id: SubtitleTextEditor, type: text_input, state: default|editing|error|disabled, validation: valid_subtitle_text, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_SPLIT, page_uid: EDIT-01, component_id: SubtitleSplit, type: button, state: default|disabled, validation: selected_subtitle_and_playhead_inside, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_MERGE, page_uid: EDIT-01, component_id: SubtitleMerge, type: button, state: default|disabled, validation: adjacent_subtitles_selected, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_TIMECODE, page_uid: EDIT-01, component_id: SubtitleTimecodeEditor, type: range_input, state: default|editing|error|disabled, validation: valid_subtitle_range, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_LANGUAGE, page_uid: EDIT-01, component_id: SubtitleLanguageSelector, type: selector, state: default|active|disabled, validation: supported_language, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_FORMAT, page_uid: EDIT-01, component_id: SubtitleFormatSelector, type: selector, state: default|active|disabled, validation: supported_format, permission: EDITING_EDIT, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_SUBTITLE_API_SYNC, page_uid: EDIT-01, component_id: SubtitleApiSync, type: primary_button, state: default|loading|disabled|error, validation: subtitle_track_exists, permission: EDITING_API_EXECUTE, action: EDIT_SUBTITLE_SYNC }
+      - { control_id: EDIT01_QA_MARKER, page_uid: EDIT-01, component_id: QAMarkerRail, type: marker_selector, state: default|selected|resolved|disabled, validation: marker_references_evidence, permission: EDITING_VIEW, action: EDIT_TIMELINE_UPDATE }
+      - { control_id: EDIT01_QA_RECHECK_SELECTED, page_uid: EDIT-01, component_id: RecheckSelectedIssue, type: button, state: default|loading|disabled, validation: issue_selected, permission: EDITING_QA, action: EDIT_QA_RECHECK }
+      - { control_id: EDIT01_QA_RECHECK_FULL, page_uid: EDIT-01, component_id: RecheckFullTimeline, type: button, state: default|loading|disabled, validation: timeline_ready, permission: EDITING_QA, action: EDIT_QA_RECHECK }
+      - { control_id: EDIT01_SAVE_VERSION, page_uid: EDIT-01, component_id: SaveNewVersion, type: primary_button, state: default|loading|disabled|error, validation: draft_has_changes, permission: EDITING_EDIT, action: EDIT_VERSION_SAVE }
+      - { control_id: EDIT01_VERSION_COMPARE, page_uid: EDIT-01, component_id: VersionCompare, type: button, state: default|active|disabled, validation: at_least_two_versions, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_RESTORE_DRAFT, page_uid: EDIT-01, component_id: RestoreAsNewDraft, type: button, state: default|loading|disabled, validation: saved_version_selected, permission: EDITING_EDIT, action: EDIT_VERSION_SAVE }
+      - { control_id: EDIT01_FINAL_PREVIEW, page_uid: EDIT-01, component_id: FinalPreviewViewport, type: preview_control, state: default|playing|disabled, validation: timeline_ready, permission: EDITING_VIEW, action: FRONTEND_STATE }
+      - { control_id: EDIT01_RENDER_SETTINGS, page_uid: EDIT-01, component_id: RenderSettings, type: settings_form, state: default|editing|error|disabled, validation: supported_output_settings, permission: EDITING_RENDER, action: EDIT_OUTPUT_RENDER }
+      - { control_id: EDIT01_FINAL_RENDER, page_uid: EDIT-01, component_id: FinalRender, type: primary_button, state: default|loading|disabled|error, validation: completion_gate_passed, permission: EDITING_RENDER, action: EDIT_OUTPUT_RENDER }
+      - { control_id: EDIT01_EXPORT_DOWNLOAD, page_uid: EDIT-01, component_id: ExportDownload, type: button, state: default|loading|disabled, validation: render_output_ready, permission: EDITING_RENDER, action: EDIT_OUTPUT_RENDER }
+      - { control_id: EDIT01_HANDOFF, page_uid: EDIT-01, component_id: Handoff, type: primary_button, state: default|loading|disabled, validation: approved_output_version_exists, permission: EDITING_HANDOFF, action: EDIT_OUTPUT_RENDER }
+
 control_rules:
+  all_active_controls_page_uid: EDIT-01
+  EDIT-02_active_controls: forbidden
+  EDIT-03_active_controls: forbidden
   player_progress_bar_only: forbidden
   minimum_positioning_precision: frame
-  playhead_and_correction_range_are_independent: true
-  controls_must_bind_existing_action: true
+  manual_and_api_editing_both_required: true
+  standalone_upload_without_project_task: allowed
+  saved_version_overwrite: forbidden
+  frontend_state_actions_do_not_write_database: true
