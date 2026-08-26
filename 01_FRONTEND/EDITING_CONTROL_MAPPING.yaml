@@ -8,34 +8,32 @@ control_groups:
     - EDIT_TIMELINE_CONTROL
     - EDIT_MANUAL_TOOL_CONTROL
     - EDIT_API_EDIT_CONTROL
-    - EDIT_VERSION_CONTROL
-  EDIT-02:
     - EDIT_LAYER_CONTROL
     - EDIT_VOICE_CONTROL
     - EDIT_MUSIC_SFX_CONTROL
     - EDIT_AUDIO_MIX_CONTROL
     - EDIT_LIP_SYNC_CONTROL
-    - EDIT_VERSION_CONTROL
-  EDIT-03:
     - EDIT_SUBTITLE_CONTROL
     - EDIT_QA_CONTROL
+    - EDIT_VERSION_CONTROL
     - EDIT_FINAL_PREVIEW_CONTROL
     - EDIT_RENDER_EXPORT_CONTROL
+legacy_control_ownership:
+  EDIT-02:
+    active_render: false
+    controls_integrated_into: EDIT-01
+  EDIT-03:
+    active_render: false
+    controls_integrated_into: EDIT-01
 binding:
-  pages: EDITING_PAGE_MAPPING
-  actions:
-    - EDIT_MEDIA_IMPORT
-    - EDIT_TIMELINE_UPDATE
-    - EDIT_LAYER_UPDATE
-    - EDIT_API_EDIT_EXECUTE
-    - EDIT_AUDIO_MIX
-    - EDIT_SUBTITLE_SYNC
-    - EDIT_OUTPUT_RENDER
-    - EDIT_VERSION_SAVE
-    - VOICE_GENERATE
-    - VOICE_ASSET_BIND
-    - VOICE_SYNC_EXECUTE
+  page: EDIT-01
+  services:
+    - EDITING
+    - VOICE
+    - ASSET
+    - VIDEO_WHEN_SOURCE_REGENERATION_REQUIRED
 rules:
   control_without_action_or_frontend_state_binding: forbidden
   standalone_upload_controls_visible_without_project_task: true
   manual_and_api_edit_controls_both_required: true
+  separate_page_navigation_for_editing_functions: forbidden
