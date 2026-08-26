@@ -1,0 +1,49 @@
+authority: ACPOS_GLOBAL_HOME_AUTHORITY_PRIORITY
+version: V1.0
+status: AUTHORITY_ACTIVE
+
+priority_order:
+  - level: 1
+    source: 00_MASTER/ACPOS_AI_SEQUENCED_SINGLE_AUTHORITY_CONSTRUCTION_PACKAGE/ACPOS_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
+    responsibility: construction_single_source
+  - level: 2
+    source: ACPOS_GLOBAL_UI_SHELL_AUTHORITY_V1.md
+    responsibility: global_shell_structure
+  - level: 3
+    source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+    responsibility: global_visual_geometry
+  - level: 4
+    source: GLOBAL_HOME_PAGE_REGISTRY.yaml
+    responsibility: page_section_contract
+  - level: 5
+    source: GLOBAL_HOME_COMPONENT_REGISTRY.yaml
+    responsibility: component_contract
+  - level: 6
+    source: GLOBAL_HOME_CONTROL_REGISTRY.yaml
+    responsibility: control_contract
+  - level: 7
+    source: GLOBAL_HOME_CONTROL_ACTION_REGISTRY.yaml
+    responsibility: action_contract
+  - level: 8
+    source: GLOBAL_HOME_STATE_REGISTRY.yaml
+    responsibility: state_contract
+  - level: 9
+    source: GLOBAL_HOME_VISUAL_MAPPING.yaml
+    responsibility: visual_source_trace
+  - level: 10
+    source: GLOBAL_HOME_UI_RENDER_BINDING.yaml
+    responsibility: final_render_mapping
+
+conflict_resolution:
+  lower_priority_cannot_override_higher: true
+  legacy_HOME_PAGE_REGISTRY: forbidden
+  legacy_HOME_COMPONENT_REGISTRY: forbidden
+  unknown_parallel_navigation: reject
+  page_specific_context:
+    owner: page_specific_authority
+    global_shell_may_not_invent_context: true
+
+rules:
+  - log_conflict
+  - reject_unknown_override
+  - never_merge_parallel_authorities
