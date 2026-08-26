@@ -1,0 +1,46 @@
+authority: ACPOS_GLOBAL_HOME_VISUAL_MAPPING
+version: V1.0
+status: AUTHORITY_ACTIVE
+rule: every_visual_element_requires_authority_source
+
+mappings:
+  brand_logo:
+    component_id: GLOBAL_HEADER_001
+    control_id: BRAND_LOGO
+    source: GLOBAL_HOME_BRAND_ASSET_BINDING
+    position: header_left
+  page_context_slot:
+    component_id: GLOBAL_HEADER_001
+    control_id: PAGE_CONTEXT_SLOT
+    source: page_specific_authority
+    position: header_center
+  runtime_status:
+    component_id: GLOBAL_HEADER_001
+    control_id: TOP_STATUS
+    source: GLOBAL_HOME_DATA_API_BINDING
+    position: header_right
+  user_control:
+    component_id: GLOBAL_HEADER_001
+    control_id: USER_CONTROL
+    source: GLOBAL_HOME_PERMISSION_MATRIX
+    position: header_right
+  sidebar:
+    component_id: GLOBAL_SIDEBAR_001
+    control_id: MENU_ITEM
+    source: GLOBAL_HOME_NAVIGATION_REGISTRY
+    position: left
+  sidebar_collapse:
+    component_id: GLOBAL_SIDEBAR_001
+    control_id: COLLAPSE_BUTTON
+    source: GLOBAL_HOME_CONTROL_ACTION_REGISTRY
+    position: sidebar_control
+  workspace:
+    component_id: GLOBAL_WORKSPACE_001
+    control_id: CONTENT_SLOT
+    source: page_specific_render_binding
+    position: main_workspace
+
+validation:
+  missing_source: reject_render
+  unknown_position: reject_render
+  page_specific_content_outside_workspace: reject_render
