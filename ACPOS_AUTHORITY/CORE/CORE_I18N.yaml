@@ -1,4 +1,4 @@
-version: CORE-I18N-V1
+version: CORE-I18N-V1.1
 status: AUTHORITY_ACTIVE
 locales:
   - zh-TW
@@ -64,8 +64,13 @@ keys:
     zh-TW: 確認定案
     zh-CN: 确认定案
     en: Finalize
+  core.create_production_task:
+    zh-TW: 建立後續 Production Task
+    zh-CN: 建立后续 Production Task
+    en: Create downstream Production Task
 
 rules:
   - control_labels_must_use_i18n_key_in_implementation
   - brand_and_fixed_global_terms_must_not_be_translated
   - no_single_language_hardcoded_runtime_ui
+  - missing_i18n_key_reject_render
