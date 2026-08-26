@@ -1,16 +1,23 @@
+version: R9_CORE_SINGLE_PAGE_ALIGNMENT_V1
+status: defined
+purpose: ACPOS unit registry aligned with the latest CORE single-page authority while preserving legacy IDs for audit only.
+
 units:
   - id: CORE-01
-    name: Project Creation
-  - id: CORE-02
-    name: Topic Production Contract
-  - id: CORE-03
-    name: Blueprint Management
-  - id: CORE-04
-    name: DNA Management
-  - id: CORE-05
-    name: Conversation Workspace
-  - id: CORE-06
-    name: Script View
+    name: Project Topic AI Workspace
+    status: ACTIVE
+    page_model: SINGLE_PAGE_AI_WORKSPACE
+    authority_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    integrated_scope:
+      - Project_Context
+      - Topic_Context
+      - Work_Item_Navigation
+      - Conversation_Workspace
+      - DNA
+      - Blueprint
+      - Script
+      - Version
+      - Decision
   - id: ASSET-01
     name: Asset Library
   - id: VIDEO-01
@@ -21,4 +28,45 @@ units:
     name: Voice Production
   - id: QA-01
     name: Quality Review
-status: defined
+
+legacy_core_units:
+  - id: CORE-02
+    previous_name: Topic Production Contract
+    status: REPLACED
+    replaced_by: CORE-01
+    active_page: false
+    retained_for: audit_history_only
+  - id: CORE-03
+    previous_name: Blueprint Management
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    integrated_as: Blueprint_Work_Item_And_State_Panel
+    active_page: false
+    retained_for: audit_history_only
+  - id: CORE-04
+    previous_name: DNA Management
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    integrated_as: DNA_Work_Item_And_State_Panel
+    active_page: false
+    retained_for: audit_history_only
+  - id: CORE-05
+    previous_name: Conversation Workspace
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    integrated_as: AI_Conversation_Primary_Workspace
+    active_page: false
+    retained_for: audit_history_only
+  - id: CORE-06
+    previous_name: Script View
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    integrated_as: Script_Work_Item_And_State_Panel
+    active_page: false
+    retained_for: audit_history_only
+
+rules:
+  - legacy_core_unit_must_not_render_as_active_page
+  - legacy_core_id_may_be_used_only_for_audit_or_migration_trace
+  - CORE-01_authority_source_controls_current_core_ui
+  - no_parallel_core_page_model
