@@ -1,0 +1,50 @@
+authority: ACPOS_GLOBAL_HOME_PAGE
+version: V1.0
+purpose: Global Home Page and Shell construction authority
+
+shell:
+  canvas: "16:9"
+  theme: "Purple Tech Enterprise AI Workspace"
+  layout: "Header + Sidebar + Main Workspace"
+
+header:
+  id: GLOBAL_HEADER_001
+  height: "72px"
+  fixed: true
+  areas:
+    - brand
+    - project_context
+    - runtime_status
+    - user_control
+
+sidebar:
+  id: GLOBAL_SIDEBAR_001
+  expanded_width: "240px"
+  collapsed_width: "72px"
+  position: left
+  navigation_mode: vertical
+  item_height: "52px"
+  rules:
+    - no_custom_layout_by_department
+    - inherit_global_style
+
+main_workspace:
+  id: GLOBAL_WORKSPACE_001
+  container: true
+  padding: "32px"
+  radius: "24px"
+  role: "department_workspace_container"
+
+visual:
+  background: "#050816"
+  panel: "#0C1026"
+  primary_glow: "#8B5CFF"
+  secondary_glow: "#6E35FF"
+  text_primary: "#F3F5FF"
+  text_secondary: "#AEB7D9"
+
+restriction:
+  - do_not_change_header
+  - do_not_change_sidebar
+  - do_not_change_logo_ratio
+  - departments_only_modify_main_workspace
