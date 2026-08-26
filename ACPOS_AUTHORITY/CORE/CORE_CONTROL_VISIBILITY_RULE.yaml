@@ -1,0 +1,22 @@
+version: CORE-CONTROL-VISIBILITY-RULE-V1
+rules:
+  GENERATE_BLUEPRINT:
+    visible: true
+    target: CORE_CONVERSATION_WORKSPACE
+
+  LOCK_BLUEPRINT:
+    condition:
+      blueprint_state: REVIEW
+
+  GENERATE_SCRIPT:
+    condition:
+      blueprint_state: LOCKED
+
+  CONFIRM_PRODUCTION:
+    condition:
+      script_state: CONFIRMED
+
+forbidden:
+  - undefined_control
+  - undefined_action
+  - generated_ui_only
