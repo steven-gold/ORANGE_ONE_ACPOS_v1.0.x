@@ -1,12 +1,37 @@
 module: EDITING
 batch: 013
+source: R9_FINAL
+construction_rule:
+  modify_existing_pages_only: true
+  invent_page_uid: forbidden
+  add_parallel_editing_system: forbidden
 pages:
   - id: EDIT-01
     name: Timeline
+    role: correction_positioning_and_existing_timeline_operation
+    timeline_contract:
+      purpose: locate_problem_select_correction_range_and_operate_existing_editing_objects
+      not_a_full_manual_nle: true
+      required_context:
+        - preview
+        - timecode
+        - playhead
+        - frame_step
+        - correction_range
+        - qa_marker
+        - timeline_zoom
+        - existing_track_context
+      ownership_boundary:
+        editing_change: EDITING
+        voice_lipsync_subtitle_audio_change: VOICE
+        generated_video_regeneration: VIDEO
+        EDITING_must_not_create_VIDEO_OUTPUT_VERSION: true
   - id: EDIT-02
     name: Layer Management
+    role: preserve_existing_r9_definition
   - id: EDIT-03
     name: Subtitle Sync
+    role: preserve_existing_r9_definition
 fields:
   - page_uid
   - route
@@ -15,3 +40,10 @@ fields:
   - control
   - action_binding
   - permission_binding
+closure:
+  frontend_definition: defined
+  backend_contract: bind_existing_EDITING_actions
+  database_mapping: bind_existing_EDITING_entities
+  runtime_flow: bind_existing_EDITING_runtime
+  permission_mapping: required
+  qa_evidence: required
