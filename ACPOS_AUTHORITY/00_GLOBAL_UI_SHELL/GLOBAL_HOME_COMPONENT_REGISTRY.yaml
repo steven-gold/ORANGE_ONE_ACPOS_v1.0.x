@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_COMPONENT
-version: V1.0
+version: V1.1
 
 components:
   - id: GLOBAL_HEADER_001
@@ -25,8 +25,19 @@ components:
     controls:
       - CONTENT_SLOT
 
+validation:
+  component_source_required: true
+  unknown_component: reject
+
+render_binding:
+  every_element_requires:
+    - component_id
+    - control_id
+    - visual_rule
+
 rules:
   brand_logo:
     preserve_ratio: true
   department_pages:
     replace_content_only: true
+    inherit_global_shell: true
