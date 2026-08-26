@@ -1,11 +1,11 @@
-version: CORE-AUTHORITY-V2
+version: CORE-AUTHORITY-V2.1
 status: AUTHORITY_ACTIVE
 controls:
   - id: CORE-CTRL-PROJECT-SELECTOR
     component: CORE-COMP-PAGE-CONTEXT
     section_id: CORE-SEC-PAGE-CONTEXT
     type: SELECT
-    label: 專案
+    label_i18n_key: core.project
     action: CORE-ACT-SELECT-PROJECT
     permission: CORE_PROJECT_READ
     states: [DEFAULT, LOADING, READY, ERROR, DISABLED]
@@ -14,7 +14,7 @@ controls:
     component: CORE-COMP-PAGE-CONTEXT
     section_id: CORE-SEC-PAGE-CONTEXT
     type: BUTTON
-    label: 新增專案
+    label_i18n_key: core.create_project
     action: CORE-ACT-CREATE-PROJECT
     permission: CORE_PROJECT_CREATE
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -23,7 +23,7 @@ controls:
     component: CORE-COMP-PAGE-CONTEXT
     section_id: CORE-SEC-PAGE-CONTEXT
     type: SELECT
-    label: 專題
+    label_i18n_key: core.topic
     action: CORE-ACT-SELECT-TOPIC
     permission: CORE_TOPIC_READ
     states: [DEFAULT, LOADING, READY, ERROR, DISABLED]
@@ -32,7 +32,7 @@ controls:
     component: CORE-COMP-PAGE-CONTEXT
     section_id: CORE-SEC-PAGE-CONTEXT
     type: BUTTON
-    label: 新增專題
+    label_i18n_key: core.create_topic
     action: CORE-ACT-CREATE-TOPIC
     permission: CORE_TOPIC_CREATE
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -50,7 +50,7 @@ controls:
     component: CORE-COMP-WORK-ITEM-NAV
     section_id: CORE-SEC-WORK-ITEM-NAV
     type: BUTTON
-    label: 新增對話
+    label_i18n_key: core.new_conversation
     action: CORE-ACT-CREATE-CONVERSATION-THREAD
     permission: CORE_CONVERSATION_CREATE
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -59,7 +59,7 @@ controls:
     component: CORE-COMP-CONVERSATION
     section_id: CORE-SEC-CONVERSATION
     type: TEXT_INPUT
-    label: 對話輸入
+    label_i18n_key: core.conversation_input
     action: AI_CORE_CONVERSATION_SEND
     permission: CORE_CONVERSATION_USE
     states: [DEFAULT, FOCUSED, LOADING, DISABLED, ERROR]
@@ -68,7 +68,7 @@ controls:
     component: CORE-COMP-DNA
     section_id: CORE-SEC-DNA
     type: BUTTON
-    label: 確認 DNA
+    label_i18n_key: core.confirm_dna
     action: CORE-ACT-CONFIRM-DNA
     permission: CORE_DNA_CONFIRM
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -77,7 +77,7 @@ controls:
     component: CORE-COMP-BLUEPRINT
     section_id: CORE-SEC-BLUEPRINT
     type: BUTTON
-    label: 生成 Blueprint
+    label_i18n_key: core.generate_blueprint
     action: CORE-ACT-GENERATE-BLUEPRINT
     permission: CORE_BLUEPRINT_GENERATE
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -86,7 +86,7 @@ controls:
     component: CORE-COMP-BLUEPRINT
     section_id: CORE-SEC-BLUEPRINT
     type: BUTTON
-    label: 鎖定 Blueprint
+    label_i18n_key: core.lock_blueprint
     action: CORE-ACT-LOCK-BLUEPRINT
     permission: CORE_BLUEPRINT_LOCK
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -95,7 +95,7 @@ controls:
     component: CORE-COMP-SCRIPT
     section_id: CORE-SEC-SCRIPT
     type: BUTTON
-    label: 生成腳本
+    label_i18n_key: core.generate_script
     action: CORE-ACT-GENERATE-SCRIPT
     permission: CORE_SCRIPT_GENERATE
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -104,7 +104,7 @@ controls:
     component: CORE-COMP-SCRIPT
     section_id: CORE-SEC-SCRIPT
     type: BUTTON
-    label: 確認腳本
+    label_i18n_key: core.confirm_script
     action: CORE-ACT-CONFIRM-SCRIPT
     permission: CORE_SCRIPT_CONFIRM
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -113,7 +113,7 @@ controls:
     component: CORE-COMP-DECISION
     section_id: CORE-SEC-DECISION
     type: BUTTON
-    label: 確認定案
+    label_i18n_key: core.finalize
     action: CORE-ACT-CONFIRM-CORE
     permission: CORE_DECISION_CONFIRM
     states: [DEFAULT, HOVER, LOADING, SUCCESS, ERROR, DISABLED]
@@ -122,7 +122,7 @@ controls:
     component: CORE-COMP-DECISION
     section_id: CORE-SEC-DECISION
     type: SYSTEM_ACTION
-    label: 建立後續 Production Task
+    label_i18n_key: core.create_production_task
     action: CORE-ACT-CREATE-PRODUCTION-TASK
     permission: CORE_HANDOFF_CREATE
     states: [HIDDEN, READY, LOADING, SUCCESS, ERROR]
@@ -134,4 +134,6 @@ rules:
   - every_control_requires_action
   - every_control_requires_permission
   - every_control_state_must_be_registered
+  - every_static_label_requires_i18n_key
   - no_unknown_control
+  - no_hardcoded_runtime_ui_label
