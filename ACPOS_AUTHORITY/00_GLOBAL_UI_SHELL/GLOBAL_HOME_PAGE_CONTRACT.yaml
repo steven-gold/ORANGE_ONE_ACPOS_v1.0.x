@@ -1,14 +1,19 @@
-authority: ACPOS_GLOBAL_HOME_PAGE_CONTRACT
-version: V1.0
+authority: ACPOS_GLOBAL_UI_SHELL_TEMPLATE_CONTRACT
+version: V1.1
 status: AUTHORITY_ACTIVE
-purpose: Validate Global Home page contract before component and render construction without introducing new business logic.
+purpose: Validate the Global UI Shell template before any ACPOS page is rendered; the shell is not a standalone page.
 
-page:
-  page_uid: HOME-001
-  route: /
+template:
+  template_uid: GLOBAL-SHELL-001
+  standalone_page: false
+  route: not_applicable
   registry_source: GLOBAL_HOME_PAGE_REGISTRY.yaml
   shell_source: ACPOS_GLOBAL_UI_SHELL_AUTHORITY_V1.md
   visual_source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+  consumer_page_registry: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  dashboard_home_owner:
+    page_uid: L1-01
+    route: /dashboard
 
 required_sections:
   - section_id: GLOBAL-SEC-HEADER
@@ -30,6 +35,7 @@ required_contract_chain:
   - GLOBAL_HOME_RENDER_VALIDATION.yaml
 
 input_contract:
+  - consuming_page_uid
   - current_route
   - authenticated_user_state
   - page_context_payload_when_applicable
@@ -40,8 +46,12 @@ output_contract:
   - workspace_content_slot
 
 validation:
-  page_uid_required: true
-  route_required: true
+  shell_template_uid_required: true
+  shell_must_not_own_page_uid: true
+  shell_must_not_own_route: true
+  consumer_page_uid_required: true
+  consumer_route_required_from_page_authority: true
+  dashboard_l1_01_is_only_home_page: true
   every_section_requires_component: true
   every_component_requires_control_or_display_contract: true
   every_control_requires_action: true
@@ -53,6 +63,9 @@ validation:
   lower_priority_visual_override: reject
 
 error_contract:
+  shell_used_as_standalone_page: BLOCK_RENDER
+  HOME_001_page_created: BLOCK_RENDER
+  missing_consumer_page_uid: BLOCK_RENDER
   missing_registry_source: BLOCK_RENDER
   missing_section: BLOCK_RENDER
   missing_component: BLOCK_RENDER
@@ -64,6 +77,7 @@ error_contract:
 rules:
   - no_new_business_logic
   - no_parallel_navigation
+  - no_second_home_page
   - no_legacy_sidebar_280px
   - no_fixed_global_right_panel
-  - page_contract_validation_precedes_ui_structure_implementation
+  - template_contract_validation_precedes_page_ui_structure_implementation
