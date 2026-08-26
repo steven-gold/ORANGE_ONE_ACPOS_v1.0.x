@@ -1,0 +1,26 @@
+authority: ACPOS_GLOBAL_HOME_ACTION
+version: V1.0
+
+actions:
+  - id: GLOBAL_NAV_OPEN
+    target: SIDEBAR
+    type: navigation
+
+  - id: GLOBAL_NAV_COLLAPSE
+    target: SIDEBAR
+    type: layout_change
+
+  - id: GLOBAL_CONTEXT_SWITCH
+    target: HEADER_CONTEXT
+    type: context_selection
+
+states:
+  - DEFAULT
+  - HOVER
+  - ACTIVE
+  - DISABLED
+  - LOADING
+
+restrictions:
+  - no_department_override_shell_action
+  - no_logo_modification
