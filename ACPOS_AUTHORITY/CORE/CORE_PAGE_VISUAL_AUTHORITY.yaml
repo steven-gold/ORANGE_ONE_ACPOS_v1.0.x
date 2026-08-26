@@ -1,0 +1,255 @@
+authority:
+  id: CORE_PAGE_VISUAL_AUTHORITY
+  version: V1.0
+  status: CURRENT_ONLY
+  purpose: Define the single current CORE page visual template for reference rendering.
+  scope: VISUAL_PAGE_DESIGN_ONLY
+
+source_boundary:
+  visual_generation_root: ACPOS_AUTHORITY
+  allowed_sources:
+    - ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL
+    - ACPOS_AUTHORITY/CORE/CORE_PAGE_VISUAL_AUTHORITY.yaml
+  outside_ACPOS_AUTHORITY_for_visual_generation: forbidden
+  merge_legacy_page_design: forbidden
+  keep_parallel_core_versions: forbidden
+
+page:
+  page_uid: CORE-01
+  name: CORE Project Topic AI Workspace
+  route: /core
+  page_model: SINGLE_PAGE_AI_WORKSPACE
+  purpose:
+    - establish_and_confirm_project_core_content
+    - establish_and_confirm_topic_core_content
+    - create_story_chapter_world_DNA_blueprint_and_script_through_AI_conversation
+
+shell:
+  inherit: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL
+  rule:
+    - do_not_redesign_header
+    - do_not_redesign_global_sidebar
+    - do_not_change_brand_ratio
+    - do_not_change_global_purple_theme
+    - CORE_only_changes_main_workspace_content
+
+page_context:
+  position: top_of_main_workspace
+  height: 64px
+  fields:
+    - Project selector
+    - Create Project
+    - Topic selector
+    - Create Topic
+  forbidden:
+    - Production Task selector
+  rule: Project_and_Topic_are_the_CORE_page_context
+
+workspace_layout:
+  type: three_columns
+  gap: 16px
+  left:
+    width: 22%
+    min_width: 260px
+    role: Work Item and Conversation Navigation
+  center:
+    width: 50%
+    min_width: 640px
+    role: Primary AI Conversation Workspace
+    priority: highest
+  right:
+    width: 28%
+    min_width: 320px
+    role: Output and State Rail
+  responsive_priority:
+    - preserve_center_conversation_first
+    - collapse_right_rail_second
+    - collapse_left_work_item_rail_third
+
+left_work_item_rail:
+  title: 任務 / 對話項目
+  work_item_types:
+    - Story
+    - Chapter
+    - World / Setting
+    - DNA
+    - Blueprint
+    - Script
+  controls:
+    - Select Work Item
+    - New Conversation
+  conversation_rule:
+    - each_work_item_has_its_own_conversation_history
+    - each_work_item_can_have_multiple_conversation_threads
+    - switching_work_item_switches_to_its_conversation
+    - cross_work_item_history_mix_forbidden
+  terminology:
+    Work_Item: internal_CORE_work_item
+    Production_Task: downstream_execution_task_not_used_as_CORE_conversation_context
+
+center_ai_conversation:
+  identity: AI production workstation, not a normal chat page
+  modes:
+    - Single AI
+    - Multi AI
+  assistant:
+    present_in_single_ai: true
+    present_in_multi_ai: true
+    third_mode: forbidden
+    record_access_required: true
+  message_workspace:
+    supports:
+      - User message
+      - AI response
+      - System message
+      - Structured result card
+    provider_display: provider_brand_only
+  multi_ai:
+    same_question_to_selected_AIs: true
+    same_relevant_context_to_selected_AIs: true
+    fixed_AI_roles: forbidden
+    AI_panes_independent: true
+    independent_scroll: true
+  runtime_status:
+    visible_near_active_response: true
+    stages:
+      - Read Data
+      - Retrieve
+      - Analyze
+      - Multi AI Analyze
+      - Summarize
+      - Score
+      - Wait Human Decision
+      - Write Candidate
+      - Lock
+  score_and_decision_order:
+    - AI responses ready
+    - Assistant summary ready
+    - Score ready
+    - Human decision input
+    - Assistant structures the human decision
+    - Human final confirmation or return to modify
+  input_composer:
+    multiline: true
+    attachment_upload: true
+    reference_image: true
+    at_parser:
+      built_in: true
+      is_button: false
+      targets:
+        - AI
+        - Data / Reference
+        - Assistant
+  previous_reply_operation:
+    trigger: right_click_only
+    hover_toolbar: forbidden
+    actions:
+      - 引用回覆
+      - 繼續討論
+      - 分析此內容
+      - 加入決策
+      - 建立分支議題
+      - 複製
+
+right_output_state_rail:
+  layout: vertical_stack
+  fixed_order:
+    - DNA
+    - Blueprint
+    - Script
+    - Version
+    - Decision
+  panel_roles:
+    DNA: consistency_and_confirmation
+    Blueprint: definition_generation_and_lock
+    Script: generation_revision_and_confirmation
+    Version: candidate_version_tracking_and_compare
+    Decision: human_decision_and_final_confirmation
+  rules:
+    - right_rail_is_not_a_second_workflow
+    - Story_Chapter_World_details_remain_in_left_work_item_and_center_conversation
+    - do_not_reorder_DNA_Blueprint_Script_Version_Decision
+    - do_not_invent_unapproved_extra_panels
+
+core_content_flow:
+  project:
+    - Create Project and basic settings
+    - Complete required CORE work items through conversation
+    - Lock confirmed project core content
+  topic:
+    - Create Topic and define scope
+    - Load confirmed project context
+    - Generate and confirm topic scripts
+    - Lock confirmed topic core content
+  dependency_order:
+    - Story / Chapter / World Context
+    - DNA
+    - Blueprint
+    - Script
+    - Version
+    - Decision
+  after_CORE_lock:
+    note: downstream Production Task may be created later, but is not shown as CORE conversation context
+
+visible_control_baseline:
+  page_context:
+    - Project selector
+    - Create Project
+    - Topic selector
+    - Create Topic
+  work_item_rail:
+    - Work Item selector
+    - New Conversation
+  conversation:
+    - Single AI / Multi AI selector
+    - Assistant Record
+    - Runtime Status
+    - Score
+    - Human Decision
+    - Multiline Input
+    - Attachment
+    - Send
+    - Reply Right Click Menu
+  right_rail:
+    - Confirm DNA
+    - Generate Blueprint
+    - Lock Blueprint
+    - Generate Script
+    - Confirm Script
+    - Version Compare / Select
+    - Final Decision Confirm
+
+visual_rules:
+  inherit_global_theme: true
+  style:
+    - professional
+    - dark purple technology
+    - enterprise AI production workstation
+    - clear hierarchy
+    - high information density without clutter
+    - modular cards
+  interaction_states:
+    - Default
+    - Hover
+    - Active
+    - Disabled
+    - Loading
+    - Error
+    - Locked
+  main_conversation_must_remain_largest_area: true
+
+render_rules:
+  use_only_elements_defined_in_this_file_and_global_shell: true
+  undefined_button: reject
+  undefined_panel: reject
+  undefined_context_field: reject
+  generic_chat_only_layout: reject
+  Production_Task_context_inside_CORE: reject
+  page_specific_navigation_inside_global_sidebar: reject
+  old_split_CORE_page_model: reject
+  invent_missing_business_function: reject
+
+status_note:
+  this_file_is_the_only_current_CORE_visual_page_authority_in_ACPOS_AUTHORITY_CORE: true
+  this_file_does_not_define_backend_API_database_or_runtime_implementation: true
+  purpose_is_current_page_visual_reference_and_future_UI_construction_baseline: true
