@@ -1,7 +1,7 @@
 authority: ACPOS_GLOBAL_HOME_RENDER_VALIDATION
-version: V1.4
+version: V1.5
 status: AUTHORITY_ACTIVE
-purpose: Global Home final render validation
+purpose: Global UI Shell template final render validation
 
 validation:
   required:
@@ -23,11 +23,24 @@ validation:
     - GLOBAL_HOME_I18N
     - GLOBAL_HOME_QA_EVIDENCE
 
+identity_validation:
+  template_uid: GLOBAL-SHELL-001
+  standalone_page: false
+  shell_owns_page_uid: false
+  shell_owns_route: false
+  dashboard_home_page_uid: L1-01
+  dashboard_home_route: /dashboard
+
 render_rules:
-  page_contract_validation_precedes_component_render: true
+  template_contract_validation_precedes_component_render: true
+  consuming_page_uid_required: true
+  consuming_page_contract_required: true
   source_trace_required: true
   authority_priority_required: true
   conflict_resolution_required: true
+  HOME_001_page_render: reject
+  second_home_page_definition: reject
+  shell_route_definition: reject
   unknown_component: reject
   unknown_control: reject
   unknown_action: reject
@@ -41,11 +54,13 @@ render_rules:
 inheritance:
   shell:
     fixed: true
+    template_only: true
   page_workspace:
     replace_content_only: true
 
 qa_gate:
-  page_contract: required
+  template_contract: required
+  consumer_page_contract: required
   layout_contract: required
   control_action_state_binding: required
   visual_mapping: required
