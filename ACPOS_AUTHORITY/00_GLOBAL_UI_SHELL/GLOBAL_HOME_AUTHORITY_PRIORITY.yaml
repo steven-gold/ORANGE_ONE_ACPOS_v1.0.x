@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_AUTHORITY_PRIORITY
-version: V1.1
+version: V1.2
 status: AUTHORITY_ACTIVE
 
 priority_order:
@@ -17,10 +17,10 @@ priority_order:
     responsibility: global_visual_geometry
   - level: 5
     source: GLOBAL_HOME_PAGE_CONTRACT.yaml
-    responsibility: page_contract_validation
+    responsibility: shell_template_contract_validation
   - level: 6
     source: GLOBAL_HOME_PAGE_REGISTRY.yaml
-    responsibility: page_section_registry
+    responsibility: shell_template_section_registry
   - level: 7
     source: GLOBAL_HOME_COMPONENT_REGISTRY.yaml
     responsibility: component_contract
@@ -43,11 +43,21 @@ priority_order:
     source: GLOBAL_HOME_UI_RENDER_BINDING.yaml
     responsibility: final_render_mapping
 
+identity_rules:
+  global_shell_template_uid: GLOBAL-SHELL-001
+  global_shell_is_page: false
+  global_shell_owns_route: false
+  dashboard_home_page_uid: L1-01
+  dashboard_home_route: /dashboard
+  HOME_001_page_uid: forbidden
+
 conflict_resolution:
   lower_priority_cannot_override_higher: true
   legacy_HOME_PAGE_REGISTRY: forbidden
   legacy_HOME_COMPONENT_REGISTRY: forbidden
   unknown_parallel_navigation: reject
+  second_home_page_definition: reject
+  shell_route_definition: reject
   old_r9_visual_values:
     electric_blue_global_primary: superseded_by_purple_visual_authority
     sidebar_expanded_280px: superseded_by_global_shell_240px
@@ -58,8 +68,9 @@ conflict_resolution:
 
 validation_order:
   - master_authority
-  - page_contract
-  - page_registry
+  - shell_template_contract
+  - shell_template_registry
+  - consumer_page_contract
   - components
   - controls
   - actions
@@ -72,4 +83,6 @@ rules:
   - log_conflict
   - reject_unknown_override
   - never_merge_parallel_authorities
-  - page_contract_validation_precedes_ui_render
+  - dashboard_l1_01_is_only_home_page
+  - global_shell_is_template_not_page
+  - template_contract_validation_precedes_page_ui_render
