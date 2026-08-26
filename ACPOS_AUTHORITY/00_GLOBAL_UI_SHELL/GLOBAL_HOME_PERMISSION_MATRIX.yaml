@@ -1,0 +1,46 @@
+authority: ACPOS_GLOBAL_HOME_PERMISSION_MATRIX
+version: V1.0
+status: AUTHORITY_ACTIVE
+
+permissions:
+  - resource: GLOBAL_BRAND
+    action: READ
+    scope: GLOBAL
+    approval: NONE
+    controls: [BRAND_LOGO]
+  - resource: GLOBAL_PAGE_CONTEXT
+    action: READ
+    scope: PAGE
+    approval: NONE
+    controls: [PAGE_CONTEXT_SLOT]
+  - resource: GLOBAL_SYSTEM_STATUS
+    action: READ
+    scope: GLOBAL
+    approval: NONE
+    controls: [TOP_STATUS]
+  - resource: USER_SELF
+    action: READ
+    scope: SELF
+    approval: NONE
+    controls: [USER_CONTROL]
+  - resource: GLOBAL_NAVIGATION
+    action: READ
+    scope: USER_ALLOWED_ROUTES
+    approval: NONE
+    controls: [MENU_ITEM, ACTIVE_STATE]
+  - resource: GLOBAL_NAVIGATION
+    action: INTERACT
+    scope: SELF_UI
+    approval: NONE
+    controls: [COLLAPSE_BUTTON]
+  - resource: PAGE_WORKSPACE
+    action: RENDER
+    scope: CURRENT_PAGE
+    approval: NONE
+    controls: [CONTENT_SLOT]
+
+rules:
+  - explicit_grant_only
+  - parent_permission_does_not_imply_child_permission
+  - hidden_when_navigation_permission_missing
+  - action_requires_matching_permission
