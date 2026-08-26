@@ -1,4 +1,4 @@
-version: CORE-AUTHORITY-V2
+version: CORE-AUTHORITY-V2.1
 status: AUTHORITY_ACTIVE
 components:
   - id: CORE-COMP-PAGE-CONTEXT
@@ -25,15 +25,36 @@ components:
   - id: CORE-COMP-CONVERSATION
     type: AI_CONVERSATION_WORKSPACE
     purpose: story_dna_blueprint_script_discussion_and_revision
+    authority_inheritance:
+      ai_core_registry: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+      shared_interface: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+      core_visual_extension: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
     binding:
       project: required
       topic: required
       work_item: required
       conversation_thread: required
       production_task: forbidden
+    required_subcomponents:
+      - AICORE-COMP-MODE-SELECTOR
+      - AICORE-COMP-SINGLE-AI-WORKSPACE
+      - AICORE-COMP-MULTI-AI-WORKSPACE
+      - AICORE-COMP-MESSAGE-WORKSPACE
+      - AICORE-COMP-RUNTIME-STATUS
+      - AICORE-COMP-ASSISTANT
+      - AICORE-COMP-ASSISTANT-RECORD
+      - AICORE-COMP-SCORE-PANEL
+      - AICORE-COMP-DECISION-PANEL
+      - AICORE-COMP-INPUT-COMPOSER
+      - AICORE-COMP-REPLY-CONTEXT-MENU
     rules:
       - primary_workspace
       - history_isolated_by_work_item
+      - only_single_ai_and_multi_ai_modes
+      - assistant_present_in_both_modes
+      - score_after_summary_before_human_decision
+      - page_context_controls_not_duplicated_inside_conversation
+      - generic_chat_layout_forbidden
 
   - id: CORE-COMP-DNA
     type: DNA_PANEL
@@ -47,6 +68,8 @@ components:
     type: SCRIPT_PANEL
     purpose: production_script_generation
     editable: revision_only
+    canonical_language: chinese_internal_standard
+    provider_syntax_owner: execution_layer
 
   - id: CORE-COMP-VERSION
     type: VERSION_PANEL
@@ -64,3 +87,4 @@ rules:
     - CORE-COMP-VERSION
     - CORE-COMP-DECISION
   unknown_component: reject_render
+  missing_shared_ai_core_subcomponent: reject_render
