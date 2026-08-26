@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_STATE_TRANSITION
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 
 transitions:
@@ -17,6 +17,23 @@ transitions:
       event: PAGE_CONTEXT_RETRY
       to: LOADING
 
+  TOP_STATUS:
+    - from: DEFAULT
+      event: RUNTIME_CONNECTED
+      to: RUNTIME_CONNECTED
+    - from: RUNTIME_CONNECTED
+      event: RUNTIME_WARNING
+      to: WARNING
+    - from: WARNING
+      event: RUNTIME_RECOVERED
+      to: RUNTIME_CONNECTED
+    - from: RUNTIME_CONNECTED
+      event: RUNTIME_ERROR
+      to: ERROR
+    - from: ERROR
+      event: RUNTIME_RECOVERED
+      to: RUNTIME_CONNECTED
+
   SIDEBAR:
     - from: EXPANDED
       event: GLOBAL_NAV_COLLAPSE
@@ -24,6 +41,20 @@ transitions:
     - from: COLLAPSED
       event: GLOBAL_NAV_COLLAPSE
       to: EXPANDED
+
+  COLLAPSE_BUTTON:
+    - from: DEFAULT
+      event: POINTER_ENTER
+      to: HOVER
+    - from: HOVER
+      event: POINTER_LEAVE
+      to: DEFAULT
+    - from: HOVER
+      event: GLOBAL_NAV_COLLAPSE
+      to: ACTIVE
+    - from: ACTIVE
+      event: INTERACTION_COMPLETE
+      to: DEFAULT
 
   MENU_ITEM:
     - from: DEFAULT
@@ -38,6 +69,25 @@ transitions:
     - from: HOVER
       event: ROUTE_MATCH
       to: ACTIVE
+    - from: ACTIVE
+      event: ROUTE_UNMATCH
+      to: DEFAULT
+
+  ACTIVE_STATE:
+    - from: DEFAULT
+      event: ROUTE_MATCH
+      to: ACTIVE
+    - from: ACTIVE
+      event: ROUTE_UNMATCH
+      to: DEFAULT
+
+  USER_CONTROL:
+    - from: DEFAULT
+      event: GLOBAL_USER_MENU_OPEN
+      to: ACTIVE
+    - from: ACTIVE
+      event: GLOBAL_USER_MENU_CLOSE
+      to: DEFAULT
 
   WORKSPACE:
     - from: EMPTY
@@ -53,6 +103,21 @@ transitions:
       event: PAGE_RENDER_RETRY
       to: LOADING
 
+  CONTENT_SLOT:
+    - from: EMPTY
+      event: PAGE_RENDER_START
+      to: LOADING
+    - from: LOADING
+      event: PAGE_RENDER_SUCCESS
+      to: READY
+    - from: LOADING
+      event: PAGE_RENDER_FAILURE
+      to: ERROR
+    - from: ERROR
+      event: PAGE_RENDER_RETRY
+      to: LOADING
+
 rules:
   - transition_must_reference_registered_state
+  - control_transition_group_must_match_control_state_binding
   - unknown_transition_rejected
