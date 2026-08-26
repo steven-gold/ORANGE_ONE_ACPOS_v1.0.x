@@ -1,6 +1,9 @@
 module: AI_CORE
+version: V1.1
 status: AUTHORITY_FROZEN
 base_template: AI_CONVERSATION_FRAMEWORK
+interface_authority: AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+
 modules:
   - Conversation
   - Context
@@ -12,7 +15,52 @@ modules:
   - Runtime_State
   - Permission
   - Audit
+
+conversation_features:
+  modes:
+    - SINGLE_AI
+    - MULTI_AI
+  assistant:
+    persistent_in_all_modes: true
+    role: meeting_assistant_and_secretary
+  input:
+    at_parser: built_in
+    attachments: supported
+    reference_images: supported
+  reply_interaction:
+    context_menu_only: true
+  provider_display:
+    chat_display: brand_only
+  runtime:
+    response_local_status_strip: required
+  scoring:
+    timing: after_summary_before_human_decision
+    shared_base_plus_unit_specific: required
+  decision:
+    human_decision_first: true
+    assistant_structure_after_human_input: true
+    human_final_confirmation: required
+
+content_rules:
+  internal_production_script_language: chinese_canonical
+  provider_specific_syntax: execution_layer_only
+  provider_syntax_must_not_pollute_canonical_content: true
+
+unit_extension:
+  required: true
+  may_customize:
+    - context_scope
+    - data_access
+    - application_logic
+    - provider_routing
+    - output_type
+    - finalization
+  may_not_redefine_shared_conversation_semantics: true
+
 validation:
   traceable_runtime: true
   traceable_actions: true
   traceable_permissions: true
+  interface_authority_required: true
+  only_two_conversation_modes: true
+  assistant_is_not_third_mode: true
