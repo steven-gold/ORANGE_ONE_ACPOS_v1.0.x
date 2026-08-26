@@ -3,21 +3,24 @@ module: EDITING
 layer: frontend
 source: R9_FINAL
 functional_priority: WORK_COMPLETION_OVER_DECORATIVE_LAYOUT
+single_active_page: EDIT-01
 
 pages:
   - page_uid: EDIT-01
-    page_identity: Timeline Editing & Media Import
-    purpose: perform_real_manual_and_api_video_editing_from_project_or_uploaded_media
+    page_identity: Integrated Post-Production Workspace
+    purpose: complete_manual_and_api_editing_voice_music_sfx_lipsync_subtitle_qa_and_output_in_one_page
+
     source_mode_selector:
       options:
         - PROJECT_TASK
         - PROJECT_FREE_EDIT
         - STANDALONE_UPLOAD
       default_when_project_context_exists: PROJECT_TASK
-      standalone_rule: no_project_or_task_required
+      standalone_rule: project_and_task_not_required
+
     sections:
       - id: EDIT01_SOURCE
-        purpose: load_existing_work_or_upload_new_media
+        purpose: load_project_source_or_upload_media_for_independent_use
         required_components:
           - SourceModeSelector
           - ProjectTaskSourcePicker
@@ -35,16 +38,19 @@ pages:
           file_picker: true
           create_asset_version_reference: true
           allow_standalone_owner_scope: true
+
       - id: EDIT01_PREVIEW
-        purpose: preview_current_timeline_and_selected_range
+        purpose: preview_current_timeline_selected_clip_or_selected_range
         required_components:
           - PreviewViewport
           - TimecodeDisplayInput
           - TransportControls
           - PlaybackSpeed
           - RangeLoopToggle
+          - Fullscreen
+
       - id: EDIT01_TIMELINE
-        purpose: frame_accurate_multi_track_manual_editing
+        purpose: frame_accurate_multitrack_manual_editing
         required_components:
           - TimeRuler
           - Playhead
@@ -62,8 +68,9 @@ pages:
           - SUBTITLE
           - LIP_SYNC
           - OVERLAY
+
       - id: EDIT01_MANUAL_TOOLS
-        purpose: directly edit selected clips_and_ranges
+        purpose: directly_edit_selected_clips_tracks_and_ranges
         required_operations:
           - undo
           - redo
@@ -82,9 +89,11 @@ pages:
           - fade_in_out
           - track_enable_disable
           - track_mute_unmute
+          - track_solo_unsolo
           - track_lock_unlock
+
       - id: EDIT01_API_EDIT
-        purpose: submit full_or_selected_range_edit_to_configured_api_provider
+        purpose: edit_full_timeline_selected_range_or_selected_clip_through_configured_api
         required_components:
           - ApiProviderSelector
           - ApiModelSelector
@@ -100,37 +109,9 @@ pages:
           - SELECTED_RANGE
           - SELECTED_CLIP
         rule: provider_and_model_from_system_provider_registry_only
-      - id: EDIT01_VERSION
-        purpose: preserve_non_overwriting_edit_history
-        required_components:
-          - WorkingDraftStatus
-          - SaveNewVersion
-          - VersionHistory
-          - VersionCompare
-          - RestoreAsNewDraft
 
-    interaction_rules:
-      click_time_ruler: move_playhead
-      drag_playhead: scrub_preview
-      previous_frame: move_minus_one_frame
-      next_frame: move_plus_one_frame
-      timecode_input: move_playhead_to_exact_frame
-      correction_start: must_not_exceed_correction_end
-      correction_end: must_not_precede_correction_start
-      qa_marker_click: load_issue_position_and_evidence
-      zoom: changes_time_scale_only
-      snap: may_be_temporarily_overridden_during_drag
-      manual_edit: update_working_draft_only
-      api_edit: create_candidate_result_before_apply
-      apply_api_candidate: update_working_draft_and_keep_previous_saved_version
-      save_version: create_new_immutable_timeline_version
-
-  - page_uid: EDIT-02
-    page_identity: Layer Audio Voice Music SFX & Lip Sync
-    purpose: finish_audio_voice_music_sound_effect_and_lip_sync_work_on_shared_timeline
-    sections:
-      - id: EDIT02_LAYER_STACK
-        purpose: manage_visual_and_audio_layers
+      - id: EDIT01_LAYER
+        purpose: manage_layer_and_track_state_on_same_timeline
         required_components:
           - LayerList
           - TrackVisibility
@@ -138,8 +119,9 @@ pages:
           - TrackSolo
           - TrackLock
           - LayerOrder
-      - id: EDIT02_VOICE
-        purpose: bind_or_generate_voice_and_place_voice_clips
+
+      - id: EDIT01_VOICE
+        purpose: bind_existing_voice_or_generate_voice_and_place_it_on_timeline
         required_components:
           - VoiceScriptReference
           - VoiceAssetPicker
@@ -150,8 +132,9 @@ pages:
           - VoicePreview
           - VoiceABCompare
           - VoiceApplyToTimeline
-      - id: EDIT02_MUSIC_SFX
-        purpose: place_and_adjust_music_and_sound_effects
+
+      - id: EDIT01_MUSIC_SFX
+        purpose: import_place_and_adjust_music_and_sound_effects
         required_components:
           - MusicAssetPicker
           - SfxAssetPicker
@@ -159,7 +142,8 @@ pages:
           - ClipTimingControl
           - ClipVolumeControl
           - FadeControl
-      - id: EDIT02_AUDIO_MIX
+
+      - id: EDIT01_AUDIO_MIX
         purpose: preview_and_commit_combined_voice_music_sfx_mix
         required_components:
           - MixPreview
@@ -167,8 +151,9 @@ pages:
           - MasterLevelControl
           - AudioMixExecute
           - AudioMixVersionStatus
-      - id: EDIT02_LIP_SYNC
-        purpose: execute_and_verify_lip_sync
+
+      - id: EDIT01_LIP_SYNC
+        purpose: execute_preview_and_retry_lip_sync
         required_components:
           - LipSyncTargetSelector
           - LipSyncExecute
@@ -176,25 +161,9 @@ pages:
           - LipSyncPreview
           - LipSyncStatus
           - LipSyncIssueMarker
-      - id: EDIT02_VERSION
-        purpose: save_audio_and_layer_changes_without_overwrite
-        required_components:
-          - WorkingDraftStatus
-          - SaveNewVersion
-          - VersionHistory
-    interaction_rules:
-      manual_waveform_alignment: allowed
-      voice_generation: route_to_VOICE_service
-      lip_sync_execution: route_to_VOICE_sync_service
-      layer_and_audio_timing_changes: bind_EDIT_LAYER_UPDATE
-      save_version: preserve_previous_versions
 
-  - page_uid: EDIT-03
-    page_identity: Subtitle QA & Finalize
-    purpose: finish_subtitles_validate_entire_edit_and_produce_final_output
-    sections:
-      - id: EDIT03_SUBTITLE
-        purpose: create_import_edit_and_sync_subtitles
+      - id: EDIT01_SUBTITLE
+        purpose: import_create_edit_and_sync_subtitles
         required_components:
           - SubtitleTrackList
           - SubtitleImport
@@ -207,8 +176,9 @@ pages:
           - SubtitleFormatSelector
           - SubtitleManualSync
           - SubtitleApiSync
-      - id: EDIT03_QA
-        purpose: validate_video_audio_lipsync_subtitle_and_timeline_consistency
+
+      - id: EDIT01_QA
+        purpose: validate_and_correct_timeline_video_audio_lipsync_and_subtitle
         required_components:
           - QAStatusSummary
           - QAIssueList
@@ -217,15 +187,26 @@ pages:
           - CorrectionRangeLoader
           - RecheckSelectedIssue
           - RecheckFullTimeline
-      - id: EDIT03_FINAL_PREVIEW
-        purpose: review_final_composite_before_output
+
+      - id: EDIT01_VERSION
+        purpose: preserve_non_overwriting_edit_history
+        required_components:
+          - WorkingDraftStatus
+          - SaveNewVersion
+          - VersionHistory
+          - VersionCompare
+          - RestoreAsNewDraft
+
+      - id: EDIT01_FINAL_PREVIEW
+        purpose: review_complete_composite_before_output
         required_components:
           - FinalPreviewViewport
           - Fullscreen
           - AudioMonitor
           - SubtitleToggle
           - VersionCompare
-      - id: EDIT03_OUTPUT
+
+      - id: EDIT01_OUTPUT
         purpose: render_export_and_handoff_approved_result
         required_components:
           - RenderSettings
@@ -234,36 +215,51 @@ pages:
           - ExportDownload
           - SaveOutputVersion
           - Handoff
+
+    panel_behavior:
+      all_functions_same_route: true
+      page_navigation_between_edit_functions: forbidden
+      dense_panels_may_collapse_expand: true
+      timeline_must_remain_visible_when_operating_voice_music_sfx_lipsync_or_subtitle: true
+      preview_should_remain_accessible: true
+
+    interaction_rules:
+      click_time_ruler: move_playhead
+      drag_playhead: scrub_preview
+      previous_frame: move_minus_one_frame
+      next_frame: move_plus_one_frame
+      timecode_input: move_playhead_to_exact_frame
+      manual_edit: update_working_draft_only
+      api_edit: create_candidate_before_apply
+      apply_api_candidate: update_working_draft_without_overwriting_saved_version
+      save_version: create_new_immutable_version
+      voice_generation: route_to_VOICE_service
+      lip_sync: route_to_VOICE_sync_service
+      subtitle_sync: route_to_EDITING_subtitle_service
+      source_video_regeneration: route_to_VIDEO_when_regeneration_is_required
+
     completion_gate:
       timeline_valid: required
-      audio_mix_valid: required
-      lip_sync_valid_when_required: required
-      subtitle_valid_when_present: required
+      audio_mix_valid: required_when_audio_present
+      lip_sync_valid: required_when_lip_sync_used
+      subtitle_valid: required_when_subtitle_present
       unresolved_blocking_qa_issue: forbidden
 
-cross_workspace_state:
-  preserve:
-    - timeline_id
-    - working_version
-    - source_mode
-    - project_id_when_present
-    - task_id_when_present
-    - playhead_frame
-    - selected_range
-    - selected_clip_ids
-  standalone_upload:
-    project_id: nullable
-    task_id: null
-    owner_scope: required
-    same_editing_capabilities_as_project_mode: true
+  - page_uid: EDIT-02
+    active_render: false
+    status: INTEGRATED_INTO_EDIT-01
+
+  - page_uid: EDIT-03
+    active_render: false
+    status: INTEGRATED_INTO_EDIT-01
 
 forbidden:
+  - split_EDITING_into_multiple_active_pages
   - decorative_player_only_without_edit_operations
   - overwrite_saved_version
-  - hide_required_manual_controls_behind_nonfunctional_placeholder
   - hardcode_single_external_provider
   - require_project_task_for_STANDALONE_UPLOAD
-  - duplicate_timeline_between_EDIT_pages
+  - hide_actual_editing_functions_behind_placeholder
 
 status: functional_contract_defined
 external_render_test: pending
