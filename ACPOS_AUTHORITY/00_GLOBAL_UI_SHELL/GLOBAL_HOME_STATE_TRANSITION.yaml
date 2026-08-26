@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_STATE_TRANSITION
-version: V1.1
+version: V1.2
 status: AUTHORITY_ACTIVE
 
 transitions:
@@ -15,6 +15,26 @@ transitions:
       to: ERROR
     - from: ERROR
       event: PAGE_CONTEXT_RETRY
+      to: LOADING
+
+  SEARCH_CONTROL:
+    - from: DEFAULT
+      event: SEARCH_FOCUS
+      to: FOCUSED
+    - from: FOCUSED
+      event: GLOBAL_SEARCH_OPEN
+      to: LOADING
+    - from: LOADING
+      event: SEARCH_RESULTS_READY
+      to: READY
+    - from: LOADING
+      event: SEARCH_RESULTS_FAILURE
+      to: ERROR
+    - from: READY
+      event: SEARCH_QUERY_CHANGE
+      to: FOCUSED
+    - from: ERROR
+      event: SEARCH_RETRY
       to: LOADING
 
   TOP_STATUS:
@@ -33,6 +53,26 @@ transitions:
     - from: ERROR
       event: RUNTIME_RECOVERED
       to: RUNTIME_CONNECTED
+
+  NOTIFICATION_CONTROL:
+    - from: DEFAULT
+      event: GLOBAL_NOTIFICATION_OPEN
+      to: LOADING
+    - from: LOADING
+      event: NOTIFICATION_LOAD_SUCCESS
+      to: READY
+    - from: LOADING
+      event: NOTIFICATION_LOAD_FAILURE
+      to: ERROR
+    - from: READY
+      event: NOTIFICATION_PANEL_ACTIVE
+      to: ACTIVE
+    - from: ACTIVE
+      event: NOTIFICATION_PANEL_CLOSE
+      to: DEFAULT
+    - from: ERROR
+      event: NOTIFICATION_RETRY
+      to: LOADING
 
   SIDEBAR:
     - from: EXPANDED
