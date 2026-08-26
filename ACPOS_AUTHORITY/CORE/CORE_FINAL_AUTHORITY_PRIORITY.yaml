@@ -1,4 +1,4 @@
-version: CORE-FINAL-AUTHORITY-PRIORITY-V2
+version: CORE-FINAL-AUTHORITY-PRIORITY-V2.1
 status: AUTHORITY_ACTIVE
 purpose: Define final authority priority for CORE rendering and prevent conflicting definitions.
 
@@ -9,68 +9,80 @@ priority_order:
       - Single Construction Authority
       - No Parallel Specification
   - level: 2
-    source: GLOBAL_UI_SHELL
+    source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_AUTHORITY_PRIORITY.yaml
     responsibility:
       - Header
       - Sidebar
       - Brand
       - Global Visual Rules
   - level: 3
+    source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+    responsibility:
+      - AI Conversation Core Modules
+      - Context Memory Decision Version Provider Runtime Permission Audit
+  - level: 4
+    source: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+    responsibility:
+      - AI Conversation Visual Module
+      - Message Context Output Version Decision Visual Contract
+  - level: 5
     source: CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
     responsibility:
       - Latest CORE single-page architecture
       - Work Item / Conversation model
       - Production Task boundary
-  - level: 4
-    source: CORE_PAGE_REGISTRY
+  - level: 6
+    source: CORE_PAGE_REGISTRY.yaml
     responsibility:
       - Page Identity
       - Active Page Scope
       - Section Registry
-  - level: 5
-    source: CORE_SCREEN_LAYOUT
+  - level: 7
+    source: CORE_SCREEN_LAYOUT.yaml
     responsibility:
       - Region Layout
       - Component Position
       - Size Relationship
-  - level: 6
-    source: CORE_COMPONENT_REGISTRY
+  - level: 8
+    source: CORE_COMPONENT_REGISTRY.yaml
     responsibility:
       - Component Definition
       - Component Binding
-  - level: 7
-    source: CORE_WORK_ITEM_CONVERSATION_REGISTRY
+  - level: 9
+    source: CORE_WORK_ITEM_CONVERSATION_REGISTRY.yaml
     responsibility:
       - Work Item Navigation
       - Conversation Thread Isolation
-  - level: 8
-    source: CORE_CONTROL_REGISTRY
+  - level: 10
+    source: CORE_CONTROL_REGISTRY.yaml
     responsibility:
       - Control Definition
       - Action Binding
-  - level: 9
-    source: CORE_ACTION_REGISTRY
+  - level: 11
+    source: CORE_ACTION_REGISTRY.yaml
     responsibility:
       - Action Flow
       - Handoff Trigger
-  - level: 10
-    source: CORE_STATE_REGISTRY
+  - level: 12
+    source: CORE_STATE_REGISTRY.yaml
     responsibility:
       - State Definition
-  - level: 11
-    source: CORE_STATE_TRANSITION
+  - level: 13
+    source: CORE_STATE_TRANSITION.yaml
     responsibility:
       - State Transition
-  - level: 12
-    source: CORE_VISUAL_MAPPING
+  - level: 14
+    source: CORE_VISUAL_MAPPING.yaml
     responsibility:
       - UI Element Source Trace
-  - level: 13
-    source: CORE_UI_RENDER_BINDING
+  - level: 15
+    source: CORE_UI_RENDER_BINDING.yaml
     responsibility:
       - Final Render Mapping
 
 conversation_architecture:
+  ai_core_inheritance: required
+  ai_conversation_visual_inheritance: required
   project_binding: required
   topic_binding: required
   work_item_binding: required
@@ -99,6 +111,7 @@ conflict_resolution:
   - CORE-02_split_page_active_render_forbidden
   - blueprint_lock_next_dna_definition_forbidden
   - task_context_and_production_task_context_must_not_be_confused
+  - generic_chat_render_forbidden_when_ai_core_visual_authority_exists
 
 render_rule:
   unknown_component: reject
@@ -106,3 +119,5 @@ render_rule:
   unknown_state: reject
   unbound_visual_element: reject
   missing_work_item_navigation: reject
+  missing_ai_core_inheritance: reject
+  missing_ai_conversation_visual_inheritance: reject
