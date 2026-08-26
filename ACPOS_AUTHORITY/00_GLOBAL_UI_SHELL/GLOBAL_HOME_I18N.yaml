@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_I18N
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 locales:
   - zh-TW
@@ -15,10 +15,18 @@ keys:
     zh-TW: ORANGE ONE
     zh-CN: ORANGE ONE
     en: ORANGE ONE
+  global.search.label:
+    zh-TW: 搜尋
+    zh-CN: 搜索
+    en: Search
   global.search.placeholder:
     zh-TW: 搜尋專案、專題或頁面
     zh-CN: 搜索项目、专题或页面
     en: Search projects, topics, or pages
+  global.notification.label:
+    zh-TW: 通知
+    zh-CN: 通知
+    en: Notifications
   global.status.loading:
     zh-TW: 載入中
     zh-CN: 加载中
@@ -30,6 +38,7 @@ keys:
 
 rules:
   - navigation_labels_must_use_i18n_key
+  - global_header_interactive_controls_must_use_i18n_key
   - page_specific_labels_owned_by_page_i18n
   - brand_name_must_not_be_translated
   - no_hardcoded_single_language_ui_text
