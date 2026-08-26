@@ -1,12 +1,23 @@
-version: CORE-AUTHORITY-V2
+version: CORE-AUTHORITY-V2.1
 status: AUTHORITY_ACTIVE
 page_registry:
   - page_uid: CORE-01
     name: CORE Project Topic AI Workspace
     purpose: project_topic_core_content_construction_and_lock
-    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    surface: AI_WORKSPACE
+    shell_template: GLOBAL-SHELL-001
+    shell_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_REGISTRY.yaml
     route: /core
+    visibility:
+      mode: permission_controlled
+      source: CORE_PERMISSION_MATRIX.yaml
     layout: AI_WORKSPACE_SINGLE_PAGE
+    navigation_l1_l6:
+      l1_page_uid: L1-02
+      l1_name: AI Workspace
+      source: 00_MASTER/UI_AUTHORITY/NAVIGATION_AUTHORITY.yaml
+      lower_levels: resolve_from_canonical_navigation
+      invent_missing_level: forbidden
     sections:
       - section_id: CORE-SEC-PAGE-CONTEXT
         component_id: CORE-COMP-PAGE-CONTEXT
@@ -37,13 +48,72 @@ page_registry:
     output:
       production_task_created_only_after_core_lock: true
 
+master_record_closure:
+  page_uid_source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  page_contract: CORE_PAGE_CONTRACT.yaml
+  layout_source: CORE_SCREEN_LAYOUT.yaml
+  sections_source: CORE_PAGE_REGISTRY.yaml
+  components_source: CORE_COMPONENT_REGISTRY.yaml
+  component_position_source: CORE_COMPONENT_POSITION_MAP.yaml
+  fields_source: CORE_DATA_BINDING_AUTHORITY.yaml
+  actions_source: CORE_ACTION_REGISTRY.yaml
+  controls_source: CORE_CONTROL_REGISTRY.yaml
+  control_visibility_source: CORE_CONTROL_VISIBILITY_RULE.yaml
+  api_binding_source: CORE_DATA_API_BINDING.yaml
+  api_master_source: 00_MASTER/API_MASTER_REGISTRY.yaml
+  database_binding_source: CORE_DATABASE_BINDING.yaml
+  database_master_source: 00_MASTER/DATABASE_MASTER_SCHEMA.yaml
+  permission_binding_source: CORE_PERMISSION_MATRIX.yaml
+  runtime_events_source: CORE_RUNTIME_PERMISSION_QA.yaml
+  qa_evidence_source: CORE_QA_EVIDENCE.yaml
+  visual_mapping_source: CORE_VISUAL_MAPPING.yaml
+  render_binding_source: CORE_UI_RENDER_BINDING.yaml
+  render_validation_source: CORE_FINAL_RENDER_VALIDATION.yaml
+  i18n_source: CORE_I18N.yaml
+  ai_core_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  ai_conversation_interface_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+  core_ai_visual_extension_source: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+
 legacy_pages:
   CORE-02:
     status: REPLACED_BY_CORE-01_SINGLE_PAGE
     active_render: false
+  CORE-03:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+  CORE-04:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+  CORE-05:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+  CORE-06:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+
+validation:
+  required_page_master_fields:
+    page_uid: mapped
+    surface: mapped
+    navigation_l1_l6: mapped_by_authority_source
+    route: mapped
+    visibility: mapped
+    layout: mapped
+    sections: mapped
+    components: mapped
+    fields: mapped_by_source
+    actions: mapped_by_source
+    api_binding: mapped_by_source
+    database_binding: mapped_by_source
+    permission_binding: mapped_by_source
+    runtime_events: mapped_by_source
+    qa_evidence: mapped_by_source
+  missing_required_source: BLOCK_CONSTRUCTION
+  invented_missing_navigation_level: REJECT
 
 rules:
   - no_parallel_core_page
   - no_production_task_context_in_core_conversation
   - work_item_navigation_required
   - conversation_history_isolated_per_work_item
+  - ai_core_interface_inheritance_required
