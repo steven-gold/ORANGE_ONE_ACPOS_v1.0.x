@@ -1,6 +1,9 @@
 batch: 008
 module: CORE
-control_fields:
+status: REPLACED_BY_CURRENT_CORE_CONTROL_AUTHORITY
+retained_for: audit_history_only
+
+legacy_control_schema:
   - control_id
   - page_uid
   - component_id
@@ -11,5 +14,21 @@ control_fields:
   - validation
   - permission
   - action
-status: implementation_mapping
-external_test: pending
+
+current_authority:
+  page_uid: CORE-01
+  control_source: ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+  action_source: ACPOS_AUTHORITY/CORE/CORE_ACTION_REGISTRY.yaml
+  state_source: ACPOS_AUTHORITY/CORE/CORE_STATE_REGISTRY.yaml
+  transition_source: ACPOS_AUTHORITY/CORE/CORE_STATE_TRANSITION.yaml
+  permission_source: ACPOS_AUTHORITY/CORE/CORE_PERMISSION_MATRIX.yaml
+  i18n_source: ACPOS_AUTHORITY/CORE/CORE_I18N.yaml
+  ai_conversation_shared_control_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+
+rules:
+  - batch_008_schema_is_reference_only
+  - current_control_ids_must_come_from_CORE_CONTROL_REGISTRY
+  - legacy_split_page_controls_must_not_render
+  - hardcoded_single_language_label_forbidden
+
+external_test: pending_under_current_authority
