@@ -1,17 +1,38 @@
 version: ACPOS_v1.0.x
+source: ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+status: AUTHORITY_DELEGATED
+purpose: Frontend control mapping must consume the current CORE control registry instead of legacy split-page controls.
+
 mapping:
   CORE-01:
-    controls:
-      - PROJECT_CREATE_WIZARD
-      - PROJECT_SAVE
-      - PROJECT_CANCEL
-  CORE-02:
-    controls:
-      - TOPIC_CONTRACT_FORM
-      - TOPIC_CONFIRM
-  CORE-06:
-    controls:
-      - SCRIPT_VIEW
-      - CANDIDATE_STUDIO
-      - CONVERSATION_WORKSPACE
-status: initialized
+    control_source: ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+    required_controls:
+      - CORE-CTRL-PROJECT-SELECTOR
+      - CORE-CTRL-CREATE-PROJECT
+      - CORE-CTRL-TOPIC-SELECTOR
+      - CORE-CTRL-CREATE-TOPIC
+      - CORE-CTRL-WORK-ITEM-SELECT
+      - CORE-CTRL-NEW-THREAD
+      - CORE-CTRL-CONVERSATION-INPUT
+      - CORE-CTRL-CONFIRM-DNA
+      - CORE-CTRL-GENERATE-BLUEPRINT
+      - CORE-CTRL-LOCK-BLUEPRINT
+      - CORE-CTRL-GENERATE-SCRIPT
+      - CORE-CTRL-CONFIRM-SCRIPT
+      - CORE-CTRL-CONFIRM-CORE
+      - CORE-CTRL-CREATE-PRODUCTION-TASK
+    ai_conversation_shared_controls_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+
+legacy_controls:
+  PROJECT_CREATE_WIZARD: REPLACED
+  PROJECT_SAVE: REPLACED
+  PROJECT_CANCEL: REPLACED
+  TOPIC_CONTRACT_FORM: REPLACED_AS_SEPARATE_PAGE_CONTROL
+  TOPIC_CONFIRM: REPLACED_AS_SEPARATE_PAGE_CONTROL
+  SCRIPT_VIEW: REPLACED_AS_SEPARATE_PAGE_CONTROL
+  CANDIDATE_STUDIO: REPLACED_AS_SEPARATE_PAGE_CONTROL
+
+rules:
+  - no_unregistered_control
+  - no_legacy_split_page_control_render
+  - control_action_permission_state_source_must_be_current_authority
