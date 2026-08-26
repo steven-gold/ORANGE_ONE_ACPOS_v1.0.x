@@ -61,8 +61,37 @@ explicit_replacements:
       - do_not_use_legacy_core_csv_rows_for_active_page_render
       - keep_csv_for_audit_history_and_non_core_rows
 
+  frontend_core_mapping_alignment:
+    current_authority:
+      - 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_COMPONENT_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_ACTION_REGISTRY.yaml
+      - ACPOS_AUTHORITY/CORE/CORE_UI_RENDER_BINDING.yaml
+    delegated_frontend_files:
+      - 01_FRONTEND/PAGE_REGISTRY.yaml
+      - 01_FRONTEND/PAGE_UID_MAPPING.yaml
+      - 01_FRONTEND/PAGE_UID_ENTITY_BATCH_001.yaml
+      - 01_FRONTEND/PAGE_UID_ENTITY_CORE_BATCH_008.yaml
+      - 01_FRONTEND/CORE_PAGE_MAPPING.yaml
+      - 01_FRONTEND/CORE_PAGE_ENTITY_MAPPING.yaml
+      - 01_FRONTEND/CORE_SECTION_MAPPING.yaml
+      - 01_FRONTEND/CORE_CONTROL_MAPPING.yaml
+      - 01_FRONTEND/CORE_PAGE_DETAIL_BATCH_020.yaml
+      - 01_FRONTEND/CORE_CONTROL_BINDING_DETAIL_BATCH_020.yaml
+      - 01_FRONTEND/CONTROL_ENTITY_CORE_BATCH_008.yaml
+    rule:
+      - delegated_frontend_file_must_not_override_master_or_ACPOS_AUTHORITY
+      - legacy_CORE_02_to_CORE_06_frontend_mapping_must_not_render
+      - project_creation_wizard_split_page_mapping_is_legacy
+      - topic_production_contract_split_page_mapping_is_legacy
+      - script_view_split_page_mapping_is_legacy
+      - keep_replaced_batch_files_for_audit_only_when_marked_replaced_or_delegated
+
 validation:
   legacy_core_active_render: reject
   HOME_001_page_render: reject
   parallel_core_definition: reject
+  frontend_legacy_core_mapping_active: reject
   lower_priority_replaced_definition: ignore_and_audit
