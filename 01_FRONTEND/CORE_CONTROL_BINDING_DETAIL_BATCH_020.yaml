@@ -1,6 +1,9 @@
 batch: 020
 module: CORE
-control_binding:
+status: AUTHORITY_DELEGATED
+purpose: Control binding schema reference only; active CORE control bindings are owned by current ACPOS_AUTHORITY.
+
+control_binding_schema:
   fields:
     - control_id
     - page_uid
@@ -10,4 +13,17 @@ control_binding:
     - validation
     - action_binding
     - permission_binding
-status: construction
+
+current_authority:
+  page_uid: CORE-01
+  control_source: ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+  action_source: ACPOS_AUTHORITY/CORE/CORE_ACTION_REGISTRY.yaml
+  state_source: ACPOS_AUTHORITY/CORE/CORE_STATE_REGISTRY.yaml
+  transition_source: ACPOS_AUTHORITY/CORE/CORE_STATE_TRANSITION.yaml
+  permission_source: ACPOS_AUTHORITY/CORE/CORE_PERMISSION_MATRIX.yaml
+  render_source: ACPOS_AUTHORITY/CORE/CORE_UI_RENDER_BINDING.yaml
+
+rules:
+  - schema_reference_must_not_override_current_control_registry
+  - active_binding_must_resolve_current_CORE_control_id
+  - legacy_split_page_control_binding_forbidden
