@@ -1,80 +1,205 @@
 authority:
   id: CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY
-  status: FROZEN_PENDING_BINARY_DOC_ARCHIVE
+  version: V2.0
+  status: AUTHORITY_FROZEN
   scope: CORE_AI_CONVERSATION_WORKSPACE
+  role: CORE_UNIT_EXTENSION_OF_SHARED_AI_CONVERSATION_INTERFACE
+
+inheritance:
+  shared_ai_core_registry: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  shared_interface_authority: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+  global_visual_authority: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+  must_inherit_shared_interface_without_redefinition: true
 
 source:
-  type: confirmed_visual_definition
+  type: confirmed_core_unit_visual_extension
   principle:
     - do_not_recreate_visual_direction
     - use_confirmed_design_reference
+    - do_not_duplicate_page_context_controls_inside_ai_module
+    - do_not_render_as_normal_chat_interface
+
+core_context_binding:
+  page_owned_context_controls:
+    - Project
+    - Topic
+    - Work_Item
+  conversation_binding_required:
+    - Project_ID
+    - Topic_ID
+    - Work_Item_ID
+    - Conversation_Thread_ID
+    - Context_ID
+    - Version_ID
+  optional_reference_binding:
+    - Candidate_ID
+    - Decision_ID
+    - Selected_Reference_IDs
+  forbidden:
+    - Production_Task_ID_as_CORE_conversation_context
+  history_rule:
+    - each_work_item_has_independent_conversation_history
+    - switching_work_item_switches_conversation_thread
+    - cross_work_item_history_mix_forbidden
 
 layout:
-  canvas: "16:9"
-  style: "AI production workstation"
+  style: AI_production_workstation
+  container: CORE-COMP-CONVERSATION
+  priority: primary
   regions:
-    - id: CORE-AREA-001
-      name: AI Conversation Main Area
+    - id: CORE-AI-AREA-001
+      name: Conversation Toolbar
+      purpose: compact_mode_and_conversation_controls
+    - id: CORE-AI-AREA-002
+      name: AI Message Workspace
+      purpose: conversation_messages_outputs_and_runtime
       priority: highest
-    - id: CORE-AREA-002
-      name: Project Context Area
-      collapsible: true
-    - id: CORE-AREA-003
-      name: Output Result Area
-    - id: CORE-AREA-004
-      name: Version Decision Area
+    - id: CORE-AI-AREA-003
+      name: Assistant Record Access
+      purpose: assistant_notes_decisions_branches_pending_items
+    - id: CORE-AI-AREA-004
+      name: Score and Decision Workflow
+      purpose: score_then_human_decision_then_assistant_structure
+    - id: CORE-AI-AREA-005
+      name: Input Composer
+      purpose: human_input_at_parser_attachments_and_reference_images
+
+shared_components_required:
+  - AICORE-COMP-MODE-SELECTOR
+  - AICORE-COMP-SINGLE-AI-WORKSPACE
+  - AICORE-COMP-MULTI-AI-WORKSPACE
+  - AICORE-COMP-MESSAGE-WORKSPACE
+  - AICORE-COMP-MESSAGE-CARD
+  - AICORE-COMP-RUNTIME-STATUS
+  - AICORE-COMP-ASSISTANT
+  - AICORE-COMP-ASSISTANT-RECORD
+  - AICORE-COMP-SCORE-PANEL
+  - AICORE-COMP-DECISION-PANEL
+  - AICORE-COMP-INPUT-COMPOSER
+  - AICORE-COMP-REPLY-CONTEXT-MENU
+
+core_purpose:
+  primary:
+    - story_discussion_and_definition
+    - chapter_discussion_and_definition
+    - world_setting_discussion_and_definition
+    - dna_discussion_and_definition
+    - blueprint_discussion_and_definition
+    - script_generation_review_and_revision
+  script_rule:
+    canonical_script_language: chinese_internal_standard
+    provider_syntax_conversion_owner: ACPOS_execution_layer
+    provider_syntax_must_not_replace_canonical_script: true
+
+conversation_modes:
+  source: shared_interface_authority
+  allowed:
+    - SINGLE_AI
+    - MULTI_AI
+  assistant_fixed_in_both: true
+  multi_ai:
+    same_question_same_context: true
+    fixed_ai_roles: forbidden
+    independent_panes: true
+    independent_scroll: true
+    pane_count_fixed_by_core_visual_authority: false
+
+runtime:
+  source: shared_interface_authority
+  status_strip_position: near_active_response
+  stages_required:
+    - READ_DATA
+    - RETRIEVE
+    - ANALYZE
+    - MULTI_AI_ANALYZE
+    - SUMMARIZE
+    - SCORE
+    - WAIT_HUMAN_DECISION
+    - WRITE_CANDIDATE
+    - LOCK
+
+score_and_decision:
+  score_timing:
+    after: SUMMARIZE
+    before: WAIT_HUMAN_DECISION
+  criteria:
+    shared_base: required
+    core_specific_extension: required
+  decision_order:
+    - AI_and_Assistant_summary_ready
+    - Score_ready
+    - Human_decision_input
+    - Assistant_structured_decision_draft
+    - Human_final_confirmation_or_return_modify
+  ai_preemptive_final_fusion_before_human_decision: forbidden
+
+assistant:
+  source: shared_interface_authority
+  persistent: true
+  record_view_required: true
+  responsibilities:
+    - discussion_record
+    - decision_record
+    - branch_topic_record
+    - pending_item_record
+    - final_meeting_summary
+
+input_and_reply_interaction:
+  input:
+    at_parser: built_in_not_button
+    attachment_upload: supported
+    reference_images: supported
+  reply:
+    operation_trigger: right_click_only
+    hover_action_bar: forbidden
+    required_actions:
+      - AICORE-REPLY-ACT-QUOTE
+      - AICORE-REPLY-ACT-CONTINUE
+      - AICORE-REPLY-ACT-ANALYZE
+      - AICORE-REPLY-ACT-ADD-DECISION
+      - AICORE-REPLY-ACT-CREATE-BRANCH
+      - AICORE-REPLY-ACT-COPY
+
+provider_display:
+  chat_surface: provider_brand_only
+  full_provider_detail_owner: backend_api_management
+
+core_output_relationship:
+  right_state_rail_is_outside_conversation_component: true
+  right_state_rail_source: ACPOS_AUTHORITY/CORE/CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
+  related_outputs:
+    - DNA
+    - Blueprint
+    - Script
+    - Version
+    - Decision
+  conversation_module_must_not_duplicate_right_state_rail: true
 
 visual_identity:
+  inherit_global_purple_tech_theme: true
   direction:
     - professional
-    - technology_blue_AI_workstation
+    - enterprise_AI_workstation
     - high_information_density
     - modular_card_interface
   avoid:
+    - technology_blue_legacy_theme
     - normal_chat_interface
     - undefined_panels
     - undefined_controls
+    - oversized_mode_header
 
-components:
-  message_card:
-    id: CORE-COMP-MSG-001
-    states:
-      - default
-      - expanded
-      - referenced
-  context_card:
-    id: CORE-COMP-CONTEXT-001
-    binding:
-      - Project_ID
-      - Context_ID
-      - Version_ID
-  output_card:
-    id: CORE-COMP-OUTPUT-001
-    states:
-      - Draft
-      - Candidate
-      - Approved
-      - Locked
-
-controls:
-  - id: CORE-ACT-GENERATE-001
-    action: Generate
-  - id: CORE-ACT-REVISE-001
-    action: Revise
-  - id: CORE-ACT-COMPARE-001
-    action: Compare
-  - id: CORE-ACT-LOCK-001
-    action: Lock Version
-
-binding:
-  required:
-    - Project_ID
-    - Conversation_ID
-    - Context_ID
-    - Candidate_ID
-    - Decision_ID
-    - Version_ID
-
-rules:
-  - no_new_visual_structure_without_authority_update
-  - no_upload_without_complete_closure
+validation:
+  shared_interface_authority_required: true
+  single_and_multi_modes_required: true
+  assistant_required: true
+  runtime_strip_required: true
+  score_panel_required: true
+  human_decision_flow_required: true
+  at_parser_required: true
+  right_click_reply_menu_required: true
+  provider_brand_only_required: true
+  page_context_selector_inside_conversation: reject_render
+  production_task_context_inside_core_conversation: reject_render
+  generic_chat_render: reject_render
+  undefined_visual_element: reject_render
