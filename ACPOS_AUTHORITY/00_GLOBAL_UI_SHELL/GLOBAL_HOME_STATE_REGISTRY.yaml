@@ -1,5 +1,6 @@
 authority: ACPOS_GLOBAL_HOME_STATE
-version: V1.1
+version: V1.2
+status: AUTHORITY_ACTIVE
 purpose: Global Home UI state authority
 
 states:
@@ -9,10 +10,26 @@ states:
     - WARNING
     - ERROR
 
+  PAGE_CONTEXT_SLOT:
+    - EMPTY
+    - LOADING
+    - READY
+    - ERROR
+
   SIDEBAR:
     - EXPANDED
     - COLLAPSED
+
+  MENU_ITEM:
+    - DEFAULT
+    - HOVER
     - ACTIVE
+    - DISABLED
+
+  USER_CONTROL:
+    - DEFAULT
+    - ACTIVE
+    - DISABLED
 
   WORKSPACE:
     - EMPTY
@@ -20,7 +37,10 @@ states:
     - READY
     - ERROR
 
+transition_source: GLOBAL_HOME_STATE_TRANSITION.yaml
+
 rules:
   - state_requires_source_definition
   - state_transition_must_be_registered
+  - control_state_must_exist_in_registry
   - no_ai_generated_state
