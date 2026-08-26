@@ -1,0 +1,30 @@
+page_uid: HOME-001
+page_name: ACPOS Home Dashboard
+shell_binding: ACPOS_GLOBAL_UI_SHELL_PURPLE_FREEZE
+status: AUTHORITY_FREEZE
+
+canvas:
+  ratio: 16:9
+  mode: desktop_workspace
+
+layout:
+  header:
+    height: 72px
+    fixed: true
+  sidebar:
+    expanded_width: 240px
+    collapsed_width: 72px
+    fixed: true
+  workspace:
+    container: main_workspace
+    radius: 24px
+
+sections:
+  - header_context
+  - navigation_sidebar
+  - dashboard_workspace
+
+rules:
+  - all_department_pages_must_extend_this_shell: true
+  - no_custom_header_replacement: true
+  - no_custom_sidebar_replacement: true
