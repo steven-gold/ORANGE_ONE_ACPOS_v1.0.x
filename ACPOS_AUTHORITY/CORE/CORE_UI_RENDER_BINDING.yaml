@@ -1,4 +1,4 @@
-version: CORE-UI-RENDER-BINDING-V2
+version: CORE-UI-RENDER-BINDING-V2.1
 status: AUTHORITY_ACTIVE
 purpose: 1_to_1_authority_render_mapping
 rules:
@@ -8,6 +8,29 @@ rules:
   unknown_state: reject_render
   unknown_position: reject_render
   page_content_outside_global_workspace: reject_render
+  generic_chat_layout: reject_render
+
+ai_core_inheritance:
+  module_authority: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  foundation_authority: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_FOUNDATION_AUTHORITY.md
+  conversation_visual_authority: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+  required_modules:
+    - Conversation
+    - Context
+    - Memory
+    - Decision
+    - Version
+    - Notebook_Record
+    - Provider
+    - Runtime_State
+    - Permission
+    - Audit
+  render_contract:
+    ai_conversation_main_area: required
+    context_area: required_when_bound
+    output_result_area: required
+    version_decision_area: required
+    normal_chat_only_layout: forbidden
 
 mapping:
   CORE-01:
@@ -47,6 +70,16 @@ mapping:
           controls:
             - CORE-CTRL-CONVERSATION-INPUT
           primary: true
+          ai_core_binding:
+            inherit: required
+            visual_module: CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY
+            required_bindings:
+              - Project_ID
+              - Conversation_ID
+              - Context_ID
+              - Candidate_ID
+              - Decision_ID
+              - Version_ID
         right:
           width: "28%"
           rail:
@@ -79,6 +112,8 @@ binding_flow:
   State: required
   Position: required
   VisualSource: required
+  AICoreAuthority: required
+  AIConversationVisualAuthority: required
 
 context_rules:
   project_selector: required
@@ -89,3 +124,5 @@ context_rules:
 final_rule:
   render_must_include_work_item_rail: true
   render_must_not_replace_global_shell: true
+  render_must_inherit_ai_core: true
+  render_must_inherit_ai_conversation_visual_authority: true
