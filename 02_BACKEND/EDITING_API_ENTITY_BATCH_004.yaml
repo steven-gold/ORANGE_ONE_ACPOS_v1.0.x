@@ -1,10 +1,38 @@
 batch: 004
 module: EDITING
+source: R9_FINAL
+active_page: EDIT-01
+
 api:
+  - media_import
   - timeline_update
   - layer_update
+  - api_edit_execute
   - subtitle_sync
+  - qa_recheck
+  - version_save
+  - output_render
+
+cross_service_api:
+  - voice_generate
+  - voice_asset_bind
+  - voice_sync_execute
+  - asset_version_create
+  - asset_reference_bind
+  - video_regeneration_existing_api_when_required
+
 schema:
-  request: defined
-  response: defined
+  request: operation_specific_defined
+  response: operation_specific_defined
   error_mapping: required
+  permission_binding: required
+  database_binding: required
+  runtime_binding: required
+  qa_evidence_binding: required
+
+rules:
+  one_frontend_page_may_bind_multiple_service_apis: true
+  single_provider_hardcode: forbidden
+  project_task_required_for_standalone_upload: false
+  saved_version_overwrite: forbidden
+external_e2e: pending
