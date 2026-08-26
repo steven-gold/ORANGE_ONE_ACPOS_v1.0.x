@@ -1,12 +1,52 @@
 module: EDITING
 batch: 013
+source: R9_FINAL
 apis:
-  - timeline_update
-  - layer_update
-  - subtitle_sync
+  timeline_update:
+    action: EDIT_TIMELINE_UPDATE
+    purpose: update_existing_timeline_operation_state
+    request:
+      required:
+        - timeline_id
+      optional:
+        - playback_position_frame
+        - playback_state
+        - correction_start_frame
+        - correction_end_frame
+        - evidence_id
+        - marker_frame
+    validation:
+      - timeline_id_must_exist
+      - playback_position_frame_within_timeline
+      - correction_start_frame_lte_correction_end_frame
+      - correction_range_within_timeline
+      - evidence_id_if_present_must_reference_existing_qa_evidence
+    response:
+      - timeline_id
+      - accepted_operation_state
+      - current_position_frame
+      - correction_range
+    error_mapping:
+      invalid_timeline: EDITING_TIMELINE_NOT_FOUND
+      invalid_position: EDITING_TIMECODE_OUT_OF_RANGE
+      invalid_range: EDITING_CORRECTION_RANGE_INVALID
+      invalid_evidence: EDITING_QA_EVIDENCE_NOT_FOUND
+      permission_denied: EDITING_PERMISSION_DENIED
+  layer_update:
+    preserve_existing_r9_contract: true
+  subtitle_sync:
+    preserve_existing_r9_contract: true
+rules:
+  invent_new_endpoint: forbidden
+  timeline_controls_bind_timeline_update_only: true
+  zoom_state_is_frontend_only: true
+  video_regeneration_routes_to_VIDEO: true
+  voice_lipsync_audio_routes_to_VOICE: true
 fields:
   - endpoint
   - method
   - request
   - response
   - error_mapping
+status: contract_defined
+external_e2e: pending
