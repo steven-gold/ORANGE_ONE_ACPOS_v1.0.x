@@ -1,22 +1,61 @@
-version: CORE-AUTHORITY-V1
+version: CORE-VISUAL-MAPPING-V2
+status: AUTHORITY_ACTIVE
 visual_mapping:
   rule: every_ui_element_requires_authority_source
   mappings:
-    header:
+    global_header:
       source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
-    sidebar:
+      component_id: GLOBAL_HEADER_001
+    global_sidebar:
       source: GLOBAL_HOME_COMPONENT_REGISTRY
+      component_id: GLOBAL_SIDEBAR_001
+    page_context_bar:
+      source: CORE_COMPONENT_REGISTRY
+      component_id: CORE-COMP-PAGE-CONTEXT
+      section_id: CORE-SEC-PAGE-CONTEXT
+      controls:
+        - CORE-CTRL-PROJECT-SELECTOR
+        - CORE-CTRL-CREATE-PROJECT
+        - CORE-CTRL-TOPIC-SELECTOR
+        - CORE-CTRL-CREATE-TOPIC
+    work_item_navigation:
+      source: CORE_WORK_ITEM_CONVERSATION_REGISTRY
+      component_id: CORE-COMP-WORK-ITEM-NAV
+      section_id: CORE-SEC-WORK-ITEM-NAV
+      controls:
+        - CORE-CTRL-WORK-ITEM-SELECT
+        - CORE-CTRL-NEW-THREAD
     conversation_workspace:
-      source: CORE-COMP-CONVERSATION
-    blueprint_panel:
-      source: CORE-COMP-BLUEPRINT
+      source: CORE_COMPONENT_REGISTRY
+      component_id: CORE-COMP-CONVERSATION
+      section_id: CORE-SEC-CONVERSATION
+      controls:
+        - CORE-CTRL-CONVERSATION-INPUT
     dna_panel:
       source: CORE-COMP-DNA
+      section_id: CORE-SEC-DNA
+      order: 1
+    blueprint_panel:
+      source: CORE-COMP-BLUEPRINT
+      section_id: CORE-SEC-BLUEPRINT
+      order: 2
     script_panel:
       source: CORE-COMP-SCRIPT
+      section_id: CORE-SEC-SCRIPT
+      order: 3
     version_panel:
       source: CORE-COMP-VERSION
+      section_id: CORE-SEC-VERSION
+      order: 4
     decision_panel:
-      source: CORE-AUTHORITY-V1
-  validation:
-    missing_source: reject_render
+      source: CORE-COMP-DECISION
+      section_id: CORE-SEC-DECISION
+      order: 5
+
+validation:
+  missing_source: reject_render
+  unknown_component: reject_render
+  unknown_control: reject_render
+  task_context_inside_core_header: reject_render
+  production_task_in_work_item_rail: reject_render
+  work_item_navigation_missing: reject_render
