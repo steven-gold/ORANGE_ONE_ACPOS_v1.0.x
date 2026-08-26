@@ -18,3 +18,17 @@ page_registry:
     name: Topic Production Workspace
     shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
     layout: AI_WORKSPACE
+    sections:
+      - conversation_workspace
+      - project_context
+      - topic_context
+      - blueprint_panel
+      - dna_panel
+      - script_panel
+      - version_panel
+      - decision_panel
+
+rules:
+  task_context:
+    enabled: false
+    reason: Production Task is generated after CORE confirmation
