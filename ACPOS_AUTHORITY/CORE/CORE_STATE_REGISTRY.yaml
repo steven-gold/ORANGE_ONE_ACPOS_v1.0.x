@@ -1,0 +1,19 @@
+version: CORE-AUTHORITY-V1
+states:
+  blueprint:
+    - DRAFT
+    - REVIEW
+    - LOCKED
+  dna:
+    - DRAFT
+    - REVIEW
+    - LOCKED
+  script:
+    - GENERATED
+    - REVIEW
+    - REVISION
+    - CONFIRMED
+  production_task:
+    - NOT_CREATED
+    - CREATED
+    - HANDED_OFF_ASSET
