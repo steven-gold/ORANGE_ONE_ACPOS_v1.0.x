@@ -1,12 +1,15 @@
-version: CORE-FINAL-RENDER-VALIDATION-V2.3
+version: CORE-FINAL-RENDER-VALIDATION-V2.4
 status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
 
 checklist:
   global_shell_authority: required
+  global_shell_template_contract: required
   global_shell_render_binding: required
+  page_uid_master_record: required
   ai_core_authority_registry: required
-  ai_conversation_visual_authority: required
+  ai_conversation_shared_interface_authority: required
+  core_ai_conversation_visual_extension: required
   page_registry: required
   page_contract: required
   screen_layout: required
@@ -30,8 +33,11 @@ checklist:
   qa_evidence: required
 
 required_external_authority_sources:
+  global_shell_template: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_REGISTRY.yaml
+  page_uid_master_record: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
   ai_core_authority_registry: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
-  ai_conversation_visual_authority: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+  ai_conversation_shared_interface_authority: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+  core_ai_conversation_visual_extension: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
 
 render_rule:
   every_element_requires_source: true
@@ -39,12 +45,26 @@ render_rule:
   every_control_requires_registered_state: true
   every_control_requires_permission: true
   every_static_control_label_requires_i18n_key: true
+  page_uid_master_record_required: true
+  global_shell_must_be_template_not_page: true
+  dashboard_l1_01_remains_home_page: true
   ai_core_inheritance_required: true
-  ai_conversation_visual_inheritance_required: true
+  shared_ai_conversation_interface_inheritance_required: true
+  core_ai_conversation_visual_extension_inheritance_required: true
+  only_single_ai_and_multi_ai_modes: true
+  assistant_present_in_both_modes: true
+  assistant_as_third_mode: reject
+  runtime_status_near_active_response: required
+  score_after_summary_before_human_decision: required
+  human_decision_before_assistant_structured_final_draft: required
+  input_at_parser_not_button: required
+  reply_operations_right_click_only: required
+  provider_brand_only_in_chat: required
   generic_chat_render: reject
   ai_free_design_element: reject
-  legacy_CORE_02_active_page: reject
+  legacy_CORE_02_to_CORE_06_active_page: reject
   global_shell_replacement: reject
+  HOME_001_page_render: reject
   production_task_context_in_CORE: reject
   missing_project_selector: reject
   missing_topic_selector: reject
@@ -55,8 +75,16 @@ render_rule:
   ai_generated_right_rail_geometry: reject
   missing_version_state_transition: reject
   missing_decision_state_transition: reject
+  missing_assistant_component: reject
+  missing_runtime_status_component: reject
+  missing_score_panel: reject
+  missing_human_decision_flow: reject
+  missing_reply_context_menu: reject
 
 expected_layout:
+  shell_template:
+    uid: GLOBAL-SHELL-001
+    standalone_page: false
   page_context_bar: required
   left_work_item_rail:
     width: "22%"
@@ -65,6 +93,17 @@ expected_layout:
     width: "50%"
     required: true
     primary: true
+    required_internal_features:
+      - SINGLE_AI
+      - MULTI_AI
+      - ASSISTANT
+      - ASSISTANT_RECORD
+      - RUNTIME_STATUS
+      - SCORE_PANEL
+      - HUMAN_DECISION_PANEL
+      - INPUT_AT_PARSER
+      - REPLY_RIGHT_CLICK_MENU
+      - PROVIDER_BRAND_DISPLAY
   right_state_rail:
     width: "28%"
     required_order:
