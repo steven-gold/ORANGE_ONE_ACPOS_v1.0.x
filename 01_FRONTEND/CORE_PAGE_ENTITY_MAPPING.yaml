@@ -1,15 +1,52 @@
 version: ACPOS_v1.0.x
-source: R9_FINAL_AUTHORITY
+source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+status: AUTHORITY_DELEGATED
+purpose: Map current CORE-01 page to its integrated entities without reviving legacy split pages.
+
 mapping:
   - unit_id: CORE-01
-    entity: PROJECT
-    page_flow: project_creation_wizard
-    status: defined
-  - unit_id: CORE-02
-    entity: TOPIC_PRODUCTION_CONTRACT
-    page_flow: topic_creation_flow
-    status: defined
-  - unit_id: CORE-06
-    entity: SCRIPT_VIEW
-    page_flow: script_workspace
-    status: defined
+    entity_scope:
+      - PROJECT
+      - TOPIC
+      - WORK_ITEM
+      - CONVERSATION_THREAD
+      - DNA
+      - BLUEPRINT
+      - SCRIPT
+      - VERSION
+      - DECISION
+    page_flow: core_project_topic_ai_workspace
+    status: ACTIVE
+    production_task_context: forbidden
+
+legacy_entity_pages:
+  CORE-02:
+    previous_entity: TOPIC_PRODUCTION_CONTRACT
+    status: REPLACED_AS_SEPARATE_PAGE
+    integrated_into: CORE-01
+    active_render: false
+  CORE-03:
+    previous_entity: BLUEPRINT
+    status: REPLACED_AS_SEPARATE_PAGE
+    integrated_into: CORE-01
+    active_render: false
+  CORE-04:
+    previous_entity: DNA
+    status: REPLACED_AS_SEPARATE_PAGE
+    integrated_into: CORE-01
+    active_render: false
+  CORE-05:
+    previous_entity: CONVERSATION
+    status: REPLACED_AS_SEPARATE_PAGE
+    integrated_into: CORE-01
+    active_render: false
+  CORE-06:
+    previous_entity: SCRIPT_VIEW
+    status: REPLACED_AS_SEPARATE_PAGE
+    integrated_into: CORE-01
+    active_render: false
+
+rules:
+  - production_task_is_not_core_conversation_context
+  - no_legacy_entity_page_render
+  - integrated_entity_scope_must_follow_current_CORE_authority
