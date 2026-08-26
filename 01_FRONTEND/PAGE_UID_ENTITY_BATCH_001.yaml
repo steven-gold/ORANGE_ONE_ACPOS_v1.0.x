@@ -1,12 +1,27 @@
 page_batch:
   batch_id: PAGE_UID_ENTITY_BATCH_001
-  source: R9_AUTHORITY
-  pages:
-    - uid: DASHBOARD
-      status: mapped
-    - uid: CORE-01
-      status: mapped
-    - uid: CORE-02
-      status: mapped
-    - uid: CORE-06
-      status: mapped
+  source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  status: AUTHORITY_DELEGATED
+
+pages:
+  - uid: DASHBOARD
+    status: mapped_legacy_identifier
+    note: dashboard_home_identity_is_L1-01_in_current_master_ui_authority
+  - uid: CORE-01
+    status: ACTIVE
+    authority_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+
+legacy_core_pages:
+  - uid: CORE-02
+    status: REPLACED
+    replaced_by: CORE-01
+    active_render: false
+  - uid: CORE-06
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+
+rules:
+  - current_page_identity_must_follow_PAGE_UID_MASTER_REGISTRY
+  - legacy_core_page_must_not_render
+  - batch_mapping_must_not_create_parallel_page_authority
