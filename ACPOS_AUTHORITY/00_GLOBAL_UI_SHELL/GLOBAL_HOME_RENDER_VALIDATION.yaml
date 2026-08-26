@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_RENDER_VALIDATION
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
 purpose: Global Home final render validation
 
@@ -18,7 +18,9 @@ validation:
     - GLOBAL_HOME_NAVIGATION_REGISTRY
     - GLOBAL_HOME_BRAND_ASSET_BINDING
     - GLOBAL_HOME_PERMISSION_MATRIX
+    - GLOBAL_HOME_DATA_API_BINDING
     - GLOBAL_HOME_I18N
+    - GLOBAL_HOME_QA_EVIDENCE
 
 render_rules:
   source_trace_required: true
@@ -31,6 +33,8 @@ render_rules:
   unknown_visual_source: reject
   duplicate_legacy_registry: reject
   page_specific_context_not_authorized: reject
+  generated_logo: reject
+  parallel_navigation: reject
 
 inheritance:
   shell:
@@ -45,8 +49,13 @@ qa_gate:
   render_binding: required
   i18n_contract: required
   permission_contract: required
+  data_binding_contract: required
+  qa_evidence_contract: required
   binary_brand_asset: required_for_pixel_exact_brand_render
+  master_navigation_items: required_for_final_menu_render
 
 final_status:
-  render_allowed_only_when_all_pass: true
+  design_structure_render_allowed_when_structure_contracts_pass: true
+  production_render_allowed_only_when_live_bindings_resolved: true
   frozen_only_after_real_render_validation: true
+  final_frozen_requires_actual_test_evidence: true
