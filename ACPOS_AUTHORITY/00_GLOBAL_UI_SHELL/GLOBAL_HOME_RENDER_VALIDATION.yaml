@@ -1,0 +1,26 @@
+authority: ACPOS_GLOBAL_HOME_RENDER_VALIDATION
+version: V1.1
+purpose: Global Home final render validation
+
+validation:
+  required:
+    - GLOBAL_HOME_PAGE_REGISTRY
+    - GLOBAL_HOME_COMPONENT_REGISTRY
+    - GLOBAL_HOME_CONTROL_REGISTRY
+    - GLOBAL_HOME_STATE_REGISTRY
+    - GLOBAL_HOME_VISUAL_AUTHORITY
+
+render_rules:
+  source_trace_required: true
+  unknown_component: reject
+  unknown_control: reject
+  unknown_state: reject
+
+inheritance:
+  shell:
+    fixed: true
+  department_workspace:
+    replace_content_only: true
+
+final_status:
+  render_allowed_only_when_all_pass: true
