@@ -1,10 +1,12 @@
-version: CORE-FINAL-RENDER-VALIDATION-V2.1
+version: CORE-FINAL-RENDER-VALIDATION-V2.2
 status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
 
 checklist:
   global_shell_authority: required
   global_shell_render_binding: required
+  ai_core_authority_registry: required
+  ai_conversation_visual_authority: required
   page_registry: required
   page_contract: required
   screen_layout: required
@@ -27,11 +29,19 @@ checklist:
   i18n: required
   qa_evidence: required
 
+required_external_authority_sources:
+  ai_core_authority_registry: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  ai_conversation_visual_authority: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+
 render_rule:
   every_element_requires_source: true
   every_control_requires_action: true
   every_control_requires_registered_state: true
   every_control_requires_permission: true
+  every_static_control_label_requires_i18n_key: true
+  ai_core_inheritance_required: true
+  ai_conversation_visual_inheritance_required: true
+  generic_chat_render: reject
   ai_free_design_element: reject
   legacy_CORE_02_active_page: reject
   global_shell_replacement: reject
@@ -42,6 +52,8 @@ render_rule:
   missing_thread_binding: reject
   cross_work_item_history_mix: reject
   right_rail_wrong_dependency_order: reject
+  missing_version_state_transition: reject
+  missing_decision_state_transition: reject
 
 expected_layout:
   page_context_bar: required
