@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_CONTROL
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
 purpose: Global Home control authority and render binding
 
@@ -24,6 +24,17 @@ controls:
     states: [EMPTY, READY, LOADING, ERROR]
     data_source: page_specific_authority
 
+  - id: SEARCH_CONTROL
+    type: SEARCH
+    component_id: GLOBAL_HEADER_001
+    section_id: GLOBAL-SEC-HEADER
+    action_id: GLOBAL_SEARCH_OPEN
+    permission: GLOBAL_SEARCH_USE
+    states: [DEFAULT, FOCUSED, LOADING, READY, ERROR, DISABLED]
+    label_i18n_key: global.search.label
+    placeholder_i18n_key: global.search.placeholder
+    data_source: authorized_search_scope
+
   - id: TOP_STATUS
     type: STATUS_DISPLAY
     component_id: GLOBAL_HEADER_001
@@ -31,6 +42,16 @@ controls:
     action_id: GLOBAL_STATUS_REFRESH
     permission: SYSTEM_STATUS_READ
     states: [DEFAULT, RUNTIME_CONNECTED, WARNING, ERROR]
+
+  - id: NOTIFICATION_CONTROL
+    type: NOTIFICATION
+    component_id: GLOBAL_HEADER_001
+    section_id: GLOBAL-SEC-HEADER
+    action_id: GLOBAL_NOTIFICATION_OPEN
+    permission: GLOBAL_NOTIFICATION_READ
+    states: [DEFAULT, ACTIVE, LOADING, READY, ERROR, DISABLED]
+    label_i18n_key: global.notification.label
+    data_source: authorized_user_notifications
 
   - id: USER_CONTROL
     type: USER_MENU
@@ -79,5 +100,6 @@ rules:
   - every_control_requires_action_id
   - every_control_requires_permission
   - every_control_requires_registered_state
+  - interactive_text_requires_i18n_key
   - no_unknown_control_render
   - pages_cannot_override_global_controls
