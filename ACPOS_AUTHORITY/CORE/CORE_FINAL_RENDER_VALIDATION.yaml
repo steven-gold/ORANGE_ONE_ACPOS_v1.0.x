@@ -1,23 +1,66 @@
-version: CORE-FINAL-RENDER-VALIDATION-V1
+version: CORE-FINAL-RENDER-VALIDATION-V2
+status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
+
 checklist:
+  global_shell_authority: required
+  global_shell_render_binding: required
   page_registry: required
+  page_contract: required
   screen_layout: required
   component_registry: required
+  component_position_map: required
+  work_item_conversation_registry: required
   control_registry: required
+  control_visibility_rule: required
+  action_registry: required
   state_registry: required
+  state_transition: required
+  data_binding_authority: required
+  permission_matrix: required
+  runtime_binding: required
   visual_mapping: required
   ui_render_binding: required
+  authority_priority: required
+  i18n: required
+  qa_evidence: required
 
 render_rule:
   every_element_requires_source: true
+  every_control_requires_action: true
+  every_control_requires_registered_state: true
+  every_control_requires_permission: true
   ai_free_design_element: reject
+  legacy_CORE_02_active_page: reject
+  global_shell_replacement: reject
+  production_task_context_in_CORE: reject
+  missing_project_selector: reject
+  missing_topic_selector: reject
+  missing_work_item_navigation: reject
+  missing_thread_binding: reject
+  cross_work_item_history_mix: reject
+  right_rail_wrong_dependency_order: reject
 
-status:
-  previous:
-    control_mapping: incomplete
-    state_mapping: incomplete
-    visual_mapping: incomplete
-    render_binding: missing
-  target:
-    authority_driven_render: complete
+expected_layout:
+  page_context_bar: required
+  left_work_item_rail:
+    width: "22%"
+    required: true
+  center_conversation:
+    width: "50%"
+    required: true
+    primary: true
+  right_state_rail:
+    width: "28%"
+    required_order:
+      - DNA
+      - Blueprint
+      - Script
+      - Version
+      - Decision
+
+status_gate:
+  authority_contract_complete_when_all_required_files_present: true
+  visual_reference_generation_allowed_after_contract_validation: true
+  final_frozen_requires_real_render_snapshot_and_test_evidence: true
+  do_not_claim_final_frozen_before_real_test: true
