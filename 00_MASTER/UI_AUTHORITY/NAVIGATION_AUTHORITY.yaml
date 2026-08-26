@@ -1,10 +1,12 @@
-version: R9_NAVIGATION_UI_v1.0
+version: R9_NAVIGATION_UI_v1.1
 status: authority
-purpose: "唯一 UI 導覽結構來源"
+purpose: "唯一 UI 導覽結構來源；L1 身分、Route、Permission 必須由既有 Authority 解析，不得自行推測。"
 
 rules:
   single_navigation_source: true
   no_unregistered_menu: true
+  no_parallel_navigation: true
+  no_guessed_route: true
 
 required_fields:
   - page_uid
@@ -14,6 +16,13 @@ required_fields:
   - order
   - visibility
   - icon
+  - permission
+
+source_binding:
+  l1_page_identity: 00_MASTER/UI_AUTHORITY/L1_PAGE_REGISTRY_v2.yaml
+  page_route_contract: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  existing_frontend_route_registry: 01_FRONTEND/NAVIGATION_REGISTRY.yaml
+  rendered_global_navigation: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_NAVIGATION_REGISTRY.yaml
 
 mapping:
   dashboard: home
@@ -22,3 +31,17 @@ mapping:
   asset: asset_library
   production: production_modules
   qa: quality_assurance
+  admin: administration
+
+resolution:
+  page_uid_is_primary_key: true
+  route_must_exist_in_authority: true
+  missing_route: BLOCK_MENU_ITEM_RENDER
+  missing_permission: BLOCK_MENU_ITEM_RENDER
+  missing_icon: BLOCK_MENU_ITEM_RENDER
+
+prohibited:
+  - invent_menu_item
+  - invent_route
+  - merge_parallel_navigation
+  - render_unknown_page_uid
