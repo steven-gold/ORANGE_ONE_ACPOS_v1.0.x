@@ -1,13 +1,43 @@
 batch: 024
 module: EDITING
-api:
-  - timeline_update
-  - layer_update
-  - subtitle_sync
-fields:
-  - endpoint
-  - method
-  - request_schema
-  - response_schema
-  - error_mapping
+source: R9_FINAL
+actions:
+  EDIT_TIMELINE_UPDATE:
+    api_key: timeline_update
+    accepted_operations:
+      - set_playback_position
+      - set_playback_state
+      - frame_step
+      - set_correction_range
+      - load_existing_qa_marker_context
+    request_schema:
+      timeline_id: required
+      operation: required
+      playback_position_frame: conditional
+      playback_state: conditional
+      correction_start_frame: conditional
+      correction_end_frame: conditional
+      evidence_id: conditional
+      marker_frame: conditional
+    response_schema:
+      timeline_id: required
+      accepted_operation_state: required
+      current_position_frame: required
+      correction_range: nullable
+    error_mapping:
+      - EDITING_TIMELINE_NOT_FOUND
+      - EDITING_TIMECODE_OUT_OF_RANGE
+      - EDITING_CORRECTION_RANGE_INVALID
+      - EDITING_QA_EVIDENCE_NOT_FOUND
+      - EDITING_PERMISSION_DENIED
+  EDIT_LAYER_UPDATE:
+    api_key: layer_update
+    preserve_existing_r9_contract: true
+  EDIT_SUBTITLE_SYNC:
+    api_key: subtitle_sync
+    preserve_existing_r9_contract: true
+rules:
+  no_new_business_action: true
+  correction_timeline_is_detail_of_EDIT_TIMELINE_UPDATE: true
+  external_provider_operation: none
 external_e2e: pending
