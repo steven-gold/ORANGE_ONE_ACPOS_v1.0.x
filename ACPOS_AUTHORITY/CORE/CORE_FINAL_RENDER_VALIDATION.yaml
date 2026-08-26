@@ -1,4 +1,4 @@
-version: CORE-FINAL-RENDER-VALIDATION-V2.2
+version: CORE-FINAL-RENDER-VALIDATION-V2.3
 status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
 
@@ -52,6 +52,7 @@ render_rule:
   missing_thread_binding: reject
   cross_work_item_history_mix: reject
   right_rail_wrong_dependency_order: reject
+  ai_generated_right_rail_geometry: reject
   missing_version_state_transition: reject
   missing_decision_state_transition: reject
 
@@ -72,6 +73,7 @@ expected_layout:
       - Script
       - Version
       - Decision
+    exact_geometry_source: unresolved_authority_required
 
 validation_modes:
   design_reference_render:
@@ -79,6 +81,10 @@ validation_modes:
     requires_live_database: false
     requires_all_ui_authority_contracts: true
     allows_mock_content_only_when_clearly_marked_design_sample: true
+    allows_non_pixel_exact_right_rail_when_marked_unresolved: true
+  pixel_exact_design_render:
+    requires_resolved_right_rail_geometry_authority: true
+    unresolved_geometry: block
   production_runtime:
     requires_resolved_api_binding: true
     requires_resolved_database_binding: true
@@ -88,6 +94,7 @@ validation_modes:
 status_gate:
   authority_contract_complete_when_all_required_files_present: true
   visual_reference_generation_allowed_after_contract_validation: true
+  pixel_exact_render_requires_resolved_right_rail_geometry: true
   final_frozen_requires_resolved_live_bindings: true
   final_frozen_requires_real_render_snapshot_and_test_evidence: true
   do_not_claim_final_frozen_before_real_test: true
