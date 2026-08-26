@@ -1,4 +1,4 @@
-version: CORE-FINAL-RENDER-VALIDATION-V2.4
+version: CORE-FINAL-RENDER-VALIDATION-V2.5
 status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
 
@@ -7,6 +7,12 @@ checklist:
   global_shell_template_contract: required
   global_shell_render_binding: required
   page_uid_master_record: required
+  frontend_page_registry_alignment: required
+  frontend_page_uid_mapping_alignment: required
+  frontend_core_page_mapping_alignment: required
+  frontend_core_entity_mapping_alignment: required
+  frontend_core_section_mapping_alignment: required
+  frontend_core_control_mapping_alignment: required
   ai_core_authority_registry: required
   ai_conversation_shared_interface_authority: required
   core_ai_conversation_visual_extension: required
@@ -35,6 +41,12 @@ checklist:
 required_external_authority_sources:
   global_shell_template: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_REGISTRY.yaml
   page_uid_master_record: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  frontend_page_registry: 01_FRONTEND/PAGE_REGISTRY.yaml
+  frontend_page_uid_mapping: 01_FRONTEND/PAGE_UID_MAPPING.yaml
+  frontend_core_page_mapping: 01_FRONTEND/CORE_PAGE_MAPPING.yaml
+  frontend_core_entity_mapping: 01_FRONTEND/CORE_PAGE_ENTITY_MAPPING.yaml
+  frontend_core_section_mapping: 01_FRONTEND/CORE_SECTION_MAPPING.yaml
+  frontend_core_control_mapping: 01_FRONTEND/CORE_CONTROL_MAPPING.yaml
   ai_core_authority_registry: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
   ai_conversation_shared_interface_authority: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
   core_ai_conversation_visual_extension: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
@@ -46,6 +58,9 @@ render_rule:
   every_control_requires_permission: true
   every_static_control_label_requires_i18n_key: true
   page_uid_master_record_required: true
+  frontend_mapping_must_delegate_to_current_authority: true
+  frontend_parallel_page_registry: reject
+  frontend_legacy_split_page_active_mapping: reject
   global_shell_must_be_template_not_page: true
   dashboard_l1_01_remains_home_page: true
   ai_core_inheritance_required: true
@@ -132,6 +147,7 @@ validation_modes:
 
 status_gate:
   authority_contract_complete_when_all_required_files_present: true
+  frontend_alignment_required_before_visual_reference_generation: true
   visual_reference_generation_allowed_after_contract_validation: true
   pixel_exact_render_requires_resolved_right_rail_geometry: true
   final_frozen_requires_resolved_live_bindings: true
