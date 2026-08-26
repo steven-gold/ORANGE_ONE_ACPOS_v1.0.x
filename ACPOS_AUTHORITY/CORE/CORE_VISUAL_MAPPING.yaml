@@ -1,0 +1,22 @@
+version: CORE-AUTHORITY-V1
+visual_mapping:
+  rule: every_ui_element_requires_authority_source
+  mappings:
+    header:
+      source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    sidebar:
+      source: GLOBAL_HOME_COMPONENT_REGISTRY
+    conversation_workspace:
+      source: CORE-COMP-CONVERSATION
+    blueprint_panel:
+      source: CORE-COMP-BLUEPRINT
+    dna_panel:
+      source: CORE-COMP-DNA
+    script_panel:
+      source: CORE-COMP-SCRIPT
+    version_panel:
+      source: CORE-COMP-VERSION
+    decision_panel:
+      source: CORE-AUTHORITY-V1
+  validation:
+    missing_source: reject_render
