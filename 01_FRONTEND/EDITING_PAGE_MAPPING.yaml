@@ -1,9 +1,36 @@
 module: EDITING
+source: R9_FINAL
 pages:
   - id: EDIT-01
-    name: Timeline
+    name: Timeline Editing & Media Import
+    responsibility:
+      - source_mode
+      - upload_import
+      - preview
+      - manual_timeline_edit
+      - api_edit
+      - timeline_version
   - id: EDIT-02
-    name: Layer Management
+    name: Layer Audio Voice Music SFX & Lip Sync
+    responsibility:
+      - layer_management
+      - voice
+      - music
+      - sfx
+      - audio_mix
+      - lip_sync
+      - audio_layer_version
   - id: EDIT-03
-    name: Subtitle Sync
-source: R9_FINAL
+    name: Subtitle QA & Finalize
+    responsibility:
+      - subtitle
+      - qa
+      - final_preview
+      - render
+      - export
+      - handoff
+shared_contract:
+  timeline_id: same_across_pages
+  working_version: same_across_pages
+  standalone_upload_supported: true
+  project_task_required_for_all_modes: false
