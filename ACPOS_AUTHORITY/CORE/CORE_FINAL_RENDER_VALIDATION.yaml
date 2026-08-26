@@ -1,4 +1,4 @@
-version: CORE-FINAL-RENDER-VALIDATION-V2
+version: CORE-FINAL-RENDER-VALIDATION-V2.1
 status: AUTHORITY_ACTIVE
 purpose: validate_ui_can_be_rendered_from_authority
 
@@ -17,6 +17,8 @@ checklist:
   state_registry: required
   state_transition: required
   data_binding_authority: required
+  data_api_binding: required
+  database_binding: required
   permission_matrix: required
   runtime_binding: required
   visual_mapping: required
@@ -59,8 +61,21 @@ expected_layout:
       - Version
       - Decision
 
+validation_modes:
+  design_reference_render:
+    requires_live_api: false
+    requires_live_database: false
+    requires_all_ui_authority_contracts: true
+    allows_mock_content_only_when_clearly_marked_design_sample: true
+  production_runtime:
+    requires_resolved_api_binding: true
+    requires_resolved_database_binding: true
+    requires_real_permission_runtime: true
+    requires_test_evidence: true
+
 status_gate:
   authority_contract_complete_when_all_required_files_present: true
   visual_reference_generation_allowed_after_contract_validation: true
+  final_frozen_requires_resolved_live_bindings: true
   final_frozen_requires_real_render_snapshot_and_test_evidence: true
   do_not_claim_final_frozen_before_real_test: true
