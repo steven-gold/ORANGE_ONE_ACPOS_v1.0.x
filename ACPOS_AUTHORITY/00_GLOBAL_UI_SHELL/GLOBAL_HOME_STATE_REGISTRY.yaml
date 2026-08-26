@@ -1,7 +1,7 @@
 authority: ACPOS_GLOBAL_HOME_STATE
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
-purpose: Global Home UI state authority
+purpose: Global Home UI state authority with explicit control-to-state ownership.
 
 states:
   HEADER:
@@ -16,15 +16,31 @@ states:
     - READY
     - ERROR
 
+  TOP_STATUS:
+    - DEFAULT
+    - RUNTIME_CONNECTED
+    - WARNING
+    - ERROR
+
   SIDEBAR:
     - EXPANDED
     - COLLAPSED
+
+  COLLAPSE_BUTTON:
+    - DEFAULT
+    - HOVER
+    - ACTIVE
+    - DISABLED
 
   MENU_ITEM:
     - DEFAULT
     - HOVER
     - ACTIVE
     - DISABLED
+
+  ACTIVE_STATE:
+    - DEFAULT
+    - ACTIVE
 
   USER_CONTROL:
     - DEFAULT
@@ -37,10 +53,27 @@ states:
     - READY
     - ERROR
 
+  CONTENT_SLOT:
+    - EMPTY
+    - LOADING
+    - READY
+    - ERROR
+
+control_state_binding:
+  BRAND_LOGO: HEADER
+  PAGE_CONTEXT_SLOT: PAGE_CONTEXT_SLOT
+  TOP_STATUS: TOP_STATUS
+  MENU_ITEM: MENU_ITEM
+  ACTIVE_STATE: ACTIVE_STATE
+  COLLAPSE_BUTTON: COLLAPSE_BUTTON
+  USER_CONTROL: USER_CONTROL
+  CONTENT_SLOT: CONTENT_SLOT
+
 transition_source: GLOBAL_HOME_STATE_TRANSITION.yaml
 
 rules:
   - state_requires_source_definition
-  - state_transition_must_be_registered
+  - state_transition_must_be_registered_when_behavioral
   - control_state_must_exist_in_registry
+  - control_state_binding_must_be_explicit
   - no_ai_generated_state
