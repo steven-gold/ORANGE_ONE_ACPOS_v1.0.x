@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_STATE
-version: V1.3
+version: V1.4
 status: AUTHORITY_ACTIVE
 purpose: Global Home UI state authority with explicit control-to-state ownership.
 
@@ -16,11 +16,27 @@ states:
     - READY
     - ERROR
 
+  SEARCH_CONTROL:
+    - DEFAULT
+    - FOCUSED
+    - LOADING
+    - READY
+    - ERROR
+    - DISABLED
+
   TOP_STATUS:
     - DEFAULT
     - RUNTIME_CONNECTED
     - WARNING
     - ERROR
+
+  NOTIFICATION_CONTROL:
+    - DEFAULT
+    - ACTIVE
+    - LOADING
+    - READY
+    - ERROR
+    - DISABLED
 
   SIDEBAR:
     - EXPANDED
@@ -62,7 +78,9 @@ states:
 control_state_binding:
   BRAND_LOGO: HEADER
   PAGE_CONTEXT_SLOT: PAGE_CONTEXT_SLOT
+  SEARCH_CONTROL: SEARCH_CONTROL
   TOP_STATUS: TOP_STATUS
+  NOTIFICATION_CONTROL: NOTIFICATION_CONTROL
   MENU_ITEM: MENU_ITEM
   ACTIVE_STATE: ACTIVE_STATE
   COLLAPSE_BUTTON: COLLAPSE_BUTTON
