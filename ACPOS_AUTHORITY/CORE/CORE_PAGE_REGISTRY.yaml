@@ -1,34 +1,49 @@
-version: CORE-AUTHORITY-V1
+version: CORE-AUTHORITY-V2
+status: AUTHORITY_ACTIVE
 page_registry:
   - page_uid: CORE-01
-    name: Project Creation Workspace
+    name: CORE Project Topic AI Workspace
+    purpose: project_topic_core_content_construction_and_lock
     shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
-    layout: AI_WORKSPACE
+    route: /core
+    layout: AI_WORKSPACE_SINGLE_PAGE
     sections:
-      - conversation_workspace
-      - project_context
-      - topic_context
-      - blueprint_panel
-      - dna_panel
-      - script_panel
-      - version_panel
-      - decision_panel
+      - section_id: CORE-SEC-PAGE-CONTEXT
+        component_id: CORE-COMP-PAGE-CONTEXT
+      - section_id: CORE-SEC-WORK-ITEM-NAV
+        component_id: CORE-COMP-WORK-ITEM-NAV
+      - section_id: CORE-SEC-CONVERSATION
+        component_id: CORE-COMP-CONVERSATION
+      - section_id: CORE-SEC-DNA
+        component_id: CORE-COMP-DNA
+      - section_id: CORE-SEC-BLUEPRINT
+        component_id: CORE-COMP-BLUEPRINT
+      - section_id: CORE-SEC-SCRIPT
+        component_id: CORE-COMP-SCRIPT
+      - section_id: CORE-SEC-VERSION
+        component_id: CORE-COMP-VERSION
+      - section_id: CORE-SEC-DECISION
+        component_id: CORE-COMP-DECISION
+    context_binding:
+      required:
+        - project_id
+        - topic_id
+      forbidden:
+        - production_task_id
+    work_item_binding:
+      required:
+        - work_item_id
+        - conversation_thread_id
+    output:
+      production_task_created_only_after_core_lock: true
 
-  - page_uid: CORE-02
-    name: Topic Production Workspace
-    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
-    layout: AI_WORKSPACE
-    sections:
-      - conversation_workspace
-      - project_context
-      - topic_context
-      - blueprint_panel
-      - dna_panel
-      - script_panel
-      - version_panel
-      - decision_panel
+legacy_pages:
+  CORE-02:
+    status: REPLACED_BY_CORE-01_SINGLE_PAGE
+    active_render: false
 
 rules:
-  task_context:
-    enabled: false
-    reason: Production Task is generated after CORE confirmation
+  - no_parallel_core_page
+  - no_production_task_context_in_core_conversation
+  - work_item_navigation_required
+  - conversation_history_isolated_per_work_item
