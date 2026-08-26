@@ -1,74 +1,108 @@
-version: CORE-FINAL-AUTHORITY-PRIORITY-V1
+version: CORE-FINAL-AUTHORITY-PRIORITY-V2
+status: AUTHORITY_ACTIVE
 purpose: Define final authority priority for CORE rendering and prevent conflicting definitions.
 
 priority_order:
   - level: 1
+    source: 00_MASTER/ACPOS_AI_SEQUENCED_SINGLE_AUTHORITY_CONSTRUCTION_PACKAGE/ACPOS_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
+    responsibility:
+      - Single Construction Authority
+      - No Parallel Specification
+  - level: 2
     source: GLOBAL_UI_SHELL
     responsibility:
       - Header
       - Sidebar
       - Brand
       - Global Visual Rules
-
-  - level: 2
+  - level: 3
+    source: CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
+    responsibility:
+      - Latest CORE single-page architecture
+      - Work Item / Conversation model
+      - Production Task boundary
+  - level: 4
     source: CORE_PAGE_REGISTRY
     responsibility:
       - Page Identity
-      - Page Purpose
-      - Page Scope
-
-  - level: 3
+      - Active Page Scope
+      - Section Registry
+  - level: 5
     source: CORE_SCREEN_LAYOUT
     responsibility:
       - Region Layout
       - Component Position
       - Size Relationship
-
-  - level: 4
+  - level: 6
     source: CORE_COMPONENT_REGISTRY
     responsibility:
       - Component Definition
       - Component Binding
-
-  - level: 5
+  - level: 7
+    source: CORE_WORK_ITEM_CONVERSATION_REGISTRY
+    responsibility:
+      - Work Item Navigation
+      - Conversation Thread Isolation
+  - level: 8
     source: CORE_CONTROL_REGISTRY
     responsibility:
       - Control Definition
       - Action Binding
-
-  - level: 6
+  - level: 9
+    source: CORE_ACTION_REGISTRY
+    responsibility:
+      - Action Flow
+      - Handoff Trigger
+  - level: 10
     source: CORE_STATE_REGISTRY
     responsibility:
-      - State Machine
-      - Visibility Conditions
-
-  - level: 7
+      - State Definition
+  - level: 11
+    source: CORE_STATE_TRANSITION
+    responsibility:
+      - State Transition
+  - level: 12
+    source: CORE_VISUAL_MAPPING
+    responsibility:
+      - UI Element Source Trace
+  - level: 13
     source: CORE_UI_RENDER_BINDING
     responsibility:
       - Final Render Mapping
-      - UI Element Source Trace
 
 conversation_architecture:
   project_binding: required
   topic_binding: required
+  work_item_binding: required
+  conversation_thread_binding: required
   production_task_binding: forbidden
 
-production_flow:
-  - Project
-  - Topic
-  - Conversation
-  - Story
+core_process_dependency:
+  - Story_Chapter_World_Context
   - DNA
   - Blueprint
   - Script
   - Version
   - Decision
-  - Production_Task
+
+production_handoff:
+  requires:
+    - project_locked
+    - topic_locked
+    - downstream_script_ready
+  result:
+    - Production_Task
+    - ASSET_Notification
+
+conflict_resolution:
+  - lower_priority_cannot_override_higher
+  - CORE-02_split_page_active_render_forbidden
+  - blueprint_lock_next_dna_definition_forbidden
+  - task_context_and_production_task_context_must_not_be_confused
 
 render_rule:
   unknown_component: reject
   unknown_control: reject
   unknown_state: reject
   unbound_visual_element: reject
-
-status: authority_required
+  missing_work_item_navigation: reject
