@@ -1,10 +1,11 @@
 authority: ACPOS_GLOBAL_HOME_RENDER_VALIDATION
-version: V1.3
+version: V1.4
 status: AUTHORITY_ACTIVE
 purpose: Global Home final render validation
 
 validation:
   required:
+    - GLOBAL_HOME_PAGE_CONTRACT
     - GLOBAL_HOME_PAGE_REGISTRY
     - GLOBAL_HOME_COMPONENT_REGISTRY
     - GLOBAL_HOME_CONTROL_REGISTRY
@@ -23,6 +24,7 @@ validation:
     - GLOBAL_HOME_QA_EVIDENCE
 
 render_rules:
+  page_contract_validation_precedes_component_render: true
   source_trace_required: true
   authority_priority_required: true
   conflict_resolution_required: true
@@ -43,6 +45,7 @@ inheritance:
     replace_content_only: true
 
 qa_gate:
+  page_contract: required
   layout_contract: required
   control_action_state_binding: required
   visual_mapping: required
