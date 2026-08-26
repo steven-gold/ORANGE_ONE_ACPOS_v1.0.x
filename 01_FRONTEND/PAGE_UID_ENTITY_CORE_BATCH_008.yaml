@@ -1,17 +1,28 @@
 batch: 008
 module: CORE
-scope:
+status: REPLACED_BY_CURRENT_CORE_SINGLE_PAGE_AUTHORITY
+retained_for: audit_history_only
+
+legacy_scope:
   - DASHBOARD
-  - CORE-01
-  - CORE-02
-  - CORE-06
-fields:
-  - page_uid
-  - route
-  - sections
-  - components
-  - controls
-  - actions
-  - permission_binding
-status: implementation_mapping
-external_test: pending
+  - CORE-01_PROJECT_CREATION_WIZARD
+  - CORE-02_TOPIC_PRODUCTION_CONTRACT
+  - CORE-06_SCRIPT_VIEW
+
+current_scope:
+  page_uid: CORE-01
+  route: /core
+  page_master_source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  page_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+  section_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+  component_source: ACPOS_AUTHORITY/CORE/CORE_COMPONENT_REGISTRY.yaml
+  control_source: ACPOS_AUTHORITY/CORE/CORE_CONTROL_REGISTRY.yaml
+  action_source: ACPOS_AUTHORITY/CORE/CORE_ACTION_REGISTRY.yaml
+  permission_source: ACPOS_AUTHORITY/CORE/CORE_PERMISSION_MATRIX.yaml
+
+rules:
+  - batch_008_is_not_active_page_authority
+  - legacy_split_page_ids_must_not_render
+  - current_page_uid_mapping_must_follow_master_registry
+
+external_test: pending_under_current_authority
