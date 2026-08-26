@@ -1,4 +1,4 @@
-version: CORE-STATE-TRANSITION-V1
+version: CORE-STATE-TRANSITION-V1.1
 status: AUTHORITY_ACTIVE
 
 transitions:
@@ -94,6 +94,31 @@ transitions:
       event: CORE-ACT-CONFIRM-SCRIPT
       to: CONFIRMED
 
+  version:
+    - from: NOT_CREATED
+      event: VERSION_DRAFT_STARTED
+      to: DRAFT
+    - from: DRAFT
+      event: VERSION_CREATED
+      to: CREATED
+    - from: CREATED
+      event: VERSION_COMPARE_COMPLETE
+      to: COMPARED
+    - from: COMPARED
+      event: VERSION_LOCKED
+      to: LOCKED
+
+  decision:
+    - from: DRAFT
+      event: DECISION_READY_FOR_HUMAN
+      to: WAITING_HUMAN
+    - from: WAITING_HUMAN
+      event: HUMAN_CONFIRM
+      to: CONFIRMED
+    - from: CONFIRMED
+      event: CORE-ACT-CONFIRM-CORE
+      to: LOCKED
+
   core_scope:
     - from: OPEN
       event: REQUIRED_WORK_ITEMS_COMPLETE
@@ -121,5 +146,6 @@ transitions:
 
 rules:
   - every_from_and_to_state_must_exist_in_CORE_STATE_REGISTRY
+  - every_stateful_domain_requires_transition_path
   - unknown_transition_rejected
   - production_handoff_does_not_change_conversation_binding
