@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_VISUAL_MAPPING
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 rule: every_visual_element_requires_authority_source
 
@@ -14,10 +14,20 @@ mappings:
     control_id: PAGE_CONTEXT_SLOT
     source: page_specific_authority
     position: header_center
+  search_control:
+    component_id: GLOBAL_HEADER_001
+    control_id: SEARCH_CONTROL
+    source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    position: header_right
   runtime_status:
     component_id: GLOBAL_HEADER_001
     control_id: TOP_STATUS
     source: GLOBAL_HOME_DATA_API_BINDING
+    position: header_right
+  notification_control:
+    component_id: GLOBAL_HEADER_001
+    control_id: NOTIFICATION_CONTROL
+    source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
     position: header_right
   user_control:
     component_id: GLOBAL_HEADER_001
@@ -43,4 +53,5 @@ mappings:
 validation:
   missing_source: reject_render
   unknown_position: reject_render
+  visual_header_controls_must_have_mapping: true
   page_specific_content_outside_workspace: reject_render
