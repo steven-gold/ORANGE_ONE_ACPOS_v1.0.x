@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_ACTION
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
 
 actions:
@@ -10,6 +10,22 @@ actions:
     input: [brand_asset]
     output: [rendered_brand]
     error: BRAND_ASSET_MISSING
+
+  - id: GLOBAL_SEARCH_OPEN
+    target: SEARCH_CONTROL
+    type: search
+    trigger: user_input
+    input: [search_query, authorized_search_scope]
+    output: [search_results]
+    error: SEARCH_SOURCE_UNAVAILABLE
+
+  - id: GLOBAL_NOTIFICATION_OPEN
+    target: NOTIFICATION_CONTROL
+    type: notification_view
+    trigger: user_select
+    input: [authorized_user_notifications]
+    output: [notification_list]
+    error: NOTIFICATION_SOURCE_UNAVAILABLE
 
   - id: GLOBAL_NAV_OPEN
     target: MENU_ITEM
