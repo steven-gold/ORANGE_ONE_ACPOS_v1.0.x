@@ -1,26 +1,74 @@
 authority: ACPOS_GLOBAL_HOME_ACTION
-version: V1.0
+version: V1.2
+status: AUTHORITY_ACTIVE
 
 actions:
+  - id: GLOBAL-ACT-NOOP-BRAND
+    target: BRAND_LOGO
+    type: display_only
+    trigger: render
+    input: [brand_asset]
+    output: [rendered_brand]
+    error: BRAND_ASSET_MISSING
+
   - id: GLOBAL_NAV_OPEN
-    target: SIDEBAR
+    target: MENU_ITEM
     type: navigation
+    trigger: user_select
+    input: [navigation_item_id, route]
+    output: [route_change]
+    error: NAVIGATION_ITEM_UNAVAILABLE
+
+  - id: GLOBAL_NAV_MARK_ACTIVE
+    target: ACTIVE_STATE
+    type: navigation_state
+    trigger: route_change
+    input: [current_route]
+    output: [active_navigation_item]
+    error: NAVIGATION_ROUTE_UNMAPPED
 
   - id: GLOBAL_NAV_COLLAPSE
-    target: SIDEBAR
+    target: COLLAPSE_BUTTON
     type: layout_change
+    trigger: user_select
+    input: [sidebar_state]
+    output: [sidebar_state, workspace_width_reflow]
+    error: SIDEBAR_STATE_INVALID
 
   - id: GLOBAL_CONTEXT_SWITCH
-    target: HEADER_CONTEXT
+    target: PAGE_CONTEXT_SLOT
     type: context_selection
+    trigger: page_context_change
+    input: [page_context_payload]
+    output: [rendered_page_context]
+    error: PAGE_CONTEXT_SOURCE_MISSING
 
-states:
-  - DEFAULT
-  - HOVER
-  - ACTIVE
-  - DISABLED
-  - LOADING
+  - id: GLOBAL_STATUS_REFRESH
+    target: TOP_STATUS
+    type: status_refresh
+    trigger: runtime_status_change
+    input: [runtime_status_payload]
+    output: [status_display]
+    error: STATUS_SOURCE_UNAVAILABLE
+
+  - id: GLOBAL_USER_MENU_OPEN
+    target: USER_CONTROL
+    type: user_menu
+    trigger: user_select
+    input: [user_state]
+    output: [user_menu_state]
+    error: USER_STATE_UNAVAILABLE
+
+  - id: GLOBAL_WORKSPACE_RENDER
+    target: CONTENT_SLOT
+    type: workspace_render
+    trigger: page_route_ready
+    input: [page_authority, page_render_binding]
+    output: [workspace_content]
+    error: PAGE_RENDER_CONTRACT_FAILED
 
 restrictions:
-  - no_department_override_shell_action
+  - no_page_override_shell_action
   - no_logo_modification
+  - no_unregistered_action
+  - no_action_without_control_binding
