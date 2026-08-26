@@ -1,14 +1,91 @@
 batch: 024
 module: EDITING
 layer: frontend_control
-fields:
-  - control_id
-  - page_uid
-  - component_id
-  - type
-  - state
-  - validation
-  - data_source
-  - action
-  - permission
-status: construction
+source: R9_FINAL
+bindings:
+  EDIT01_PLAY_PAUSE:
+    page_uid: EDIT-01
+    component_id: TransportControls
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, playback_position_frame, playback_state]
+  EDIT01_PREVIOUS_FRAME:
+    page_uid: EDIT-01
+    component_id: TransportControls
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, playback_position_frame]
+    delta_frames: -1
+  EDIT01_NEXT_FRAME:
+    page_uid: EDIT-01
+    component_id: TransportControls
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, playback_position_frame]
+    delta_frames: 1
+  EDIT01_TIMECODE:
+    page_uid: EDIT-01
+    component_id: TimecodeDisplayInput
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, playback_position_frame]
+  EDIT01_PLAYHEAD:
+    page_uid: EDIT-01
+    component_id: Playhead
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, playback_position_frame]
+  EDIT01_CORRECTION_START:
+    page_uid: EDIT-01
+    component_id: CorrectionRange
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_EDIT
+    payload: [timeline_id, correction_start_frame, correction_end_frame]
+  EDIT01_CORRECTION_END:
+    page_uid: EDIT-01
+    component_id: CorrectionRange
+    data_source: Timeline
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_EDIT
+    payload: [timeline_id, correction_start_frame, correction_end_frame]
+  EDIT01_QA_MARKER:
+    page_uid: EDIT-01
+    component_id: QAMarkerRail
+    data_source: QA_EVIDENCE_TRACE
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    payload: [timeline_id, evidence_id, marker_frame, correction_start_frame, correction_end_frame]
+  EDIT01_ZOOM_OUT:
+    page_uid: EDIT-01
+    component_id: TimelineZoom
+    data_source: TimelineViewState
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    persistence: ui_state_only
+  EDIT01_ZOOM_IN:
+    page_uid: EDIT-01
+    component_id: TimelineZoom
+    data_source: TimelineViewState
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    persistence: ui_state_only
+  EDIT01_ZOOM_FIT:
+    page_uid: EDIT-01
+    component_id: TimelineZoom
+    data_source: TimelineViewState
+    action: EDIT_TIMELINE_UPDATE
+    permission: EDITING_TIMELINE_VIEW
+    persistence: ui_state_only
+rules:
+  all_controls_must_have_action_and_permission: true
+  zoom_must_not_create_database_entity: true
+  qa_marker_must_reference_existing_evidence: true
+  correction_range_must_not_create_parallel_editing_object: true
+status: contract_defined
+external_e2e: pending
