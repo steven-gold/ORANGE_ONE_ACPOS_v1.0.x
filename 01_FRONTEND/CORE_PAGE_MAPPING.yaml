@@ -1,16 +1,41 @@
 version: ACPOS_v1.0.x
-source: R9_FINAL_AUTHORITY
-purpose: CORE page to registry mapping
+source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+purpose: Frontend CORE page mapping aligned to current single-page CORE authority.
+status: AUTHORITY_DELEGATED
+
 pages:
   - page_uid: CORE-01
-    name: project_creation_wizard
+    name: core_project_topic_ai_workspace
     domain: CORE
-    status: defined
-  - page_uid: CORE-02
-    name: topic_production_contract
-    domain: CORE
-    status: defined
-  - page_uid: CORE-06
-    name: script_view
-    domain: CORE
-    status: defined
+    status: ACTIVE
+    route: /core
+    authority_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    layout_source: ACPOS_AUTHORITY/CORE/CORE_SCREEN_LAYOUT.yaml
+    render_source: ACPOS_AUTHORITY/CORE/CORE_UI_RENDER_BINDING.yaml
+
+legacy_pages:
+  CORE-02:
+    status: REPLACED
+    replaced_by: CORE-01
+    active_render: false
+  CORE-03:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  CORE-04:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  CORE-05:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  CORE-06:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+
+rules:
+  - no_legacy_project_creation_wizard_page
+  - no_parallel_core_page
+  - current_core_page_must_follow_CORE_PAGE_REGISTRY
