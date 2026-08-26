@@ -15,10 +15,15 @@ layout_definition:
         conversation_workspace:
           area: center
           primary: true
+          binding:
+            - project_context
+            - topic_context
         project_context:
           area: left_panel
+          visible: true
         topic_context:
           area: left_panel
+          visible: true
         blueprint_panel:
           area: right_panel_top
         dna_panel:
@@ -29,3 +34,14 @@ layout_definition:
           area: right_panel_bottom
         decision_panel:
           area: right_panel_bottom
+
+  removed:
+    - task_context
+
+rules:
+  production_task:
+    created_after:
+      - script_confirmed
+      - version_created
+    handoff_to:
+      - ASSET
