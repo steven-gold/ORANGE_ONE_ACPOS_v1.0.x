@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_PAGE
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
 purpose: Global Home Page and Shell construction authority
 page_uid: HOME-001
@@ -31,6 +31,8 @@ header:
     - brand
     - page_context_slot
     - runtime_status
+    - search
+    - notification
     - user_control
   context_rule:
     source: page_specific_authority
@@ -67,6 +69,8 @@ visual:
   text_secondary: "#AEB7D9"
 
 page_contract:
+  source: GLOBAL_HOME_PAGE_CONTRACT.yaml
+  validation_must_precede_render: true
   input:
     - current_route
     - authenticated_user_state
@@ -76,6 +80,7 @@ page_contract:
     - rendered_global_shell
     - workspace_content_slot
   dependency:
+    - GLOBAL_HOME_PAGE_CONTRACT
     - GLOBAL_HOME_COMPONENT_REGISTRY
     - GLOBAL_HOME_CONTROL_REGISTRY
     - GLOBAL_HOME_CONTROL_ACTION_REGISTRY
@@ -94,6 +99,7 @@ page_contract:
 authority_validation:
   source_trace_required: true
   render_requires:
+    - page_contract
     - page_definition
     - section_definition
     - component_definition
