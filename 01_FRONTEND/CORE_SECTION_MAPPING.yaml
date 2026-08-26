@@ -1,22 +1,41 @@
 version: ACPOS_v1.0.x
-source: R9_FINAL_AUTHORITY
-purpose: CORE page section mapping
+source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+purpose: CORE current page section mapping
+status: AUTHORITY_DELEGATED
+
 sections:
   CORE-01:
-    page: project_creation_wizard
+    page: core_project_topic_ai_workspace
+    authority_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
     sections:
-      - conversation_workspace
-      - project_information
-      - blueprint_initialization
+      - CORE-SEC-PAGE-CONTEXT
+      - CORE-SEC-WORK-ITEM-NAV
+      - CORE-SEC-CONVERSATION
+      - CORE-SEC-DNA
+      - CORE-SEC-BLUEPRINT
+      - CORE-SEC-SCRIPT
+      - CORE-SEC-VERSION
+      - CORE-SEC-DECISION
+
+legacy_section_sets:
   CORE-02:
-    page: topic_production_contract
-    sections:
-      - production_type
-      - delivery_contract
+    status: REPLACED
+    active_render: false
+  CORE-03:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+  CORE-04:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+  CORE-05:
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
   CORE-06:
-    page: script_view
-    sections:
-      - script_content
-      - candidate_studio
-      - conversation_workspace
-status: initialized
+    status: REPLACED_AS_SEPARATE_PAGE
+    active_render: false
+
+rules:
+  - section_id_must_exist_in_current_CORE_PAGE_REGISTRY
+  - legacy_section_mapping_must_not_render
+  - work_item_navigation_required
+  - conversation_section_required
