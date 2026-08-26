@@ -1,0 +1,30 @@
+version: CORE-COMPONENT-POSITION-MAP-V1
+layout:
+  AI_CONVERSATION_WORKSPACE:
+    region: center
+    priority: primary
+    source: CORE_COMPONENT_REGISTRY
+
+  PROJECT_CONTEXT:
+    region: left_panel
+
+  TOPIC_CONTEXT:
+    region: left_panel
+
+  BLUEPRINT_PANEL:
+    region: right_panel_top
+
+  DNA_PANEL:
+    region: right_panel_middle
+
+  SCRIPT_PANEL:
+    region: right_panel_middle
+
+  VERSION_PANEL:
+    region: right_panel_bottom
+
+  DECISION_PANEL:
+    region: right_panel_bottom
+
+constraint:
+  component_without_position: invalid
