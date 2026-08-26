@@ -1,4 +1,4 @@
-# ACPOS L1 Page Registry v2
+# ACPOS L1 Page Registry v2.1
 # L1 Visual Design Authority Mapping
 # This file defines top-level page identities only.
 # Detailed Page Contracts must inherit this registry.
@@ -6,13 +6,17 @@
 system:
   name: ORANGE ONE ACPOS
   version: ACPOS_v1.0.x
-  authority: L1_PAGE_DESIGN_AUTHORITY_v2
+  authority: L1_PAGE_DESIGN_AUTHORITY_v1.1
 
 layout_rules:
-  shell: ACPOS_APP_SHELL_v2
+  shell: R9_APP_SHELL_v1.1
+  visual_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
   top_secondary_navigation: false
   collapsible_sidebar: true
+  sidebar_expanded_width: 240px
+  sidebar_collapsed_width: 72px
   dashboard_is_direct_l1: true
+  page_specific_right_panel_only: true
 
 l1_pages:
   - uid: L1-01
@@ -85,3 +89,5 @@ prohibited:
   - create_new_l1_without_authority
   - change_shell_layout_without_approval
   - create_duplicate_navigation_layer
+  - use_legacy_sidebar_280px
+  - force_global_right_panel
