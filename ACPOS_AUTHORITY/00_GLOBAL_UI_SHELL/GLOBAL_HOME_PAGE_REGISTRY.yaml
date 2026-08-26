@@ -1,11 +1,27 @@
 authority: ACPOS_GLOBAL_HOME_PAGE
-version: V1.1
+version: V1.2
+status: AUTHORITY_ACTIVE
 purpose: Global Home Page and Shell construction authority
+page_uid: HOME-001
+page_name: ACPOS Global Home Shell
+route: /
 
 shell:
   canvas: "16:9"
   theme: "Purple Tech Enterprise AI Workspace"
   layout: "Header + Sidebar + Main Workspace"
+
+sections:
+  - section_id: GLOBAL-SEC-HEADER
+    component_id: GLOBAL_HEADER_001
+    fixed: true
+  - section_id: GLOBAL-SEC-SIDEBAR
+    component_id: GLOBAL_SIDEBAR_001
+    fixed: true
+  - section_id: GLOBAL-SEC-WORKSPACE
+    component_id: GLOBAL_WORKSPACE_001
+    fixed_container: true
+    replaceable_content: true
 
 header:
   id: GLOBAL_HEADER_001
@@ -13,9 +29,12 @@ header:
   fixed: true
   areas:
     - brand
-    - project_context
+    - page_context_slot
     - runtime_status
     - user_control
+  context_rule:
+    source: page_specific_authority
+    global_task_context_forced: false
 
 sidebar:
   id: GLOBAL_SIDEBAR_001
@@ -24,18 +43,22 @@ sidebar:
   position: left
   navigation_mode: vertical
   item_height: "52px"
+  navigation_source: GLOBAL_HOME_NAVIGATION_REGISTRY
   rules:
-    - no_custom_layout_by_department
+    - no_custom_layout_by_page
     - inherit_global_style
+    - no_parallel_navigation
 
 main_workspace:
   id: GLOBAL_WORKSPACE_001
   container: true
   padding: "32px"
+  outer_margin: "20px"
   radius: "24px"
-  role: "department_workspace_container"
+  role: "page_workspace_container"
 
 visual:
+  source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
   background: "#050816"
   panel: "#0C1026"
   primary_glow: "#8B5CFF"
@@ -43,23 +66,52 @@ visual:
   text_primary: "#F3F5FF"
   text_secondary: "#AEB7D9"
 
+page_contract:
+  input:
+    - current_route
+    - authenticated_user_state
+    - page_context_payload_when_applicable
+    - navigation_authority_payload
+  output:
+    - rendered_global_shell
+    - workspace_content_slot
+  dependency:
+    - GLOBAL_HOME_COMPONENT_REGISTRY
+    - GLOBAL_HOME_CONTROL_REGISTRY
+    - GLOBAL_HOME_CONTROL_ACTION_REGISTRY
+    - GLOBAL_HOME_STATE_REGISTRY
+    - GLOBAL_HOME_STATE_TRANSITION
+    - GLOBAL_HOME_VISUAL_MAPPING
+    - GLOBAL_HOME_UI_RENDER_BINDING
+    - GLOBAL_HOME_RENDER_VALIDATION
+  error_contract:
+    missing_authority_source: BLOCK_RENDER
+    unknown_component: BLOCK_RENDER
+    unknown_control: BLOCK_RENDER
+    unknown_state: BLOCK_RENDER
+    conflicting_lower_priority_authority: IGNORE_AND_AUDIT
+
 authority_validation:
   source_trace_required: true
   render_requires:
     - page_definition
-    - layout_definition
+    - section_definition
     - component_definition
     - control_definition
+    - action_definition
     - state_definition
+    - visual_mapping
+    - render_binding
 
 conflict_resolution:
-  priority: highest_global_shell
+  priority_source: GLOBAL_HOME_AUTHORITY_PRIORITY
   rule:
     - do_not_override_global_shell
     - do_not_merge_unknown_components
+    - do_not_use_legacy_HOME_registry
 
 restriction:
   - do_not_change_header
   - do_not_change_sidebar
   - do_not_change_logo_ratio
-  - departments_only_modify_main_workspace
+  - pages_only_modify_main_workspace_content
