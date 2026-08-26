@@ -1,27 +1,45 @@
-version: R9_UI_AUTHORITY_v1.0
+version: R9_UI_AUTHORITY_v1.1
 status: authority
 brand: ORANGE ONE ACPOS
-purpose: "全案唯一 UI 視覺設計權威"
+purpose: "全案唯一 UI 視覺設計權威基準；Global Shell 與 CORE 最新視覺幾何由正式 ACPOS_AUTHORITY 延伸權威覆蓋。"
 
 style:
-  theme: dark_technology
+  theme: dark_technology_purple
   direction:
     - professional
     - enterprise
     - AI_workstation
     - high_efficiency
   colors:
-    primary: electric_blue
+    primary: purple_technology
     accent: orange_brand
-    background: deep_navy
+    background: deep_navy_black
+
+visual_authority_delegation:
+  global_shell:
+    source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+    precedence: higher_for_visual_geometry
+  core_workspace:
+    source: ACPOS_AUTHORITY/CORE/CORE_VISUAL_AND_WORKSPACE_AUTHORITY_FINAL.md
+    precedence: higher_for_core_workspace_visual_and_layout
+  core_ai_conversation:
+    source: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+    precedence: higher_for_ai_conversation_visual_module
+
+legacy_visual_values:
+  electric_blue_as_global_primary: replaced
+  fixed_global_right_panel: replaced_by_page_specific_authority
+  sidebar_expanded_280px: replaced_by_global_shell_authority
 
 rules:
   card_based_layout: true
   consistent_components_only: true
   no_freeform_page_design: true
   no_new_visual_language_without_approval: true
+  delegated_authority_must_not_change_business_logic: true
 
 fixed_principles:
   - "AI 工作區不是普通聊天室"
   - "所有頁面必須遵守 App Shell"
-  - "所有元件必須來自 Component Library"
+  - "所有元件必須來自 Component Library 或正式頁面 Authority"
+  - "舊視覺值不得覆蓋最新正式 ACPOS_AUTHORITY"
