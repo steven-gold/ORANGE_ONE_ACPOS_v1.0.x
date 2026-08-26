@@ -1,10 +1,11 @@
-version: R9
+version: R9_CORE_ALIGNMENT_V1
 status: AUTHORITY_REGISTRY
 purpose: "Authoritative page registry for ACPOS construction"
 rule:
   - "No page implementation without Page UID"
   - "AI must use this registry as only page source"
   - "External data and live verification are excluded until deployment testing"
+  - "Legacy page IDs marked replaced must not render as active pages"
 page_schema:
   required:
     - page_uid
@@ -22,6 +23,96 @@ page_schema:
     - permission_binding
     - runtime_events
     - qa_evidence
+
 registry:
   target_count: 92
   current_state: controlled_expansion
+  target_count_rule: preserve_until_full_page_inventory_reaudit
+
+resolved_records:
+  CORE-01:
+    page_uid: CORE-01
+    authority_status: ACTIVE
+    surface: AI_WORKSPACE
+    navigation_l1_l6:
+      l1_page_uid: L1-02
+      l1_name: AI Workspace
+      canonical_source: 00_MASTER/UI_AUTHORITY/NAVIGATION_AUTHORITY.yaml
+      lower_levels: resolve_from_canonical_navigation
+      invent_missing_level: forbidden
+    route: /core
+    route_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    visibility:
+      mode: permission_controlled
+      source: ACPOS_AUTHORITY/CORE/CORE_PERMISSION_MATRIX.yaml
+    layout:
+      source: ACPOS_AUTHORITY/CORE/CORE_SCREEN_LAYOUT.yaml
+      render_binding: ACPOS_AUTHORITY/CORE/CORE_UI_RENDER_BINDING.yaml
+    sections:
+      source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    components:
+      source: ACPOS_AUTHORITY/CORE/CORE_COMPONENT_REGISTRY.yaml
+      position_source: ACPOS_AUTHORITY/CORE/CORE_COMPONENT_POSITION_MAP.yaml
+    fields:
+      source: ACPOS_AUTHORITY/CORE/CORE_DATA_BINDING_AUTHORITY.yaml
+      page_contract: ACPOS_AUTHORITY/CORE/CORE_PAGE_CONTRACT.yaml
+    actions:
+      source: ACPOS_AUTHORITY/CORE/CORE_ACTION_REGISTRY.yaml
+    api_binding:
+      source: ACPOS_AUTHORITY/CORE/CORE_DATA_API_BINDING.yaml
+      master_source: 00_MASTER/API_MASTER_REGISTRY.yaml
+      invent_endpoint: forbidden
+    database_binding:
+      source: ACPOS_AUTHORITY/CORE/CORE_DATABASE_BINDING.yaml
+      master_source: 00_MASTER/DATABASE_MASTER_SCHEMA.yaml
+      invent_table: forbidden
+    permission_binding:
+      source: ACPOS_AUTHORITY/CORE/CORE_PERMISSION_MATRIX.yaml
+    runtime_events:
+      source: ACPOS_AUTHORITY/CORE/CORE_RUNTIME_PERMISSION_QA.yaml
+    qa_evidence:
+      source: ACPOS_AUTHORITY/CORE/CORE_QA_EVIDENCE.yaml
+      final_render_validation: ACPOS_AUTHORITY/CORE/CORE_FINAL_RENDER_VALIDATION.yaml
+    conversation_authority:
+      ai_core: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+      interface: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+      core_extension: docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
+    context_rules:
+      project_id: required
+      topic_id: required
+      work_item_id: required_for_open_item
+      conversation_thread_id: required_for_open_item
+      production_task_id: forbidden
+
+legacy_replacements:
+  CORE-02:
+    status: REPLACED
+    replaced_by: CORE-01
+    active_render: false
+    retained_for: audit_history_only
+  CORE-03:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+    integrated_as: Blueprint_Work_Item_And_State_Panel
+  CORE-04:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+    integrated_as: DNA_Work_Item_And_State_Panel
+  CORE-05:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+    integrated_as: AI_Conversation_Primary_Workspace
+  CORE-06:
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+    integrated_as: Script_Work_Item_And_State_Panel
+
+validation:
+  CORE-01_missing_required_source: BLOCK_CONSTRUCTION
+  legacy_CORE_02_to_CORE_06_active_render: REJECT
+  invented_navigation_level: REJECT
+  invented_api_or_database_binding: REJECT
