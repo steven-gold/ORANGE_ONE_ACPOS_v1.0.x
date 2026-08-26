@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_UI_RENDER_BINDING
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 purpose: 1_to_1_global_shell_render_binding
 
@@ -17,7 +17,9 @@ binding:
         controls:
           - BRAND_LOGO
           - PAGE_CONTEXT_SLOT
+          - SEARCH_CONTROL
           - TOP_STATUS
+          - NOTIFICATION_CONTROL
           - USER_CONTROL
       GLOBAL-SEC-SIDEBAR:
         component_id: GLOBAL_SIDEBAR_001
@@ -45,6 +47,7 @@ binding:
           - CONTENT_SLOT
 
 render_requirements:
+  - PageContract
   - Page
   - Section
   - Component
@@ -53,10 +56,13 @@ render_requirements:
   - State
   - Position
   - VisualSource
+  - Permission
+  - I18N
 
 rules:
   unknown_element: reject_render
   unknown_control: reject_render
   unknown_state: reject_render
+  missing_header_visual_control: reject_render
   page_content_must_use_CONTENT_SLOT: true
   page_cannot_change_global_geometry: true
