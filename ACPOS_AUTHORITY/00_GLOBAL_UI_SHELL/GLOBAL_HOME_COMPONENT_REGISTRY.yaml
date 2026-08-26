@@ -1,43 +1,60 @@
 authority: ACPOS_GLOBAL_HOME_COMPONENT
-version: V1.1
+version: V1.2
+status: AUTHORITY_ACTIVE
 
 components:
   - id: GLOBAL_HEADER_001
     type: HEADER
+    section_id: GLOBAL-SEC-HEADER
     fixed: true
+    dimensions:
+      height: "72px"
     controls:
       - BRAND_LOGO
-      - PROJECT_CONTEXT
+      - PAGE_CONTEXT_SLOT
       - TOP_STATUS
       - USER_CONTROL
+    rules:
+      - page_context_content_is_page_authority_driven
+      - no_forced_task_context
 
   - id: GLOBAL_SIDEBAR_001
     type: NAVIGATION_PANEL
+    section_id: GLOBAL-SEC-SIDEBAR
     fixed: true
+    dimensions:
+      expanded_width: "240px"
+      collapsed_width: "72px"
+      item_height: "52px"
     controls:
       - MENU_ITEM
       - ACTIVE_STATE
       - COLLAPSE_BUTTON
+    data_binding:
+      navigation_source: GLOBAL_HOME_NAVIGATION_REGISTRY
 
   - id: GLOBAL_WORKSPACE_001
     type: WORKSPACE_CONTAINER
+    section_id: GLOBAL-SEC-WORKSPACE
     fixed: true
+    dimensions:
+      padding: "32px"
+      outer_margin: "20px"
+      radius: "24px"
     controls:
       - CONTENT_SLOT
-
-validation:
-  component_source_required: true
-  unknown_component: reject
-
-render_binding:
-  every_element_requires:
-    - component_id
-    - control_id
-    - visual_rule
+    rules:
+      - page_content_replaces_content_slot_only
 
 rules:
   brand_logo:
+    asset_binding: GLOBAL_HOME_BRAND_ASSET_BINDING
     preserve_ratio: true
-  department_pages:
+    redraw_forbidden: true
+  page_context:
+    source: page_specific_authority
+  page_pages:
     replace_content_only: true
-    inherit_global_shell: true
+  traceability:
+    every_component_requires_section_id: true
+    every_component_requires_visual_mapping: true
