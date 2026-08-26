@@ -1,19 +1,93 @@
-version: CORE-AUTHORITY-V1
+version: CORE-AUTHORITY-V2
+status: AUTHORITY_ACTIVE
 states:
-  blueprint:
+  project_context:
+    - EMPTY
+    - LOADING
+    - READY
+    - LOCKED
+    - ERROR
+
+  topic_context:
+    - EMPTY
+    - LOADING
+    - READY
+    - LOCKED
+    - ERROR
+
+  work_item:
     - DRAFT
+    - IN_DISCUSSION
     - REVIEW
     - LOCKED
+    - REOPENED
+
+  conversation:
+    - EMPTY
+    - READY
+    - RUNNING
+    - WAITING_HUMAN
+    - ERROR
+    - CLOSED
+
   dna:
     - DRAFT
     - REVIEW
     - LOCKED
+
+  blueprint:
+    - DRAFT
+    - REVIEW
+    - LOCKED
+
   script:
     - GENERATED
     - REVIEW
     - REVISION
     - CONFIRMED
-  production_task:
+
+  version:
     - NOT_CREATED
+    - DRAFT
+    - CREATED
+    - COMPARED
+    - LOCKED
+
+  decision:
+    - DRAFT
+    - WAITING_HUMAN
+    - CONFIRMED
+    - LOCKED
+
+  core_scope:
+    - OPEN
+    - READY_TO_LOCK
+    - LOCKED
+
+  production_handoff:
+    - HIDDEN
+    - READY
+    - CREATING
     - CREATED
     - HANDED_OFF_ASSET
+    - ERROR
+
+control_ui_states:
+  - DEFAULT
+  - HOVER
+  - ACTIVE
+  - FOCUSED
+  - LOADING
+  - READY
+  - SUCCESS
+  - ERROR
+  - DISABLED
+  - HIDDEN
+  - LOCKED
+
+transition_source: CORE_STATE_TRANSITION.yaml
+
+rules:
+  - every_state_requires_transition_rule_when_stateful
+  - production_handoff_state_is_not_conversation_context
+  - no_unknown_state_render
