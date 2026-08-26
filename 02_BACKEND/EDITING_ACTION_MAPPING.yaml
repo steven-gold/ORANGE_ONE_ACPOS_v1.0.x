@@ -1,7 +1,33 @@
 module: EDITING
+source: R9_FINAL
+active_page: EDIT-01
+
 actions:
+  - EDIT_MEDIA_IMPORT
   - EDIT_TIMELINE_UPDATE
   - EDIT_LAYER_UPDATE
+  - EDIT_API_EDIT_EXECUTE
   - EDIT_SUBTITLE_SYNC
+  - EDIT_QA_RECHECK
+  - EDIT_VERSION_SAVE
+  - EDIT_OUTPUT_RENDER
+
+cross_service_actions_used_by_EDIT01:
+  VOICE:
+    - VOICE_GENERATE
+    - VOICE_ASSET_BIND
+    - VOICE_SYNC_EXECUTE
+  ASSET:
+    - ASSET_CREATE_VERSION
+    - ASSET_REFERENCE_BIND
+  VIDEO:
+    - route_existing_video_regeneration_action_only_when_source_regeneration_required
+
 workflow_binding: EDITING_RUNTIME_FLOW
-source: R9_FINAL
+rules:
+  all_editing_ui_actions_originate_from_EDIT01: true
+  EDIT-02_and_EDIT-03_business_action_entry: forbidden
+  standalone_upload_does_not_require_project_or_task: true
+  provider_specific_execution_must_use_provider_adapter: true
+  saved_version_overwrite: forbidden
+  frontend_only_view_state_must_not_create_backend_action: true
