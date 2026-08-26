@@ -1,39 +1,58 @@
 authority: ACPOS_GLOBAL_HOME_PERMISSION_MATRIX
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 
 permissions:
-  - resource: GLOBAL_BRAND
+  - permission_id: PUBLIC_DISPLAY
+    resource: GLOBAL_BRAND
     action: READ
     scope: GLOBAL
     approval: NONE
     controls: [BRAND_LOGO]
-  - resource: GLOBAL_PAGE_CONTEXT
+  - permission_id: PAGE_CONTEXT_READ
+    resource: GLOBAL_PAGE_CONTEXT
     action: READ
     scope: PAGE
     approval: NONE
     controls: [PAGE_CONTEXT_SLOT]
-  - resource: GLOBAL_SYSTEM_STATUS
+  - permission_id: GLOBAL_SEARCH_USE
+    resource: GLOBAL_SEARCH
+    action: USE
+    scope: USER_ALLOWED_DATA
+    approval: NONE
+    controls: [SEARCH_CONTROL]
+  - permission_id: SYSTEM_STATUS_READ
+    resource: GLOBAL_SYSTEM_STATUS
     action: READ
     scope: GLOBAL
     approval: NONE
     controls: [TOP_STATUS]
-  - resource: USER_SELF
+  - permission_id: GLOBAL_NOTIFICATION_READ
+    resource: GLOBAL_NOTIFICATION
+    action: READ
+    scope: SELF
+    approval: NONE
+    controls: [NOTIFICATION_CONTROL]
+  - permission_id: USER_SELF_READ
+    resource: USER_SELF
     action: READ
     scope: SELF
     approval: NONE
     controls: [USER_CONTROL]
-  - resource: GLOBAL_NAVIGATION
+  - permission_id: NAVIGATION_READ
+    resource: GLOBAL_NAVIGATION
     action: READ
     scope: USER_ALLOWED_ROUTES
     approval: NONE
     controls: [MENU_ITEM, ACTIVE_STATE]
-  - resource: GLOBAL_NAVIGATION
+  - permission_id: NAVIGATION_INTERACT
+    resource: GLOBAL_NAVIGATION
     action: INTERACT
     scope: SELF_UI
     approval: NONE
     controls: [COLLAPSE_BUTTON]
-  - resource: PAGE_WORKSPACE
+  - permission_id: PAGE_RENDER
+    resource: PAGE_WORKSPACE
     action: RENDER
     scope: CURRENT_PAGE
     approval: NONE
@@ -44,3 +63,4 @@ rules:
   - parent_permission_does_not_imply_child_permission
   - hidden_when_navigation_permission_missing
   - action_requires_matching_permission
+  - every_control_permission_id_must_exist_here
