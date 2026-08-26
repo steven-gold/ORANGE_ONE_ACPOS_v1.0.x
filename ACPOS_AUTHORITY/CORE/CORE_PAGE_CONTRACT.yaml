@@ -1,4 +1,4 @@
-version: CORE-PAGE-CONTRACT-V1
+version: CORE-PAGE-CONTRACT-V1.1
 status: AUTHORITY_ACTIVE
 page_uid: CORE-01
 
@@ -23,6 +23,8 @@ output:
   - production_task_request_after_core_lock
 
 dependencies:
+  - docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  - docs/authority/CORE_AI_CONVERSATION/visual/CORE_AI_CONVERSATION_VISUAL_DESIGN_AUTHORITY.yaml
   - CORE_COMPONENT_REGISTRY
   - CORE_WORK_ITEM_CONVERSATION_REGISTRY
   - CORE_CONTROL_REGISTRY
@@ -34,6 +36,17 @@ dependencies:
   - CORE_RUNTIME_PERMISSION_QA
   - CORE_VISUAL_MAPPING
   - CORE_UI_RENDER_BINDING
+  - CORE_I18N
+
+ai_conversation_contract:
+  inherit_ai_core: required
+  inherit_ai_conversation_visual_authority: required
+  generic_chat_only_layout: forbidden
+  required_bindings:
+    - project_id
+    - topic_id
+    - work_item_id
+    - conversation_thread_id
 
 api_binding:
   source: 00_MASTER/API_MASTER_REGISTRY.yaml
@@ -53,6 +66,8 @@ error_contract:
   missing_topic_context: BLOCK_WORK_ITEM_LOAD
   missing_work_item: BLOCK_CONVERSATION_LOAD
   missing_conversation_thread: BLOCK_CONVERSATION_LOAD
+  missing_ai_core_authority: BLOCK_CONVERSATION_RENDER
+  missing_ai_conversation_visual_authority: BLOCK_CONVERSATION_RENDER
   cross_work_item_history_mix: REJECT_DATA
   production_task_used_as_core_context: REJECT_DATA
   authority_conflict: BLOCK_RENDER_AND_AUDIT
