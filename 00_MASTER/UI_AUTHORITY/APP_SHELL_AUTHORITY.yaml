@@ -1,24 +1,46 @@
-version: R9_APP_SHELL_v1.0
+version: R9_APP_SHELL_v1.1
 status: authority
-purpose: "全站固定版型骨架"
+purpose: "全站固定版型骨架；Header 與 Sidebar 為 Global Shell，頁面內容僅進入 Main Workspace。"
 
 layout:
   desktop:
-    type: three_column_workspace
-    left_panel: navigation
-    center_panel: ai_main_workspace
-    right_panel: information_panel
+    type: global_shell_with_page_workspace
+    header:
+      fixed: true
+      height: 72px
+    left_panel:
+      role: navigation
+      required: true
+      collapsible: true
+      expanded_width: 240px
+      collapsed_width: 72px
+    center_panel:
+      role: page_main_workspace
+      required: true
+      primary: true
+    right_panel:
+      role: page_specific_information_or_state_rail
+      global_required: false
+      ownership: page_specific_authority
 
 rules:
   center_is_primary: true
-  right_panel_required: true
   left_navigation_required: true
   avoid_chat_only_layout: true
+  page_may_define_internal_right_rail: true
+  global_shell_must_not_force_page_right_panel: true
+  pages_only_replace_main_workspace_content: true
+  legacy_expanded_sidebar_280px: forbidden
+  legacy_fixed_global_right_panel: forbidden
 
 regions:
-  header: global_project_context
-  footer: system_status
+  header: global_project_or_page_context
+  footer: system_status_when_defined_by_global_authority
   center:
-    - conversation
-    - quick_actions
-    - input_area
+    - page_specific_workspace
+    - conversation_when_applicable
+    - quick_actions_when_applicable
+    - input_area_when_applicable
+
+visual_source:
+  global_shell: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
