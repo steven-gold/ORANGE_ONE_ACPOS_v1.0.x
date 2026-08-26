@@ -1,0 +1,69 @@
+authority: ACPOS_GLOBAL_HOME_PAGE_CONTRACT
+version: V1.0
+status: AUTHORITY_ACTIVE
+purpose: Validate Global Home page contract before component and render construction without introducing new business logic.
+
+page:
+  page_uid: HOME-001
+  route: /
+  registry_source: GLOBAL_HOME_PAGE_REGISTRY.yaml
+  shell_source: ACPOS_GLOBAL_UI_SHELL_AUTHORITY_V1.md
+  visual_source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+
+required_sections:
+  - section_id: GLOBAL-SEC-HEADER
+    component_id: GLOBAL_HEADER_001
+  - section_id: GLOBAL-SEC-SIDEBAR
+    component_id: GLOBAL_SIDEBAR_001
+  - section_id: GLOBAL-SEC-WORKSPACE
+    component_id: GLOBAL_WORKSPACE_001
+
+required_contract_chain:
+  - GLOBAL_HOME_PAGE_REGISTRY.yaml
+  - GLOBAL_HOME_COMPONENT_REGISTRY.yaml
+  - GLOBAL_HOME_CONTROL_REGISTRY.yaml
+  - GLOBAL_HOME_CONTROL_ACTION_REGISTRY.yaml
+  - GLOBAL_HOME_STATE_REGISTRY.yaml
+  - GLOBAL_HOME_STATE_TRANSITION.yaml
+  - GLOBAL_HOME_VISUAL_MAPPING.yaml
+  - GLOBAL_HOME_UI_RENDER_BINDING.yaml
+  - GLOBAL_HOME_RENDER_VALIDATION.yaml
+
+input_contract:
+  - current_route
+  - authenticated_user_state
+  - page_context_payload_when_applicable
+  - navigation_authority_payload
+
+output_contract:
+  - rendered_global_shell
+  - workspace_content_slot
+
+validation:
+  page_uid_required: true
+  route_required: true
+  every_section_requires_component: true
+  every_component_requires_control_or_display_contract: true
+  every_control_requires_action: true
+  every_control_requires_permission: true
+  every_stateful_control_requires_registered_state: true
+  page_context_must_come_from_page_specific_authority: true
+  unknown_navigation_item: reject
+  unknown_visual_source: reject
+  lower_priority_visual_override: reject
+
+error_contract:
+  missing_registry_source: BLOCK_RENDER
+  missing_section: BLOCK_RENDER
+  missing_component: BLOCK_RENDER
+  missing_control_action_binding: BLOCK_RENDER
+  missing_state_binding: BLOCK_RENDER
+  missing_navigation_authority: BLOCK_MENU_RENDER
+  conflicting_lower_priority_authority: IGNORE_AND_AUDIT
+
+rules:
+  - no_new_business_logic
+  - no_parallel_navigation
+  - no_legacy_sidebar_280px
+  - no_fixed_global_right_panel
+  - page_contract_validation_precedes_ui_structure_implementation
