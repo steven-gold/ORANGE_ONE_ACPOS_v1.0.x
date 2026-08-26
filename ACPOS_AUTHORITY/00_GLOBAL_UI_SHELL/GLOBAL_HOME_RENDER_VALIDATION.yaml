@@ -1,5 +1,6 @@
 authority: ACPOS_GLOBAL_HOME_RENDER_VALIDATION
-version: V1.1
+version: V1.2
+status: AUTHORITY_ACTIVE
 purpose: Global Home final render validation
 
 validation:
@@ -7,20 +8,45 @@ validation:
     - GLOBAL_HOME_PAGE_REGISTRY
     - GLOBAL_HOME_COMPONENT_REGISTRY
     - GLOBAL_HOME_CONTROL_REGISTRY
+    - GLOBAL_HOME_CONTROL_ACTION_REGISTRY
     - GLOBAL_HOME_STATE_REGISTRY
-    - GLOBAL_HOME_VISUAL_AUTHORITY
+    - GLOBAL_HOME_STATE_TRANSITION
+    - ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    - GLOBAL_HOME_VISUAL_MAPPING
+    - GLOBAL_HOME_UI_RENDER_BINDING
+    - GLOBAL_HOME_AUTHORITY_PRIORITY
+    - GLOBAL_HOME_NAVIGATION_REGISTRY
+    - GLOBAL_HOME_BRAND_ASSET_BINDING
+    - GLOBAL_HOME_PERMISSION_MATRIX
+    - GLOBAL_HOME_I18N
 
 render_rules:
   source_trace_required: true
+  authority_priority_required: true
+  conflict_resolution_required: true
   unknown_component: reject
   unknown_control: reject
+  unknown_action: reject
   unknown_state: reject
+  unknown_visual_source: reject
+  duplicate_legacy_registry: reject
+  page_specific_context_not_authorized: reject
 
 inheritance:
   shell:
     fixed: true
-  department_workspace:
+  page_workspace:
     replace_content_only: true
+
+qa_gate:
+  layout_contract: required
+  control_action_state_binding: required
+  visual_mapping: required
+  render_binding: required
+  i18n_contract: required
+  permission_contract: required
+  binary_brand_asset: required_for_pixel_exact_brand_render
 
 final_status:
   render_allowed_only_when_all_pass: true
+  frozen_only_after_real_render_validation: true
