@@ -1,0 +1,60 @@
+version: CORE-WORK-ITEM-CONVERSATION-V1
+status: AUTHORITY_ACTIVE
+purpose: Define the left-side CORE work-item rail and independent conversation threads.
+
+entity: CORE_WORK_ITEM
+required_fields:
+  - work_item_id
+  - project_id
+  - topic_id
+  - work_item_type
+  - title
+  - status
+  - primary_conversation_thread_id
+  - version_id
+  - locked
+
+work_item_types:
+  - STORY
+  - CHAPTER
+  - WORLD_SETTING
+  - DNA
+  - BLUEPRINT
+  - SCRIPT
+  - AUTHORITY_DEFINED_CORE_ITEM
+
+conversation_binding:
+  required:
+    - project_id
+    - topic_id
+    - work_item_id
+    - conversation_thread_id
+  forbidden:
+    - production_task_id
+
+thread_rules:
+  - one_work_item_can_have_multiple_conversation_threads
+  - each_thread_keeps_independent_message_history
+  - threads_share_project_and_topic_authorized_context
+  - selecting_a_work_item_loads_its_primary_or_last_active_thread
+  - creating_new_thread_does_not_create_new_project_or_topic
+  - locking_work_item_does_not_delete_conversation_history
+
+ui_binding:
+  component_id: CORE-COMP-WORK-ITEM-NAV
+  control_select: CORE-CTRL-WORK-ITEM-SELECT
+  control_new_thread: CORE-CTRL-NEW-THREAD
+  selected_thread_target: CORE-COMP-CONVERSATION
+
+terminology_boundary:
+  core_work_item:
+    ui_label: 任務 / 對話項目
+    meaning: internal_core_work_item
+  production_task:
+    meaning: downstream_production_execution_task
+    visible_in_core_context_selector: false
+
+validation:
+  work_item_without_thread: reject_open
+  cross_work_item_history_mix: reject
+  production_task_used_as_core_work_item: reject
