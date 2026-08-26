@@ -1,30 +1,58 @@
-version: CORE-COMPONENT-POSITION-MAP-V1
+version: CORE-COMPONENT-POSITION-MAP-V2
+status: AUTHORITY_ACTIVE
 layout:
-  AI_CONVERSATION_WORKSPACE:
+  CORE-COMP-PAGE-CONTEXT:
+    region: top_context_bar
+    width: "100%"
+    height: "64px"
+    order: 0
+    source: CORE_COMPONENT_REGISTRY
+
+  CORE-COMP-WORK-ITEM-NAV:
+    region: left_panel
+    width: "22%"
+    order: 1
+    source: CORE_WORK_ITEM_CONVERSATION_REGISTRY
+
+  CORE-COMP-CONVERSATION:
     region: center
+    width: "50%"
+    order: 1
     priority: primary
     source: CORE_COMPONENT_REGISTRY
 
-  PROJECT_CONTEXT:
-    region: left_panel
+  CORE-COMP-DNA:
+    region: right_panel
+    width: "28%"
+    order: 1
+    source: CORE_COMPONENT_REGISTRY
 
-  TOPIC_CONTEXT:
-    region: left_panel
+  CORE-COMP-BLUEPRINT:
+    region: right_panel
+    width: "28%"
+    order: 2
+    source: CORE_COMPONENT_REGISTRY
 
-  BLUEPRINT_PANEL:
-    region: right_panel_top
+  CORE-COMP-SCRIPT:
+    region: right_panel
+    width: "28%"
+    order: 3
+    source: CORE_COMPONENT_REGISTRY
 
-  DNA_PANEL:
-    region: right_panel_middle
+  CORE-COMP-VERSION:
+    region: right_panel
+    width: "28%"
+    order: 4
+    source: CORE_COMPONENT_REGISTRY
 
-  SCRIPT_PANEL:
-    region: right_panel_middle
-
-  VERSION_PANEL:
-    region: right_panel_bottom
-
-  DECISION_PANEL:
-    region: right_panel_bottom
+  CORE-COMP-DECISION:
+    region: right_panel
+    width: "28%"
+    order: 5
+    source: CORE_COMPONENT_REGISTRY
 
 constraint:
   component_without_position: invalid
+  duplicate_component_region_order: invalid
+  production_task_context_component: forbidden
+  work_item_navigation_missing: invalid
