@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_PAGE
-version: V1.0
+version: V1.1
 purpose: Global Home Page and Shell construction authority
 
 shell:
@@ -42,6 +42,21 @@ visual:
   secondary_glow: "#6E35FF"
   text_primary: "#F3F5FF"
   text_secondary: "#AEB7D9"
+
+authority_validation:
+  source_trace_required: true
+  render_requires:
+    - page_definition
+    - layout_definition
+    - component_definition
+    - control_definition
+    - state_definition
+
+conflict_resolution:
+  priority: highest_global_shell
+  rule:
+    - do_not_override_global_shell
+    - do_not_merge_unknown_components
 
 restriction:
   - do_not_change_header
