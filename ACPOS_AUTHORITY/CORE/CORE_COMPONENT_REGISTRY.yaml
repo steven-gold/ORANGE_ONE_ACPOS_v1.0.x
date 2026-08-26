@@ -6,7 +6,17 @@ components:
     binding:
       project: required
       topic: required
-      task: required
+    notes:
+      task_binding_removed: true
+      reason: Production Task is created only after CORE confirmation
+
+  - id: CORE-COMP-PROJECT-CONTEXT
+    type: PROJECT_CONTEXT_PANEL
+    purpose: active_project_information
+
+  - id: CORE-COMP-TOPIC-CONTEXT
+    type: TOPIC_CONTEXT_PANEL
+    purpose: active_topic_information
 
   - id: CORE-COMP-BLUEPRINT
     type: BLUEPRINT_PANEL
@@ -24,3 +34,7 @@ components:
   - id: CORE-COMP-VERSION
     type: VERSION_PANEL
     purpose: version_tracking
+
+  - id: CORE-COMP-DECISION
+    type: DECISION_PANEL
+    purpose: confirmation_and_handoff_decision
