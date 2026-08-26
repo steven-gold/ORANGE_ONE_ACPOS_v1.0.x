@@ -1,0 +1,54 @@
+authority: ACPOS_GLOBAL_HOME_DATA_API_BINDING
+version: V1.0
+status: AUTHORITY_ACTIVE
+purpose: Bind global shell data slots to authoritative data/API sources without creating page-specific or invented endpoints.
+
+bindings:
+  PAGE_CONTEXT_SLOT:
+    data_owner: current_page_authority
+    required_payload:
+      - context_type
+      - context_id
+      - context_label
+      - context_state
+    api_resolution:
+      source: 00_MASTER/API_MASTER_REGISTRY.yaml
+      endpoint_must_be_authoritative: true
+      invent_endpoint: forbidden
+
+  TOP_STATUS:
+    data_owner: runtime_status_authority
+    required_payload:
+      - runtime_state
+      - connection_state
+    api_resolution:
+      source: 00_MASTER/API_MASTER_REGISTRY.yaml
+      endpoint_must_be_authoritative: true
+      invent_endpoint: forbidden
+
+  USER_CONTROL:
+    data_owner: authenticated_user_context
+    required_payload:
+      - user_id
+      - display_name
+      - permission_state
+    api_resolution:
+      source: 00_MASTER/API_MASTER_REGISTRY.yaml
+      endpoint_must_be_authoritative: true
+      invent_endpoint: forbidden
+
+  MENU_ITEM:
+    data_owner: master_navigation_authority
+    required_payload:
+      - navigation_id
+      - label_i18n_key
+      - route
+      - order
+      - visibility
+      - permission
+
+live_binding_rules:
+  missing_authoritative_api: BLOCK_LIVE_BINDING
+  missing_required_payload: ERROR_STATE
+  render_structure_without_live_data: allowed_only_for_design_validation
+  production_runtime_mock_data: forbidden
