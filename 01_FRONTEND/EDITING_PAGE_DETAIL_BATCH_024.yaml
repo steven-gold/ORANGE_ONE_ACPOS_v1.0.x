@@ -1,10 +1,54 @@
 batch: 024
 module: EDITING
 layer: frontend
+source: R9_FINAL
 pages:
-  - EDIT-01
-  - EDIT-02
-  - EDIT-03
+  - page_uid: EDIT-01
+    page_identity: Timeline
+    purpose: correction_positioning_for_existing_editing_flow
+    sections:
+      - id: EDIT01_PREVIEW
+        purpose: preview_current_timeline_position
+        required_components:
+          - PreviewViewport
+          - TimecodeDisplayInput
+          - TransportControls
+      - id: EDIT01_CORRECTION_TIMELINE
+        purpose: locate_and_select_problem_range
+        required_components:
+          - TimeRuler
+          - Playhead
+          - CorrectionRange
+          - QAMarkerRail
+          - TimelineZoom
+      - id: EDIT01_TRACK_CONTEXT
+        purpose: show_existing_editing_objects_without_creating_parallel_editor
+        required_components:
+          - TimelineTrackContext
+          - LayerContext
+          - SubtitleTrackContext
+    interaction_rules:
+      click_time_ruler: move_playhead
+      drag_playhead: scrub_preview
+      previous_frame: move_minus_one_frame
+      next_frame: move_plus_one_frame
+      timecode_input: move_playhead_to_exact_frame
+      correction_start: must_not_exceed_correction_end
+      correction_end: must_not_precede_correction_start
+      qa_marker_click: load_issue_position_and_existing_evidence
+      zoom: changes_time_scale_only
+      range_operation: bind_to_existing_EDIT_TIMELINE_UPDATE
+    forbidden:
+      - generic_player_progress_bar_as_only_edit_control
+      - create_new_video_output_version_inside_EDITING
+      - duplicate_voice_or_video_generation_logic
+      - add_ripple_slip_slide_roll_multicam_or_keyframe_editor_without_r9_authority
+  - page_uid: EDIT-02
+    page_identity: Layer Management
+    preservation_rule: retain_existing_r9_scope
+  - page_uid: EDIT-03
+    page_identity: Subtitle Sync
+    preservation_rule: retain_existing_r9_scope
 fields:
   - page_uid
   - route
@@ -13,4 +57,5 @@ fields:
   - control
   - action_binding
   - permission_binding
-status: construction
+status: contract_defined
+external_render_test: pending
