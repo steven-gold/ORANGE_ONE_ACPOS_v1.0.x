@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_COMPONENT
-version: V1.2
+version: V1.3
 status: AUTHORITY_ACTIVE
 
 components:
@@ -12,11 +12,14 @@ components:
     controls:
       - BRAND_LOGO
       - PAGE_CONTEXT_SLOT
+      - SEARCH_CONTROL
       - TOP_STATUS
+      - NOTIFICATION_CONTROL
       - USER_CONTROL
     rules:
       - page_context_content_is_page_authority_driven
       - no_forced_task_context
+      - header_controls_must_match_visual_authority
 
   - id: GLOBAL_SIDEBAR_001
     type: NAVIGATION_PANEL
