@@ -1,0 +1,45 @@
+authority: ACPOS_GLOBAL_HOME_NAVIGATION
+version: V1.0
+status: AUTHORITY_ACTIVE
+purpose: Define navigation rendering contract for the fixed left sidebar without creating parallel business navigation.
+
+container:
+  component_id: GLOBAL_SIDEBAR_001
+  orientation: vertical
+  expanded_width: "240px"
+  collapsed_width: "72px"
+  item_height: "52px"
+  icon_size: "20px"
+  label_size: "16px"
+
+item_contract:
+  required_fields:
+    - navigation_id
+    - label_i18n_key
+    - icon_id
+    - route
+    - order
+    - visibility
+    - permission
+    - active_match
+
+items_source:
+  type: master_navigation_authority
+  policy:
+    - never_invent_menu_items
+    - never_create_parallel_navigation
+    - load_only_authoritative_items
+    - hide_items_without_permission
+
+render_behavior:
+  expanded: icon_and_label
+  collapsed: icon_only
+  hover: purple_overlay
+  active: purple_gradient_glow
+  disabled: muted_with_reason
+
+validation:
+  missing_master_navigation_items: BLOCK_MENU_ITEM_RENDER
+  unknown_route: REJECT_ITEM
+  missing_permission: REJECT_ITEM
+  duplicate_navigation_id: REJECT_ITEM
