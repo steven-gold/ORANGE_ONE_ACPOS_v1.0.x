@@ -1,0 +1,31 @@
+version: CORE-AUTHORITY-V1
+layout_definition:
+  shell_reference: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+  page_type: AI_WORKSPACE
+  ratio: 16:9
+  regions:
+    header:
+      fixed: true
+      source: GLOBAL_UI_SHELL
+    sidebar:
+      fixed: true
+      source: GLOBAL_UI_SHELL
+    main_workspace:
+      sections:
+        conversation_workspace:
+          area: center
+          primary: true
+        project_context:
+          area: left_panel
+        topic_context:
+          area: left_panel
+        blueprint_panel:
+          area: right_panel_top
+        dna_panel:
+          area: right_panel_middle
+        script_panel:
+          area: right_panel_middle
+        version_panel:
+          area: right_panel_bottom
+        decision_panel:
+          area: right_panel_bottom
