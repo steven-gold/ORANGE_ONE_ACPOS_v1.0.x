@@ -1,0 +1,92 @@
+page:
+  uid: L1-01
+  name: Dashboard
+  system: ORANGE ONE ACPOS
+  version: ACPOS_v1.0.x
+  authority: true
+
+purpose:
+  description: 系統總覽與營運監控入口
+  rule: Dashboard 即為 L1 首頁，不得增加第二層首頁
+
+layout:
+  shell: R9_APP_SHELL_v1.1
+  visual_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+  type: dashboard_workspace
+  header:
+    logo_position: left
+    account_position: right
+    height: 72px
+    secondary_navigation: disabled
+  sidebar:
+    enabled: true
+    collapsible: true
+    expanded_width: 240px
+    collapsed_width: 72px
+  right_panel:
+    enabled: true
+    ownership: page_specific_authority
+    width_range: 320-420px
+
+sections:
+  - id: KPI_OVERVIEW
+    position: center_top
+    purpose: 系統核心指標
+    components:
+      - project_count
+      - pending_tasks
+      - running_jobs
+      - review_queue
+      - completion_status
+      - modification_rate
+
+  - id: PROJECT_OVERVIEW
+    position: center_main
+    purpose: 進行中專案總覽
+    components:
+      - project_cards
+      - progress_status
+      - recent_activity
+
+  - id: QUICK_ACTION
+    position: center_secondary
+    purpose: 快速建立與進入工作流程
+    components:
+      - create_project
+      - open_workspace
+      - view_tasks
+
+  - id: SYSTEM_STATUS
+    position: right_panel
+    purpose: 系統狀態資訊
+    components:
+      - api_status
+      - provider_status
+      - notification_summary
+
+controls:
+  - id: CREATE_PROJECT_BUTTON
+    type: button
+    action: CREATE_PROJECT
+    permission: project.create
+
+  - id: OPEN_WORKSPACE_BUTTON
+    type: button
+    action: OPEN_AI_WORKSPACE
+    permission: workspace.view
+
+bindings:
+  action_flow:
+    - ui_click
+    - action_validation
+    - api_request
+    - runtime_event
+    - qa_validation
+
+restrictions:
+  forbidden:
+    - create_extra_home_page
+    - add_top_navigation
+    - change_global_shell
+    - add_undefined_widgets
+    - use_legacy_sidebar_280px
