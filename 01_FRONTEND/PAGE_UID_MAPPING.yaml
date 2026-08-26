@@ -1,11 +1,38 @@
 registry: PAGE_UID_MAPPING
-source: R9_FINAL
+version: R9_CORE_SINGLE_PAGE_ALIGNMENT_V1
+source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+status: AUTHORITY_DELEGATED
+
 mapping:
   - page_uid: CORE-01
-    status: defined
+    status: ACTIVE
+    authority_source: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+    route: /core
+
+legacy_replacements:
   - page_uid: CORE-02
-    status: defined
-  - page_uid: WORKSPACE
-    status: defined
-rule:
+    status: REPLACED
+    replaced_by: CORE-01
+    active_render: false
+  - page_uid: CORE-03
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  - page_uid: CORE-04
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  - page_uid: CORE-05
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+  - page_uid: CORE-06
+    status: REPLACED_AS_SEPARATE_PAGE
+    replaced_by: CORE-01
+    active_render: false
+
+rules:
   page_uid_is_unique: true
+  active_page_identity_source: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  legacy_core_page_render: forbidden
+  parallel_core_page_mapping: forbidden
