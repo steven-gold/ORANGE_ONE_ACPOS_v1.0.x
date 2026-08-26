@@ -1,52 +1,80 @@
 module: EDITING
 batch: 013
 source: R9_FINAL
+active_page: EDIT-01
+
 apis:
+  media_import:
+    action: EDIT_MEDIA_IMPORT
+    operations: [upload_media, remove_queued_media, finalize_import]
+    endpoint_resolution: API_MASTER_REGISTRY_OR_RUNTIME_ADAPTER
+    permission: EDITING_UPLOAD
+    database_binding: Asset|AssetVersion|AssetReference|Timeline
+
   timeline_update:
     action: EDIT_TIMELINE_UPDATE
-    purpose: update_existing_timeline_operation_state
-    request:
-      required:
-        - timeline_id
-      optional:
-        - playback_position_frame
-        - playback_state
-        - correction_start_frame
-        - correction_end_frame
-        - evidence_id
-        - marker_frame
-    validation:
-      - timeline_id_must_exist
-      - playback_position_frame_within_timeline
-      - correction_start_frame_lte_correction_end_frame
-      - correction_range_within_timeline
-      - evidence_id_if_present_must_reference_existing_qa_evidence
-    response:
-      - timeline_id
-      - accepted_operation_state
-      - current_position_frame
-      - correction_range
-    error_mapping:
-      invalid_timeline: EDITING_TIMELINE_NOT_FOUND
-      invalid_position: EDITING_TIMECODE_OUT_OF_RANGE
-      invalid_range: EDITING_CORRECTION_RANGE_INVALID
-      invalid_evidence: EDITING_QA_EVIDENCE_NOT_FOUND
-      permission_denied: EDITING_PERMISSION_DENIED
+    operations: [set_source_mode, load_project_source, set_playback_position, set_playback_state, set_playback_speed, set_range_loop, frame_step, set_correction_range, load_existing_qa_marker_context, undo, redo, split_clip, trim_clip_start, trim_clip_end, move_clip, delete_clip, duplicate_clip, replace_clip_source, set_transition, set_clip_speed]
+    endpoint_resolution: API_MASTER_REGISTRY_OR_INTERNAL_EDITING_SERVICE
+    permission: EDITING_VIEW|EDITING_EDIT
+    database_binding: Timeline|TimelineClip|EditWorkingDraft
+
   layer_update:
-    preserve_existing_r9_contract: true
+    action: EDIT_LAYER_UPDATE
+    operations: [set_clip_volume, set_fade, set_track_visibility, set_track_mute, set_track_solo, set_track_lock, reorder_layer, add_music_asset, add_sfx_asset]
+    endpoint_resolution: API_MASTER_REGISTRY_OR_INTERNAL_EDITING_SERVICE
+    permission: EDITING_EDIT
+    database_binding: Layer|TimelineClip|AssetVersion
+
+  api_edit_execute:
+    action: EDIT_API_EDIT_EXECUTE
+    operations: [set_provider, set_model, set_target_scope, set_instruction, execute_edit, cancel_job, apply_candidate]
+    endpoint_resolution: PROVIDER_ADAPTER_REGISTRY
+    permission: EDITING_API_EXECUTE
+    database_binding: ApiEditJob|ApiEditCandidate|EditWorkingDraft
+    external_provider: true
+
   subtitle_sync:
-    preserve_existing_r9_contract: true
+    action: EDIT_SUBTITLE_SYNC
+    operations: [import_subtitle, create_subtitle_segment, update_subtitle_text, split_subtitle, merge_subtitles, update_subtitle_range, set_subtitle_language, set_subtitle_format, api_sync]
+    endpoint_resolution: API_MASTER_REGISTRY_OR_INTERNAL_EDITING_SERVICE
+    permission: EDITING_EDIT|EDITING_API_EXECUTE
+    database_binding: SubtitleTrack|SubtitleSegment
+
+  qa_recheck:
+    action: EDIT_QA_RECHECK
+    operations: [selected_issue, full_timeline]
+    endpoint_resolution: INTERNAL_QA_SERVICE
+    permission: EDITING_QA
+    database_binding: Timeline|EditVersion|QA_EVIDENCE_TRACE
+
+  version_save:
+    action: EDIT_VERSION_SAVE
+    operations: [save_new_version, restore_as_new_draft]
+    endpoint_resolution: INTERNAL_EDITING_VERSION_SERVICE
+    permission: EDITING_EDIT
+    database_binding: EditWorkingDraft|EditVersion
+
+  output_render:
+    action: EDIT_OUTPUT_RENDER
+    operations: [set_render_settings, render, export_download, handoff]
+    endpoint_resolution: INTERNAL_RENDER_SERVICE_OR_CONFIGURED_RENDER_ADAPTER
+    permission: EDITING_RENDER|EDITING_HANDOFF
+    database_binding: EditVersion|RenderJob|OutputReference
+
+cross_service_api_bindings:
+  voice_generate: VOICE_GENERATE
+  voice_asset_bind: VOICE_ASSET_BIND
+  voice_audio_mix_lipsync: VOICE_SYNC_EXECUTE
+  asset_version_reference: ASSET_CREATE_VERSION|ASSET_REFERENCE_BIND
+  video_regeneration_when_required: VIDEO_EXISTING_GENERATION_ACTION
+
 rules:
-  invent_new_endpoint: forbidden
-  timeline_controls_bind_timeline_update_only: true
-  zoom_state_is_frontend_only: true
-  video_regeneration_routes_to_VIDEO: true
-  voice_lipsync_audio_routes_to_VOICE: true
-fields:
-  - endpoint
-  - method
-  - request
-  - response
-  - error_mapping
+  single_active_frontend_page: EDIT-01
+  endpoint_must_not_be_hardcoded_to_single_provider: true
+  standalone_upload_project_id_nullable: true
+  standalone_upload_task_id_null: true
+  project_mode_context_must_validate_permission: true
+  frontend_view_state_has_no_api_binding: true
+  saved_version_overwrite: forbidden
 status: contract_defined
-external_e2e: pending
+external_provider_e2e: pending
