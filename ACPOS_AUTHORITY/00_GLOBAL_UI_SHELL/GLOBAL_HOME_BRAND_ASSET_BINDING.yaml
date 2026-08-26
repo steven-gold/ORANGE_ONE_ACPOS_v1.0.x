@@ -1,0 +1,28 @@
+authority: ACPOS_GLOBAL_HOME_BRAND_ASSET_BINDING
+version: V1.0
+status: AUTHORITY_ACTIVE
+purpose: Prevent AI or page renderers from redrawing or changing the approved ORANGE ONE logo ratio.
+
+brand:
+  brand_name: ORANGE ONE
+  control_id: BRAND_LOGO
+  asset_id: ORANGE_ONE_PRIMARY_LOGO
+  asset_policy:
+    use_existing_canonical_asset_only: true
+    preserve_original_aspect_ratio: true
+    redraw_forbidden: true
+    recolor_forbidden_unless_brand_authority_allows: true
+    crop_forbidden: true
+    stretch_forbidden: true
+
+render_contract:
+  source_type: canonical_brand_asset
+  fallback_generation: forbidden
+  missing_asset_behavior: BLOCK_BRAND_RENDER
+  alt_text_i18n_key: brand.orange_one
+
+validation:
+  canonical_binary_asset_required_for_pixel_exact_render: true
+  generated_logo: reject
+  altered_aspect_ratio: reject
+  unknown_logo_asset: reject
