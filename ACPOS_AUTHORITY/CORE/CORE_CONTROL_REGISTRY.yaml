@@ -1,0 +1,26 @@
+version: CORE-AUTHORITY-V1
+controls:
+  - id: CORE-CTRL-CONVERSATION-INPUT
+    component: CORE-COMP-CONVERSATION
+    type: TEXT_INPUT
+    purpose: AI discussion and script revision
+
+  - id: CORE-CTRL-GENERATE-BLUEPRINT
+    component: CORE-COMP-BLUEPRINT
+    type: BUTTON
+    action: CORE-ACT-GENERATE-BLUEPRINT
+
+  - id: CORE-CTRL-LOCK-BLUEPRINT
+    component: CORE-COMP-BLUEPRINT
+    type: BUTTON
+    action: CORE-ACT-LOCK-BLUEPRINT
+
+  - id: CORE-CTRL-GENERATE-SCRIPT
+    component: CORE-COMP-SCRIPT
+    type: BUTTON
+    action: CORE-ACT-GENERATE-SCRIPT
+
+  - id: CORE-CTRL-CONFIRM-PRODUCTION
+    component: CORE-COMP-SCRIPT
+    type: BUTTON
+    action: CORE-ACT-CONFIRM-PRODUCTION
