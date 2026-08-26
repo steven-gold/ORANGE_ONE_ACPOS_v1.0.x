@@ -1,0 +1,32 @@
+authority: ACPOS_GLOBAL_HOME_COMPONENT
+version: V1.0
+
+components:
+  - id: GLOBAL_HEADER_001
+    type: HEADER
+    fixed: true
+    controls:
+      - BRAND_LOGO
+      - PROJECT_CONTEXT
+      - TOP_STATUS
+      - USER_CONTROL
+
+  - id: GLOBAL_SIDEBAR_001
+    type: NAVIGATION_PANEL
+    fixed: true
+    controls:
+      - MENU_ITEM
+      - ACTIVE_STATE
+      - COLLAPSE_BUTTON
+
+  - id: GLOBAL_WORKSPACE_001
+    type: WORKSPACE_CONTAINER
+    fixed: true
+    controls:
+      - CONTENT_SLOT
+
+rules:
+  brand_logo:
+    preserve_ratio: true
+  department_pages:
+    replace_content_only: true
