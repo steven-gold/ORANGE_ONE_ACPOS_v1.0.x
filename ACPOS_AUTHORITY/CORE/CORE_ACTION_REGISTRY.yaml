@@ -1,21 +1,93 @@
-version: CORE-AUTHORITY-V1
+version: CORE-AUTHORITY-V2
+status: AUTHORITY_ACTIVE
 actions:
   - id: CORE-ACT-CREATE-PROJECT
     purpose: create_project_context
+    trigger: user_confirm_create_project
+    output: project_id
+
+  - id: CORE-ACT-SELECT-PROJECT
+    purpose: switch_active_project_context
+    trigger: project_selector_change
+    input: project_id
+    output: project_context_loaded
 
   - id: CORE-ACT-CREATE-TOPIC
     purpose: create_topic_context
+    trigger: user_confirm_create_topic
+    input: project_id
+    output: topic_id
+
+  - id: CORE-ACT-SELECT-TOPIC
+    purpose: switch_active_topic_context
+    trigger: topic_selector_change
+    input: [project_id, topic_id]
+    output: topic_context_loaded
+
+  - id: CORE-ACT-OPEN-WORK-ITEM
+    purpose: open_work_item_and_its_conversation_thread
+    trigger: work_item_select
+    input: [project_id, topic_id, work_item_id]
+    output: conversation_thread_id
+
+  - id: CORE-ACT-CREATE-CONVERSATION-THREAD
+    purpose: create_new_thread_inside_current_work_item
+    trigger: new_thread_control
+    input: [project_id, topic_id, work_item_id]
+    output: conversation_thread_id
+
+  - id: CORE-ACT-CONFIRM-DNA
+    purpose: confirm_and_lock_dna
+    trigger: human_confirmation
+    input: dna_version
+    output: dna_locked
+    next: CORE-ACT-GENERATE-BLUEPRINT
 
   - id: CORE-ACT-GENERATE-BLUEPRINT
-    purpose: generate_blueprint
+    purpose: generate_blueprint_from_locked_core_context
+    trigger: user_or_ai_workflow
+    precondition:
+      - dna_locked_or_not_applicable
+    output: blueprint_version
 
   - id: CORE-ACT-LOCK-BLUEPRINT
     purpose: lock_blueprint
-    next: dna_definition
+    trigger: human_confirmation
+    input: blueprint_version
+    output: blueprint_locked
+    next: CORE-ACT-GENERATE-SCRIPT
 
   - id: CORE-ACT-GENERATE-SCRIPT
-    purpose: generate_internal_script
+    purpose: generate_internal_chinese_production_script
+    trigger: blueprint_locked
+    input: [project_context, topic_context, blueprint_version]
+    output: script_version
 
-  - id: CORE-ACT-CONFIRM-PRODUCTION
-    purpose: create_production_task_after_confirmation
+  - id: CORE-ACT-CONFIRM-SCRIPT
+    purpose: confirm_script_version
+    trigger: human_confirmation
+    input: script_version
+    output: script_confirmed
+
+  - id: CORE-ACT-CONFIRM-CORE
+    purpose: lock_completed_project_or_topic_core_scope
+    trigger: human_confirmation
+    precondition:
+      - required_work_items_locked
+      - script_confirmed_when_topic_requires_script
+    output: core_scope_locked
+
+  - id: CORE-ACT-CREATE-PRODUCTION-TASK
+    purpose: create_downstream_production_task_after_core_lock
+    trigger: core_scope_locked
+    precondition:
+      - project_locked
+      - topic_locked
+      - downstream_script_ready
+    output: production_task_id
     handoff: ASSET
+
+forbidden:
+  - blueprint_lock_next_dna_definition
+  - production_task_as_conversation_context
+  - unregistered_action
