@@ -1,30 +1,47 @@
-version: CORE-AUTHORITY-V1
+version: CORE-AUTHORITY-V2
+status: AUTHORITY_ACTIVE
 components:
-  - id: CORE-COMP-CONVERSATION
-    type: AI_CONVERSATION_WORKSPACE
-    purpose: story_design_blueprint_script_discussion
+  - id: CORE-COMP-PAGE-CONTEXT
+    type: PAGE_CONTEXT_SELECTOR_BAR
+    purpose: select_or_create_project_and_topic_context
     binding:
       project: required
       topic: required
-    notes:
-      task_binding_removed: true
-      reason: Production Task is created only after CORE confirmation
+      production_task: forbidden
 
-  - id: CORE-COMP-PROJECT-CONTEXT
-    type: PROJECT_CONTEXT_PANEL
-    purpose: active_project_information
+  - id: CORE-COMP-WORK-ITEM-NAV
+    type: WORK_ITEM_CONVERSATION_NAVIGATION
+    purpose: navigate_core_work_items_and_their_conversation_threads
+    binding:
+      project_id: required
+      topic_id: required
+      work_item_id: required_for_selection
+      conversation_thread_id: required_for_open_item
+    rules:
+      - work_item_is_not_production_task
+      - each_work_item_has_independent_conversation_history
+      - switching_item_switches_conversation_thread
 
-  - id: CORE-COMP-TOPIC-CONTEXT
-    type: TOPIC_CONTEXT_PANEL
-    purpose: active_topic_information
+  - id: CORE-COMP-CONVERSATION
+    type: AI_CONVERSATION_WORKSPACE
+    purpose: story_dna_blueprint_script_discussion_and_revision
+    binding:
+      project: required
+      topic: required
+      work_item: required
+      conversation_thread: required
+      production_task: forbidden
+    rules:
+      - primary_workspace
+      - history_isolated_by_work_item
+
+  - id: CORE-COMP-DNA
+    type: DNA_PANEL
+    purpose: character_object_scene_consistency_and_lock
 
   - id: CORE-COMP-BLUEPRINT
     type: BLUEPRINT_PANEL
     purpose: blueprint_definition_and_lock
-
-  - id: CORE-COMP-DNA
-    type: DNA_PANEL
-    purpose: character_object_scene_consistency
 
   - id: CORE-COMP-SCRIPT
     type: SCRIPT_PANEL
@@ -33,8 +50,17 @@ components:
 
   - id: CORE-COMP-VERSION
     type: VERSION_PANEL
-    purpose: version_tracking
+    purpose: version_tracking_and_compare
 
   - id: CORE-COMP-DECISION
     type: DECISION_PANEL
-    purpose: confirmation_and_handoff_decision
+    purpose: human_decision_confirmation_and_lock
+
+rules:
+  component_order_right_rail:
+    - CORE-COMP-DNA
+    - CORE-COMP-BLUEPRINT
+    - CORE-COMP-SCRIPT
+    - CORE-COMP-VERSION
+    - CORE-COMP-DECISION
+  unknown_component: reject_render
