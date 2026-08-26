@@ -1,0 +1,62 @@
+authority: ACPOS_GLOBAL_HOME_UI_RENDER_BINDING
+version: V1.0
+status: AUTHORITY_ACTIVE
+purpose: 1_to_1_global_shell_render_binding
+
+binding:
+  HOME-001:
+    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    sections:
+      GLOBAL-SEC-HEADER:
+        component_id: GLOBAL_HEADER_001
+        position:
+          x: 0
+          y: 0
+          width: "100%"
+          height: "72px"
+        controls:
+          - BRAND_LOGO
+          - PAGE_CONTEXT_SLOT
+          - TOP_STATUS
+          - USER_CONTROL
+      GLOBAL-SEC-SIDEBAR:
+        component_id: GLOBAL_SIDEBAR_001
+        position:
+          x: 0
+          y: "72px"
+          width_expanded: "240px"
+          width_collapsed: "72px"
+          height: "calc(100%-72px)"
+        controls:
+          - MENU_ITEM
+          - ACTIVE_STATE
+          - COLLAPSE_BUTTON
+      GLOBAL-SEC-WORKSPACE:
+        component_id: GLOBAL_WORKSPACE_001
+        position:
+          x: "sidebar_width + 20px"
+          y: "72px + 20px"
+          right: "20px"
+          bottom: "20px"
+        style:
+          padding: "32px"
+          radius: "24px"
+        controls:
+          - CONTENT_SLOT
+
+render_requirements:
+  - Page
+  - Section
+  - Component
+  - Control
+  - Action
+  - State
+  - Position
+  - VisualSource
+
+rules:
+  unknown_element: reject_render
+  unknown_control: reject_render
+  unknown_state: reject_render
+  page_content_must_use_CONTENT_SLOT: true
+  page_cannot_change_global_geometry: true
