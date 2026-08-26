@@ -1,0 +1,74 @@
+version: CORE-FINAL-AUTHORITY-PRIORITY-V1
+purpose: Define final authority priority for CORE rendering and prevent conflicting definitions.
+
+priority_order:
+  - level: 1
+    source: GLOBAL_UI_SHELL
+    responsibility:
+      - Header
+      - Sidebar
+      - Brand
+      - Global Visual Rules
+
+  - level: 2
+    source: CORE_PAGE_REGISTRY
+    responsibility:
+      - Page Identity
+      - Page Purpose
+      - Page Scope
+
+  - level: 3
+    source: CORE_SCREEN_LAYOUT
+    responsibility:
+      - Region Layout
+      - Component Position
+      - Size Relationship
+
+  - level: 4
+    source: CORE_COMPONENT_REGISTRY
+    responsibility:
+      - Component Definition
+      - Component Binding
+
+  - level: 5
+    source: CORE_CONTROL_REGISTRY
+    responsibility:
+      - Control Definition
+      - Action Binding
+
+  - level: 6
+    source: CORE_STATE_REGISTRY
+    responsibility:
+      - State Machine
+      - Visibility Conditions
+
+  - level: 7
+    source: CORE_UI_RENDER_BINDING
+    responsibility:
+      - Final Render Mapping
+      - UI Element Source Trace
+
+conversation_architecture:
+  project_binding: required
+  topic_binding: required
+  production_task_binding: forbidden
+
+production_flow:
+  - Project
+  - Topic
+  - Conversation
+  - Story
+  - DNA
+  - Blueprint
+  - Script
+  - Version
+  - Decision
+  - Production_Task
+
+render_rule:
+  unknown_component: reject
+  unknown_control: reject
+  unknown_state: reject
+  unbound_visual_element: reject
+
+status: authority_required
