@@ -1,0 +1,86 @@
+page:
+  uid: L1-02
+  name: AI Workspace
+  purpose: Shared AI collaboration and production workspace surface
+  template: AI_WORKSPACE
+  version: v2.1.0
+  role: surface_authority_not_unit_specific_page_contract
+
+visual_layout:
+  shell_template: GLOBAL-SHELL-001
+  shell_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_PAGE_REGISTRY.yaml
+  visual_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
+  header:
+    inherited_from_global_shell: true
+  sidebar:
+    inherited_from_global_shell: true
+    navigation_source: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL/GLOBAL_HOME_NAVIGATION_REGISTRY.yaml
+    page_specific_project_topic_task_tree_inside_global_sidebar: forbidden
+  main_workspace:
+    priority: highest
+    page_specific_layout_authority_required: true
+    shared_ai_interface_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+  right_panel:
+    global_required: false
+    ownership: page_specific_authority
+
+shared_ai_interface_requirements:
+  conversation_modes:
+    - SINGLE_AI
+    - MULTI_AI
+  assistant_present_in_both_modes: true
+  runtime_status_near_active_response: true
+  score_after_summary_before_human_decision: true
+  human_decision_before_assistant_structured_final_draft: true
+  input_at_parser: required
+  reply_interaction: right_click_context_menu_only
+  provider_display_in_chat: provider_brand_only
+
+page_context_boundary:
+  rule: project_topic_task_or_other_context_is_defined_by_consumer_page_authority
+  global_ai_workspace_surface_must_not_force_context_fields: true
+  examples:
+    CORE:
+      page_authority: ACPOS_AUTHORITY/CORE/CORE_PAGE_REGISTRY.yaml
+      context: [Project, Topic, Work_Item]
+      production_task_context: forbidden
+    downstream_units:
+      context: resolve_from_unit_page_authority
+
+sections:
+  - id: SHARED_AI_MODE
+    source: AICORE-COMP-MODE-SELECTOR
+  - id: SHARED_AI_MESSAGE_WORKSPACE
+    source: AICORE-COMP-MESSAGE-WORKSPACE
+  - id: SHARED_AI_RUNTIME_STATUS
+    source: AICORE-COMP-RUNTIME-STATUS
+  - id: SHARED_AI_ASSISTANT_RECORD
+    source: AICORE-COMP-ASSISTANT-RECORD
+  - id: SHARED_AI_SCORE_DECISION
+    source:
+      - AICORE-COMP-SCORE-PANEL
+      - AICORE-COMP-DECISION-PANEL
+  - id: SHARED_AI_INPUT
+    source: AICORE-COMP-INPUT-COMPOSER
+
+bindings:
+  ai_core_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CORE_AUTHORITY_REGISTRY.yaml
+  ai_conversation_interface_source: docs/authority/ACPOS_AI_SYSTEM_CONSTRUCTION_MASTER/AI_CORE/AI_CONVERSATION_INTERFACE_AUTHORITY.yaml
+  consumer_page_extension: required
+  action_flow:
+    - UI
+    - Action
+    - API
+    - Database
+    - Runtime
+    - QA
+
+restrictions:
+  - no_standard_chat_layout
+  - no_top_secondary_navigation
+  - no_global_forced_right_panel
+  - no_global_forced_task_tree
+  - no_hardcoded_unit_specific_quick_actions
+  - no_new_undefined_features
+  - no_legacy_sidebar_280px
+  - assistant_as_third_mode_forbidden
