@@ -1,0 +1,325 @@
+authority:
+  id: GLOBAL_HEADER_MENU_VISUAL_AUTHORITY
+  version: V1.0
+  status: CURRENT_ONLY
+  scope: HEADER_AND_LEFT_NAVIGATION_VISUAL_ONLY
+  purpose: Define the single current visual authority for the ACPOS top header and left navigation menu.
+
+source_boundary:
+  visual_generation_root: ACPOS_AUTHORITY/00_GLOBAL_UI_SHELL
+  this_file_is_the_only_authority_in_this_folder: true
+  read_external_legacy_ui_design: forbidden
+  merge_old_global_shell_versions: forbidden
+  define_page_body_business_content: forbidden
+  define_backend_api_database_runtime: forbidden
+
+reference_render_state:
+  surface: HOME_SHELL_REFERENCE
+  page_label:
+    zh-TW: 儀表板
+    zh-CN: 仪表板
+    en: Dashboard
+  active_navigation_id: NAV-01
+  body_content: BLANK_PAGE_CONTENT_SLOT
+
+canvas:
+  desktop_first: true
+  reference_ratio: "16:9"
+  reference_resolution: "1600x900"
+  background: "#050816"
+  font_family: "system sans-serif"
+  visual_style:
+    - dark purple technology
+    - professional enterprise UI
+    - clean hierarchy
+    - compact high-efficiency navigation
+    - soft neon purple glow only on interactive emphasis
+
+color_tokens:
+  background_base: "#050816"
+  deep_navy: "#070B1D"
+  panel_base: "#0C1026"
+  panel_overlay: "#111936"
+  primary_purple: "#8B5CFF"
+  secondary_purple: "#6E35FF"
+  highlight_violet: "#B38CFF"
+  accent_blue_purple: "#4D6BFF"
+  text_primary: "#F3F5FF"
+  text_secondary: "#AEB7D9"
+  text_muted: "#7F88A8"
+  border_subtle: "rgba(142,112,255,0.28)"
+  hover_surface: "rgba(139,92,255,0.18)"
+  active_surface: "rgba(139,92,255,0.28)"
+  success: "#50D890"
+  warning: "#F3B84B"
+  error: "#FF6B7A"
+
+header:
+  id: GLOBAL-HEADER
+  position: fixed_top
+  x: 0
+  y: 0
+  width: "100%"
+  height: "72px"
+  padding_horizontal: "24px"
+  background: "#070B1D"
+  bottom_border: "1px solid rgba(142,112,255,0.22)"
+  z_index: highest
+  layout: horizontal
+  vertical_align: center
+
+  zones:
+    brand:
+      position: left
+      width: "240px"
+      content:
+        brand_name: ORANGE ONE
+        product_name: ACPOS
+      brand_text_style:
+        size: "18px"
+        weight: 700
+        letter_spacing: "0.4px"
+        color: "#F3F5FF"
+      product_text_style:
+        size: "11px"
+        weight: 500
+        color: "#7F88A8"
+      logo_rule:
+        canonical_graphic_asset_only: true
+        preserve_original_ratio: true
+        redraw_forbidden: true
+        generated_symbol_forbidden: true
+        missing_graphic_asset_behavior: show_brand_text_only
+
+    page_identity:
+      position: center_left
+      flex: 1
+      content_rule:
+        home_reference: Dashboard
+        other_pages: page_specific_title_or_context_only
+      title_style:
+        size: "18px"
+        weight: 600
+        color: "#F3F5FF"
+      secondary_text_style:
+        size: "12px"
+        color: "#AEB7D9"
+      forbidden:
+        - force_Project_Topic_Task_on_every_page
+        - invent_page_context
+
+    utilities:
+      position: right
+      layout: horizontal
+      gap: "12px"
+      controls:
+        search:
+          id: HEADER-SEARCH
+          width: "240px"
+          height: "40px"
+          radius: "12px"
+          background: "#0C1026"
+          border: "1px solid rgba(142,112,255,0.24)"
+          icon_size: "18px"
+          placeholder:
+            zh-TW: 搜尋
+            zh-CN: 搜索
+            en: Search
+          states: [DEFAULT, FOCUSED, DISABLED]
+        system_status:
+          id: HEADER-SYSTEM-STATUS
+          height: "40px"
+          padding_horizontal: "14px"
+          radius: "12px"
+          background: "#0C1026"
+          indicator_size: "8px"
+          label:
+            zh-TW: 系統正常
+            zh-CN: 系统正常
+            en: System Normal
+          state_color:
+            normal: "#50D890"
+            warning: "#F3B84B"
+            error: "#FF6B7A"
+        notification:
+          id: HEADER-NOTIFICATION
+          size: "40px"
+          radius: "12px"
+          icon_size: "20px"
+          background: transparent
+          states: [DEFAULT, HOVER, ACTIVE]
+          badge_allowed: true
+          badge_value_source: dynamic_only
+          fixed_fake_badge_value: forbidden
+        user:
+          id: HEADER-USER
+          size: "40px"
+          radius: "50%"
+          icon_size: "20px"
+          display_rule: generic_user_icon_or_real_authorized_avatar
+          generated_person_portrait: forbidden
+          generated_person_name: forbidden
+          states: [DEFAULT, HOVER, ACTIVE]
+
+sidebar:
+  id: GLOBAL-SIDEBAR
+  position: fixed_left
+  x: 0
+  y: "72px"
+  height: "calc(100% - 72px)"
+  width_expanded: "240px"
+  width_collapsed: "72px"
+  background: "#070B1D"
+  right_border: "1px solid rgba(142,112,255,0.22)"
+  padding_top: "16px"
+  padding_horizontal_expanded: "12px"
+  padding_horizontal_collapsed: "10px"
+  layout: vertical
+  overflow_y: auto
+
+  menu_geometry:
+    item_height: "52px"
+    item_gap: "4px"
+    item_radius: "12px"
+    icon_size: "20px"
+    label_size: "16px"
+    label_weight: 500
+    icon_label_gap: "12px"
+    expanded_alignment: left
+    collapsed_alignment: center
+
+  menu_items:
+    - id: NAV-01
+      icon_semantic: dashboard
+      labels:
+        zh-TW: 儀表板
+        zh-CN: 仪表板
+        en: Dashboard
+    - id: NAV-02
+      icon_semantic: ai_workspace
+      labels:
+        zh-TW: AI 工作區
+        zh-CN: AI 工作区
+        en: AI Workspace
+    - id: NAV-03
+      icon_semantic: project_topic_task
+      labels:
+        zh-TW: 專案 / 專題 / 任務管理
+        zh-CN: 项目 / 专题 / 任务管理
+        en: Project / Topic / Task Management
+    - id: NAV-04
+      icon_semantic: asset_library
+      labels:
+        zh-TW: 素材庫
+        zh-CN: 素材库
+        en: Asset Library
+    - id: NAV-05
+      icon_semantic: video_production
+      labels:
+        zh-TW: 影片製作
+        zh-CN: 视频制作
+        en: Video Production
+    - id: NAV-06
+      icon_semantic: editing
+      labels:
+        zh-TW: 剪輯
+        zh-CN: 剪辑
+        en: Editing
+    - id: NAV-07
+      icon_semantic: voice
+      labels:
+        zh-TW: 配音
+        zh-CN: 配音
+        en: Voice
+    - id: NAV-08
+      icon_semantic: qa
+      labels:
+        zh-TW: QA 審核
+        zh-CN: QA 审核
+        en: QA
+    - id: NAV-09
+      icon_semantic: admin
+      labels:
+        zh-TW: 系統管理
+        zh-CN: 系统管理
+        en: Admin
+
+  item_states:
+    default:
+      background: transparent
+      icon_color: "#AEB7D9"
+      label_color: "#AEB7D9"
+    hover:
+      background: "rgba(139,92,255,0.18)"
+      icon_color: "#F3F5FF"
+      label_color: "#F3F5FF"
+    active:
+      background: "linear-gradient(90deg, rgba(110,53,255,0.42), rgba(139,92,255,0.22))"
+      border: "1px solid rgba(179,140,255,0.42)"
+      glow: "0 0 18px rgba(139,92,255,0.20)"
+      icon_color: "#B38CFF"
+      label_color: "#F3F5FF"
+      label_weight: 600
+    disabled:
+      opacity: 0.42
+
+  collapse_control:
+    id: SIDEBAR-COLLAPSE
+    position: bottom_or_edge
+    size: "36px"
+    icon_size: "18px"
+    radius: "10px"
+    behavior:
+      expanded_to_collapsed: true
+      collapsed_to_expanded: true
+      collapsed_hides_labels: true
+      collapsed_keeps_icons: true
+
+  forbidden_content:
+    - subscription_card
+    - storage_usage_card
+    - fake_system_load_card
+    - account_expiry_card
+    - page_specific_work_item_tree
+    - page_specific_business_panel
+    - duplicate_navigation_group
+    - unapproved_extra_menu_item
+
+main_content_boundary:
+  starts_below_header: true
+  starts_right_of_sidebar: true
+  margin: "20px"
+  body_visual_design_defined_here: false
+  reference_render_behavior: show_empty_dark_panel_only
+  rule: This authority defines only Header and Sidebar; page bodies are defined by their own current authority files.
+
+interaction_rules:
+  hover_transition: "120ms ease"
+  active_transition: "160ms ease"
+  sidebar_collapse_transition: "180ms ease"
+  active_item_follows_current_page: true
+  only_one_primary_menu_item_active: true
+  no_orange_active_navigation: true
+
+render_rules:
+  read_only_this_file_for_global_header_and_menu: true
+  do_not_read_old_global_shell_files: true
+  do_not_read_external_legacy_page_design_for_header_or_menu: true
+  do_not_generate_extra_header_button: true
+  do_not_generate_extra_sidebar_item: true
+  do_not_generate_fake_user_name: true
+  do_not_generate_fake_avatar_person: true
+  do_not_generate_fake_runtime_numbers: true
+  do_not_generate_logo_symbol_when_asset_missing: true
+  preserve_header_72px: true
+  preserve_sidebar_240px_72px: true
+  preserve_menu_item_52px: true
+  preserve_icon_20px: true
+  preserve_label_16px: true
+
+current_only_rule:
+  legacy_version_section: forbidden
+  replacement_mapping_section: forbidden
+  audit_history_section: forbidden
+  old_value_section: forbidden
+  this_file_contains_only_current_visual_design: true
