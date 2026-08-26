@@ -1,0 +1,31 @@
+version: CORE-UI-RENDER-BINDING-V1
+purpose: 1_to_1_authority_render_mapping
+rules:
+  source_required: true
+  unknown_component: reject_render
+  unknown_control: reject_render
+  unknown_state: reject_render
+
+mapping:
+  CORE-01:
+    shell: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE
+    regions:
+      left:
+        - PROJECT_CONTEXT
+        - TOPIC_CONTEXT
+      center:
+        - AI_CONVERSATION_WORKSPACE
+      right:
+        - BLUEPRINT_PANEL
+        - DNA_PANEL
+        - SCRIPT_PANEL
+        - VERSION_PANEL
+        - DECISION_PANEL
+
+binding_flow:
+  Page: required
+  Section: required
+  Component: required
+  Control: required
+  State: required
+  Position: required
