@@ -1,0 +1,58 @@
+authority: ACPOS_GLOBAL_HOME_STATE_TRANSITION
+version: V1.0
+status: AUTHORITY_ACTIVE
+
+transitions:
+  PAGE_CONTEXT_SLOT:
+    - from: EMPTY
+      event: PAGE_CONTEXT_LOAD_START
+      to: LOADING
+    - from: LOADING
+      event: PAGE_CONTEXT_LOAD_SUCCESS
+      to: READY
+    - from: LOADING
+      event: PAGE_CONTEXT_LOAD_FAILURE
+      to: ERROR
+    - from: ERROR
+      event: PAGE_CONTEXT_RETRY
+      to: LOADING
+
+  SIDEBAR:
+    - from: EXPANDED
+      event: GLOBAL_NAV_COLLAPSE
+      to: COLLAPSED
+    - from: COLLAPSED
+      event: GLOBAL_NAV_COLLAPSE
+      to: EXPANDED
+
+  MENU_ITEM:
+    - from: DEFAULT
+      event: POINTER_ENTER
+      to: HOVER
+    - from: HOVER
+      event: POINTER_LEAVE
+      to: DEFAULT
+    - from: DEFAULT
+      event: ROUTE_MATCH
+      to: ACTIVE
+    - from: HOVER
+      event: ROUTE_MATCH
+      to: ACTIVE
+
+  WORKSPACE:
+    - from: EMPTY
+      event: PAGE_RENDER_START
+      to: LOADING
+    - from: LOADING
+      event: PAGE_RENDER_SUCCESS
+      to: READY
+    - from: LOADING
+      event: PAGE_RENDER_FAILURE
+      to: ERROR
+    - from: ERROR
+      event: PAGE_RENDER_RETRY
+      to: LOADING
+
+rules:
+  - transition_must_reference_registered_state
+  - unknown_transition_rejected
