@@ -1,8 +1,25 @@
 registry: PAGE
-source: R9_FINAL
+version: R9_FRONTEND_PAGE_DELEGATION_V1
+status: AUTHORITY_DELEGATED
+purpose: Frontend page registry delegates active page identity to the master Page UID authority and must not create a parallel page list.
+
+master_source:
+  page_uid_registry: 00_MASTER/PAGE_UID_MASTER_REGISTRY.yaml
+  navigation_authority: 00_MASTER/UI_AUTHORITY/NAVIGATION_AUTHORITY.yaml
+
 rules:
   - every_page_requires_uid
   - every_page_requires_permission
   - every_page_requires_action_binding
-pages: []
-status: initialized
+  - active_page_identity_must_come_from_master_source
+  - local_parallel_page_definition_forbidden
+  - legacy_replaced_page_must_not_render
+
+local_pages:
+  policy: no_parallel_registry
+  items: []
+
+validation:
+  missing_master_page_uid: BLOCK_FRONTEND_CONSTRUCTION
+  duplicate_active_page_identity: REJECT
+  legacy_replaced_page_active_render: REJECT
