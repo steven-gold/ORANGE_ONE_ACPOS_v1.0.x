@@ -1,18 +1,36 @@
 batch: 004
 module: EDITING
+source: R9_FINAL
 entities:
   Timeline:
     columns:
       - id
       - project_id
       - version
+    correction_timeline_binding:
+      identity_field: id
+      request_binding: timeline_id
+      playback_position_frame: runtime_operation_state
+      correction_start_frame: runtime_operation_state
+      correction_end_frame: runtime_operation_state
+      qa_evidence_reference: existing_QA_evidence_trace_only
+      schema_expansion_required: false
   Layer:
     columns:
       - id
       - timeline_id
       - order
+    timeline_context_use: existing_track_context_only
   SubtitleTrack:
     columns:
       - id
       - timeline_id
       - language
+    timeline_context_use: existing_subtitle_context_only
+rules:
+  create_CorrectionRange_entity: forbidden
+  create_QAMarker_entity_inside_EDITING: forbidden
+  create_parallel_timeline_table: forbidden
+  zoom_state_database_persistence: forbidden
+  use_existing_timeline_layer_subtitle_entities_only: true
+migration_required_for_this_change: false
