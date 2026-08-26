@@ -1,32 +1,57 @@
-version: CORE-AUTHORITY-V1
+version: CORE-AUTHORITY-V2
+status: AUTHORITY_ACTIVE
 binding_rules:
-  conversation:
+  page_context:
     required:
       - project_id
       - topic_id
     forbidden:
       - production_task_id
 
+  work_item_navigation:
+    required:
+      - project_id
+      - topic_id
+      - work_item_id
+      - conversation_thread_id
+    source: CORE_WORK_ITEM_CONVERSATION_REGISTRY
+
+  conversation:
+    required:
+      - project_id
+      - topic_id
+      - work_item_id
+      - conversation_thread_id
+    optional:
+      - version_id
+      - selected_reference_ids
+    forbidden:
+      - production_task_id
+
   production_task:
     owner: PRODUCTION_FLOW
-    created_by: CORE_CONFIRMATION
+    created_by: CORE-ACT-CREATE-PRODUCTION-TASK
     trigger:
-      - blueprint_locked
-      - dna_locked
-      - script_confirmed
-      - version_created
+      - project_locked
+      - topic_locked
+      - downstream_script_ready
+    not_a_core_context_binding: true
 
   handoff:
     source: CORE
     target: ASSET
     payload:
-      - project
-      - topic
-      - script
+      - project_id
+      - topic_id
+      - production_task_id
+      - script_reference
       - blueprint_reference
       - dna_reference
       - version_reference
 
 validation:
   reject:
-    - CORE_UI_SHOWS_TASK_BEFORE_PRODUCTION_TASK_CREATED
+    - PRODUCTION_TASK_USED_AS_CORE_CONVERSATION_CONTEXT
+    - WORK_ITEM_WITHOUT_THREAD_BINDING
+    - CROSS_WORK_ITEM_HISTORY_MIX
+    - HANDOFF_BEFORE_PROJECT_TOPIC_LOCK
