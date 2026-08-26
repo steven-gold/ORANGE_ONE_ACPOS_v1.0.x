@@ -1,5 +1,5 @@
 authority: ACPOS_GLOBAL_HOME_AUTHORITY_PRIORITY
-version: V1.0
+version: V1.1
 status: AUTHORITY_ACTIVE
 
 priority_order:
@@ -7,30 +7,39 @@ priority_order:
     source: 00_MASTER/ACPOS_AI_SEQUENCED_SINGLE_AUTHORITY_CONSTRUCTION_PACKAGE/ACPOS_SINGLE_AUTHORITY_CONSTRUCTION_MASTER_AI_SEQUENCED_FINAL.yaml
     responsibility: construction_single_source
   - level: 2
+    source: 00_MASTER/UI_AUTHORITY/UI_DESIGN_AUTHORITY.yaml
+    responsibility: global_ui_design_baseline_and_delegation
+  - level: 3
     source: ACPOS_GLOBAL_UI_SHELL_AUTHORITY_V1.md
     responsibility: global_shell_structure
-  - level: 3
+  - level: 4
     source: ACPOS_GLOBAL_UI_SHELL_VISUAL_AUTHORITY_PURPLE_FREEZE.md
     responsibility: global_visual_geometry
-  - level: 4
-    source: GLOBAL_HOME_PAGE_REGISTRY.yaml
-    responsibility: page_section_contract
   - level: 5
+    source: GLOBAL_HOME_PAGE_CONTRACT.yaml
+    responsibility: page_contract_validation
+  - level: 6
+    source: GLOBAL_HOME_PAGE_REGISTRY.yaml
+    responsibility: page_section_registry
+  - level: 7
     source: GLOBAL_HOME_COMPONENT_REGISTRY.yaml
     responsibility: component_contract
-  - level: 6
+  - level: 8
     source: GLOBAL_HOME_CONTROL_REGISTRY.yaml
     responsibility: control_contract
-  - level: 7
+  - level: 9
     source: GLOBAL_HOME_CONTROL_ACTION_REGISTRY.yaml
     responsibility: action_contract
-  - level: 8
+  - level: 10
     source: GLOBAL_HOME_STATE_REGISTRY.yaml
     responsibility: state_contract
-  - level: 9
+  - level: 11
+    source: GLOBAL_HOME_STATE_TRANSITION.yaml
+    responsibility: state_transition_contract
+  - level: 12
     source: GLOBAL_HOME_VISUAL_MAPPING.yaml
     responsibility: visual_source_trace
-  - level: 10
+  - level: 13
     source: GLOBAL_HOME_UI_RENDER_BINDING.yaml
     responsibility: final_render_mapping
 
@@ -39,11 +48,28 @@ conflict_resolution:
   legacy_HOME_PAGE_REGISTRY: forbidden
   legacy_HOME_COMPONENT_REGISTRY: forbidden
   unknown_parallel_navigation: reject
+  old_r9_visual_values:
+    electric_blue_global_primary: superseded_by_purple_visual_authority
+    sidebar_expanded_280px: superseded_by_global_shell_240px
+    fixed_global_right_panel: superseded_by_page_specific_authority
   page_specific_context:
     owner: page_specific_authority
     global_shell_may_not_invent_context: true
+
+validation_order:
+  - master_authority
+  - page_contract
+  - page_registry
+  - components
+  - controls
+  - actions
+  - states
+  - transitions
+  - visual_mapping
+  - render_binding
 
 rules:
   - log_conflict
   - reject_unknown_override
   - never_merge_parallel_authorities
+  - page_contract_validation_precedes_ui_render
