@@ -1,0 +1,292 @@
+authority:
+  id: AI_CONVERSATION_INTERFACE_AUTHORITY
+  version: V1.0
+  status: AUTHORITY_FROZEN
+  scope: AI_CORE_SHARED_CONVERSATION_INTERFACE
+  purpose: Shared AI conversation interface authority inherited by ACPOS units that use AI Conversation.
+
+inheritance:
+  base_module: AI_CORE
+  registry_source: AI_CORE_AUTHORITY_REGISTRY.yaml
+  unit_extension_required: true
+  unit_extension_may_change:
+    - context_binding
+    - data_access_scope
+    - application_logic
+    - tool_and_provider_routing
+    - generated_content_type
+    - finalization_and_post_process
+  unit_extension_may_not_change:
+    - conversation_mode_semantics
+    - assistant_presence
+    - human_decision_order
+    - reply_context_menu_model
+    - provider_brand_display_rule
+    - runtime_status_behavior
+    - source_trace_rule
+
+conversation_modes:
+  allowed:
+    - SINGLE_AI
+    - MULTI_AI
+  forbidden:
+    - ASSISTANT_AS_THIRD_MODE
+  mode_selector:
+    component_id: AICORE-COMP-MODE-SELECTOR
+    control_id: AICORE-CTRL-MODE-SELECT
+    presentation: compact_control
+    placement: conversation_toolbar
+    labels:
+      SINGLE_AI: 單一 AI
+      MULTI_AI: 多 AI
+  assistant:
+    persistent_in_single_ai: true
+    persistent_in_multi_ai: true
+
+single_ai:
+  component_id: AICORE-COMP-SINGLE-AI-WORKSPACE
+  behavior:
+    - one_active_ai_response_stream
+    - assistant_available
+    - runtime_status_shown_near_active_response
+    - human_input_uses_shared_input_composer
+
+multi_ai:
+  component_id: AICORE-COMP-MULTI-AI-WORKSPACE
+  launch_control_id: AICORE-CTRL-OPEN-MULTI-AI
+  return_control_id: AICORE-CTRL-RETURN-SINGLE-AI
+  behavior:
+    same_question_to_all_selected_ai: true
+    same_relevant_context_to_all_selected_ai: true
+    fixed_role_assignment: forbidden
+    ai_panes_independent: true
+    independent_scroll_per_pane: true
+    pane_count:
+      fixed_count: false
+      source: unit_or_runtime_authority
+      invent_count: forbidden
+    user_input_position: below_ai_panes
+    assistant_available: true
+    provider_brand_visible_per_pane: true
+
+assistant:
+  component_id: AICORE-COMP-ASSISTANT
+  record_component_id: AICORE-COMP-ASSISTANT-RECORD
+  fixed_presence: true
+  role: meeting_assistant_and_secretary
+  responsibilities:
+    - record_discussion
+    - record_decisions
+    - record_human_added_topics
+    - record_ai_detected_derived_topics
+    - maintain_branch_discussions
+    - maintain_pending_unresolved_items
+    - produce_meeting_summary
+    - preserve_decided_and_pending_content
+  commands:
+    source: input_at_parser
+    examples:
+      - add_to_decision
+      - create_branch_discussion
+      - summarize_meeting
+  rules:
+    - assistant_does_not_replace_human_decision
+    - assistant_structures_after_human_decision_input
+    - assistant_record_must_be_viewable
+
+page_context_boundary:
+  rule: page_context_controls_are_outside_shared_ai_conversation_module
+  examples:
+    - Project
+    - Topic
+    - Work_Item
+    - Production_Task_when_authorized_by_page
+  ai_module_must_not_duplicate_page_context_selectors: true
+
+conversation_content:
+  message_workspace_component_id: AICORE-COMP-MESSAGE-WORKSPACE
+  message_card_component_id: AICORE-COMP-MESSAGE-CARD
+  supports:
+    - user_message
+    - ai_response
+    - system_event
+    - structured_output
+    - reference_attachment
+    - image_reference
+  provider_display:
+    show_in_chat: provider_brand_only
+    examples:
+      - OpenAI
+      - provider_brand_name
+    forbidden_in_chat:
+      - model_id
+      - capability_matrix
+      - usage_detail
+      - api_key
+      - provider_version_detail
+    full_provider_detail_owner: backend_api_management
+
+runtime_status:
+  component_id: AICORE-COMP-RUNTIME-STATUS
+  presentation: collapsible_status_strip
+  placement: near_active_ai_response
+  large_header_status_panel: forbidden
+  stages:
+    - READ_DATA
+    - RETRIEVE
+    - ANALYZE
+    - MULTI_AI_ANALYZE
+    - SUMMARIZE
+    - SCORE
+    - WAIT_HUMAN_DECISION
+    - WRITE_CANDIDATE
+    - LOCK
+  display_labels:
+    READ_DATA: 讀取資料
+    RETRIEVE: 檢索
+    ANALYZE: 分析
+    MULTI_AI_ANALYZE: 多 AI 分析
+    SUMMARIZE: 彙整
+    SCORE: 評分
+    WAIT_HUMAN_DECISION: 等待人工決策
+    WRITE_CANDIDATE: 寫入候選
+    LOCK: 封板
+  conditional_rules:
+    MULTI_AI_ANALYZE: only_when_multi_ai
+    SCORE: after_summary_before_human_decision
+
+score:
+  component_id: AICORE-COMP-SCORE-PANEL
+  trigger_order:
+    after: SUMMARIZE
+    before: WAIT_HUMAN_DECISION
+  criteria_model:
+    shared_base_criteria: required
+    unit_specific_criteria: required
+    one_identical_rubric_for_all_units: forbidden
+  output:
+    - score_summary
+    - modification_required_signal
+    - human_review_required_signal
+  rule:
+    - score_does_not_make_final_human_decision
+
+human_decision:
+  component_id: AICORE-COMP-DECISION-PANEL
+  order:
+    - collect_decision_material
+    - show_score_summary
+    - human_decision_input
+    - assistant_structure_after_human_input
+    - human_final_confirm_or_return_modify
+  decision_material:
+    source: reply_context_action_add_to_decision
+    store_as_reference_link: true
+    force_full_duplicate_copy: false
+  controls:
+    - id: AICORE-CTRL-HUMAN-DECISION-INPUT
+      action: HUMAN_DECISION_INPUT
+    - id: AICORE-CTRL-ASSISTANT-STRUCTURE
+      action: ASSISTANT_STRUCTURE_DECISION
+      precondition: human_decision_input_present
+    - id: AICORE-CTRL-FINAL-CONFIRM
+      action: HUMAN_FINAL_CONFIRM
+    - id: AICORE-CTRL-RETURN-MODIFY
+      action: RETURN_TO_MODIFICATION
+  rules:
+    - ai_fusion_before_human_decision_forbidden
+    - human_may_combine_multiple_ai_points_in_own_words
+    - final_write_or_post_process_owned_by_unit_extension
+    - generic_write_to_system_button_for_all_units_forbidden
+
+input_composer:
+  component_id: AICORE-COMP-INPUT-COMPOSER
+  multiline: true
+  attachments_supported: true
+  reference_images_supported: true
+  at_parser:
+    built_in_input_parser: true
+    separate_at_button: forbidden
+    targets:
+      - AI_PROVIDER_OR_AI_INSTANCE
+      - FILE_DATA_REFERENCE
+      - ASSISTANT_COMMAND
+    direct_ai_target_behavior:
+      selected_ai_only_replies: true
+  rules:
+    - selecting_old_ai_reply_via_at_is_forbidden
+    - long_history_reply_selection_uses_context_menu
+
+reply_interaction:
+  trigger: right_click_context_menu_only
+  hover_action_bar: forbidden
+  menu_component_id: AICORE-COMP-REPLY-CONTEXT-MENU
+  actions:
+    - id: AICORE-REPLY-ACT-QUOTE
+      label: 引用回覆
+    - id: AICORE-REPLY-ACT-CONTINUE
+      label: 繼續討論
+    - id: AICORE-REPLY-ACT-ANALYZE
+      label: 分析此內容
+    - id: AICORE-REPLY-ACT-ADD-DECISION
+      label: 加入決策
+    - id: AICORE-REPLY-ACT-CREATE-BRANCH
+      label: 建立分支議題
+    - id: AICORE-REPLY-ACT-COPY
+      label: 複製
+  rules:
+    - add_to_decision_and_create_branch_are_separate_actions
+    - no_duplicate_hover_toolbar
+
+version_and_candidate:
+  version_module_required: true
+  candidate_comparison_supported: true
+  overwrite_existing_version: forbidden
+  replacement_target_must_be_precise: true
+  old_replaced_content_must_not_contaminate_future_context: true
+
+content_language_rule:
+  internal_standard_language_for_production_script: zh_TW_or_internal_chinese
+  provider_specific_syntax_layer: execution_layer_only
+  provider_syntax_must_not_overwrite_internal_canonical_content: true
+
+source_trace:
+  every_visible_component_requires_source: true
+  every_interactive_control_requires_action: true
+  every_action_requires_permission_and_audit_trace: true
+  unknown_component: reject_render
+  unknown_control: reject_render
+  unknown_mode: reject_render
+
+visual_rules:
+  inherit_global_shell_visual_authority: true
+  normal_chat_interface: forbidden
+  ai_production_workstation: required
+  high_information_density_with_clear_hierarchy: true
+  undefined_panel: reject_render
+  undefined_control: reject_render
+
+finalization:
+  common_ai_core_owns:
+    - conversation
+    - assistant_record
+    - score
+    - decision_flow
+    - version_trace
+  unit_extension_owns:
+    - final_artifact_type
+    - downstream_handoff
+    - system_write_when_authorized
+    - deployment_or_publish_when_authorized
+
+validation:
+  only_two_conversation_modes: true
+  assistant_present_in_both_modes: true
+  score_after_summary_before_human_decision: true
+  multi_ai_same_question_same_context: true
+  no_fixed_ai_roles: true
+  provider_brand_only_in_chat: true
+  runtime_status_near_response: true
+  at_is_parser_not_button: true
+  reply_operations_right_click_only: true
+  human_decision_precedes_assistant_structured_final_draft: true
