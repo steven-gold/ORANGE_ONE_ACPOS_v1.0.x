@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect package and collect migration candidates
+      - name: Inspect package and collect authority/migration candidates
         shell: bash
         run: |
           set -euo pipefail
@@ -35,7 +35,7 @@ jobs:
               rows.append(f'{len(b)}\t{sha}\t{rel}')
               s=str(rel).lower()
               name=p.name.lower()
-              if (name.endswith('.sql') or 'migration' in s or name in {'canonical_schema.sql','migration_checksum_manifest.yaml'}):
+              if (name.endswith('.sql') or 'migration' in s or name in {'canonical_schema.sql','migration_checksum_manifest.yaml'} or 'single_authority_construction_master' in name):
                   selected.append((p,rel))
           (out/'inventory.tsv').write_text('size\tsha256\tpath\n'+'\n'.join(rows)+'\n', encoding='utf-8')
           for p,rel in selected:
@@ -48,7 +48,7 @@ jobs:
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: r9-migration-extract
+          name: r9-authority-migration-extract
           path: r9-extract
           if-no-files-found: error
           retention-days: 1
