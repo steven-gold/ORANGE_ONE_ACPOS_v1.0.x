@@ -1,0 +1,54 @@
+name: temp-r9-migration-extract
+on:
+  push:
+    branches:
+      - temp-r9-migration-extract-20260903
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect package and collect migration candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='ACPOS_AI_SEQUENCED_SINGLE_AUTHORITY_CONSTRUCTION_PACKAGE.zip'
+          test -f "$ZIP"
+          rm -rf r9-extract r9-unpacked
+          mkdir -p r9-extract r9-unpacked
+          unzip -q "$ZIP" -d r9-unpacked
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, shutil
+          root=Path('r9-unpacked')
+          out=Path('r9-extract')
+          rows=[]
+          selected=[]
+          for p in sorted(root.rglob('*')):
+              if not p.is_file():
+                  continue
+              rel=p.relative_to(root)
+              b=p.read_bytes()
+              sha=hashlib.sha256(b).hexdigest()
+              rows.append(f'{len(b)}\t{sha}\t{rel}')
+              s=str(rel).lower()
+              name=p.name.lower()
+              if (name.endswith('.sql') or 'migration' in s or name in {'canonical_schema.sql','migration_checksum_manifest.yaml'}):
+                  selected.append((p,rel))
+          (out/'inventory.tsv').write_text('size\tsha256\tpath\n'+'\n'.join(rows)+'\n', encoding='utf-8')
+          for p,rel in selected:
+              dest=out/rel
+              dest.parent.mkdir(parents=True,exist_ok=True)
+              shutil.copy2(p,dest)
+          print(f'files={len(rows)} selected={len(selected)}')
+          for _,rel in selected:
+              print(rel)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: r9-migration-extract
+          path: r9-extract
+          if-no-files-found: error
+          retention-days: 1
